@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "Vicold.Atmospex.Shell (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "Vicold.Atmospex.Shell (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}
