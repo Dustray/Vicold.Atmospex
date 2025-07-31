@@ -14,6 +14,19 @@
 	<UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Never</AppxBundle>
+    <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
+    <AssemblyMetadata Condition="'$(MSIXPackageFamilyName)' != ''">
+      <PackageFamilyName>$(MSIXPackageFamilyName)</PackageFamilyName>
+    </AssemblyMetadata>
+    <DefaultLanguage>zh-CN</DefaultLanguage>
+    <AssemblyName>Atmospex</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

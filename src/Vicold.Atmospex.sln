@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.Shell", "Vicold.Atmospex\Vicold.Atmospex.Shell\Vicold.Atmospex.Shell.csproj", "{7F0C8178-5911-4050-50FC-F67E6BD052A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.Shell.Core", "Vicold.Atmospex\Vicold.Atmospex.Shell.Core\Vicold.Atmospex.Shell.Core.csproj", "{88A3A44B-9E4A-AB68-8891-859B5359B323}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.Shell.Tests.MSTest", "Vicold.Atmospex\Vicold.Atmospex.Shell.Tests.MSTest\Vicold.Atmospex.Shell.Tests.MSTest.csproj", "{F3093976-363B-2638-B6D9-D66C0C5FFC8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.Render", "Vicold.Atmospex.Render\Vicold.Atmospex.Render\Vicold.Atmospex.Render.csproj", "{F1BE61B0-045B-7D1E-57C7-EA489017FFE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.Render.Frame", "Vicold.Atmospex.Render\Vicold.Atmospex.Render.Frame\Vicold.Atmospex.Render.Frame.csproj", "{8E13BC7A-E117-A53B-BE91-92A909013524}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7F0C8178-5911-4050-50FC-F67E6BD052A2}.Debug|x64.ActiveCfg = Debug|x64
+		{7F0C8178-5911-4050-50FC-F67E6BD052A2}.Debug|x64.Build.0 = Debug|x64
+		{7F0C8178-5911-4050-50FC-F67E6BD052A2}.Debug|x64.Deploy.0 = Debug|x64
+		{7F0C8178-5911-4050-50FC-F67E6BD052A2}.Release|x64.ActiveCfg = Release|x64
+		{7F0C8178-5911-4050-50FC-F67E6BD052A2}.Release|x64.Build.0 = Release|x64
+		{7F0C8178-5911-4050-50FC-F67E6BD052A2}.Release|x64.Deploy.0 = Release|x64
+		{88A3A44B-9E4A-AB68-8891-859B5359B323}.Debug|x64.ActiveCfg = Debug|x64
+		{88A3A44B-9E4A-AB68-8891-859B5359B323}.Debug|x64.Build.0 = Debug|x64
+		{88A3A44B-9E4A-AB68-8891-859B5359B323}.Release|x64.ActiveCfg = Release|x64
+		{88A3A44B-9E4A-AB68-8891-859B5359B323}.Release|x64.Build.0 = Release|x64
+		{F3093976-363B-2638-B6D9-D66C0C5FFC8E}.Debug|x64.ActiveCfg = Debug|x64
+		{F3093976-363B-2638-B6D9-D66C0C5FFC8E}.Debug|x64.Build.0 = Debug|x64
+		{F3093976-363B-2638-B6D9-D66C0C5FFC8E}.Release|x64.ActiveCfg = Release|x64
+		{F3093976-363B-2638-B6D9-D66C0C5FFC8E}.Release|x64.Build.0 = Release|x64
+		{F1BE61B0-045B-7D1E-57C7-EA489017FFE1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F1BE61B0-045B-7D1E-57C7-EA489017FFE1}.Debug|x64.Build.0 = Debug|Any CPU
+		{F1BE61B0-045B-7D1E-57C7-EA489017FFE1}.Release|x64.ActiveCfg = Release|Any CPU
+		{F1BE61B0-045B-7D1E-57C7-EA489017FFE1}.Release|x64.Build.0 = Release|Any CPU
+		{8E13BC7A-E117-A53B-BE91-92A909013524}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8E13BC7A-E117-A53B-BE91-92A909013524}.Debug|x64.Build.0 = Debug|Any CPU
+		{8E13BC7A-E117-A53B-BE91-92A909013524}.Release|x64.ActiveCfg = Release|Any CPU
+		{8E13BC7A-E117-A53B-BE91-92A909013524}.Release|x64.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B6BD3C6-9F84-44A5-86A0-1E643B24CF51}
+	EndGlobalSection
+EndGlobal

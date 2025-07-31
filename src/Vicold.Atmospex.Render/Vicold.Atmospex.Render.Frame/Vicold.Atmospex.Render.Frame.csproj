@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>ChartRender.Frame</RootNamespace>
+    <Platforms>x86;x64;arm64</Platforms>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+    <UseCurrentRuntimeIdentifier>false</UseCurrentRuntimeIdentifier>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <EvergineProjectFilePath>$(MSBuildProjectDirectory)\..\Vicold.Atmospex.Render.weproj</EvergineProjectFilePath>
+    <EvergineProfileName>WinUI</EvergineProfileName>
+    <EvergineAssetContent>$(MSBuildProjectDirectory)\..\Content</EvergineAssetContent>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Evergine.WinUI" Version="2025.3.18.1522" />
+    <PackageReference Include="Evergine.HLSLEverywhere" Version="2025.3.18.1522" />
+    <PackageReference Include="Evergine.XAudio2" Version="2025.3.18.1522" />
+    <PackageReference Include="Evergine.DirectX11" Version="2025.3.18.1522" />
+    <PackageReference Include="Evergine.Targets" Version="2025.3.18.1522" />
+    <PackageReference Include="Evergine.Targets.Windows" Version="2025.3.18.1522" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4188" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250513003" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Shell.Core\Vicold.Atmospex.Shell.Core.csproj" />
+    <ProjectReference Include="..\Vicold.Atmospex.Render\Vicold.Atmospex.Render.csproj" />
+  </ItemGroup>
+
+</Project>
