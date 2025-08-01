@@ -124,53 +124,53 @@
     <value>Vicold.Atmospex.Shell</value>
   </data>
   <data name="ShellMenuBarItem_File.Title" xml:space="preserve">
-    <value>File</value>
+    <value>文件</value>
   </data>
   <data name="ShellMenuBarItem_Views.Title" xml:space="preserve">
-    <value>Views</value>
+    <value>视图</value>
   </data>
   <data name="ShellMenuItem_File_Exit.Text" xml:space="preserve">
-    <value>Exit</value>
+    <value>推出</value>
   </data>
   <data name="ShellMenuItem_Views_Main.Text" xml:space="preserve">
-    <value>Home</value>
+    <value>主页</value>
   </data>
   <data name="Main_Title.Text" xml:space="preserve">
-    <value>Home</value>
+    <value>主页</value>
     <comment>Page title for MainPage</comment>
   </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
-    <value>Personalization</value>
+    <value>个性化</value>
   </data>
   <data name="Settings_Theme.Text" xml:space="preserve">
-    <value>Theme</value>
+    <value>主题</value>
   </data>
   <data name="Settings_Theme_Light.Content" xml:space="preserve">
-    <value>Light</value>
+    <value>亮</value>
   </data>
   <data name="Settings_Theme_Dark.Content" xml:space="preserve">
-    <value>Dark</value>
+    <value>暗</value>
   </data>
   <data name="Settings_Theme_Default.Content" xml:space="preserve">
-    <value>Default</value>
+    <value>默认</value>
   </data>
   <data name="Settings_About.Text" xml:space="preserve">
-    <value>About this application</value>
+    <value>关于此应用程序</value>
   </data>
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
-    <value>The Most High, the Celestial Worthy Who Commences the Heaven, Wields the Celestial Talismans, Reigns over the Kalpas, Embodies Truth and the Tao; Residing in the Golden Palace and Cloudy Paradise, Governs the Nine Heavens and All Kalpas, Embracing All Paths through Non-Action; The Great Tao Illuminates the Hall of Heaven; The Supreme Venerable Sovereign of the Golden Palace of Haotian, the Great Heavenly Honored One Who Absolves Sins, the Jade Emperor; The Most Exalted Emperor of the Mysterious Firmament.</value>
+    <value>太上开天执符御历含真体道金阙云宫九穹御历万道无为大道明殿昊天金阙至尊玉皇赦罪大天尊玄穹高上帝</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
-    <value>Privacy Statement</value>
+    <value>隐私声明</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>https://github.com/Dustray/Vicold.Atmospex</value>
   </data>
   <data name="ShellMenuBarSettingsButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Settings</value>
+    <value>设置</value>
   </data>
   <data name="Settings_Title.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>设置</value>
     <comment>Page title for SettingsPage</comment>
   </data>
   <data name="AppNotificationSamplePayload" xml:space="preserve">
@@ -188,6 +188,7 @@
 &lt;/toast&gt;</value>
   </data>
   <data name="ShellMenuBarMainButton.Label" xml:space="preserve">
-    <value>Home</value>
+    <value>主页</value>
+    <comment>Home</comment>
   </data>
 </root>

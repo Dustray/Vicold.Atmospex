@@ -42,6 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Vicold.Atmospex.Render\Vicold.Atmospex.Render.Frame\Vicold.Atmospex.Render.Frame.csproj" />
     <ProjectReference Include="..\Vicold.Atmospex.Shell.Core\Vicold.Atmospex.Shell.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -57,4 +58,8 @@
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
   </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /E /Y /I &quot;$(TargetDir)Vicold.Atmospex.Render.Frame\Content&quot; &quot;$(TargetDir)\Content&quot;&#xD;&#xA;rmdir /S /Q &quot;$(TargetDir)Vicold.Atmospex.Render.Frame\Content&quot;" />
+  </Target>
 </Project>
