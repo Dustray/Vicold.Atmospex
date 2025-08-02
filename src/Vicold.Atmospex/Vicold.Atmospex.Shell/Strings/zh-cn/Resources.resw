@@ -130,7 +130,7 @@
     <value>视图</value>
   </data>
   <data name="ShellMenuItem_File_Exit.Text" xml:space="preserve">
-    <value>推出</value>
+    <value>退出</value>
   </data>
   <data name="ShellMenuItem_Views_Main.Text" xml:space="preserve">
     <value>主页</value>

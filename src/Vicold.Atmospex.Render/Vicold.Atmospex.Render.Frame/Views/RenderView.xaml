@@ -10,22 +10,9 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" HorizontalAlignment="Left">
-            <AppBarButton Icon="Add" Label="Open" Click="OpenLogButton_Click"/>
-            <AppBarButton Icon="Edit" Label="Edit"/>
-            <AppBarButton Icon="RepeatAll" Label="ResetView" Click="ResetCamera_Click"/>
-            <AppBarButton Icon="Cancel" Label="Cancel" Click="ClearButton_Click"/>
-            <CommandBar.SecondaryCommands>
-                <AppBarButton Icon="Setting" Label="Settings">
-                    <AppBarButton.KeyboardAccelerators>
-                        <KeyboardAccelerator Modifiers="Control" Key="I" />
-                    </AppBarButton.KeyboardAccelerators>
-                </AppBarButton>
-            </CommandBar.SecondaryCommands>
-        </CommandBar>
+       
         <SwapChainPanel x:Name="SwapChainPanel" 
                    Grid.Row="1"
                    IsTabStop="True" 

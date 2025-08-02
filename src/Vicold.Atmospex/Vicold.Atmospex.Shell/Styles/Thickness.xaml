@@ -1,36 +1,155 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- XLarge -->
+    <Thickness x:Key="XLargeMargin">48,48,48,48</Thickness>
+    <Thickness x:Key="XLargeLeftTopRightBottomMargin">48,48,48,48</Thickness>
+    <Thickness x:Key="XLargeTopMargin">0,48,0,0</Thickness>
+    <Thickness x:Key="XLargeBottomMargin">0,0,0,48</Thickness>
+    <Thickness x:Key="XLargeTopBottomMargin">0,48,0,48</Thickness>
+    <Thickness x:Key="XLargeLeftMargin">48,0,0,0</Thickness>
+    <Thickness x:Key="XLargeRightMargin">0,0,48,0</Thickness>
+    <Thickness x:Key="XLargeLeftRightMargin">48,0,48,0</Thickness>
+    <Thickness x:Key="XLargeLeftTopMargin">48,48,0,0</Thickness>
+    <Thickness x:Key="XLargeTopRightMargin">0,48,48,0</Thickness>
+    <Thickness x:Key="XLargeBottomLeftMargin">48,0,0,48</Thickness>
+    <Thickness x:Key="XLargeBottomRightMargin">0,0,48,48</Thickness>
 
+    <!-- Large -->
+    <Thickness x:Key="LargeMargin">36,36,36,36</Thickness>
+    <Thickness x:Key="LargeLeftTopRightBottomMargin">36,36,36,36</Thickness>
     <Thickness x:Key="LargeTopMargin">0,36,0,0</Thickness>
+    <Thickness x:Key="LargeBottomMargin">0,0,0,36</Thickness>
     <Thickness x:Key="LargeTopBottomMargin">0,36,0,36</Thickness>
+    <Thickness x:Key="LargeLeftMargin">36,0,0,0</Thickness>
+    <Thickness x:Key="LargeRightMargin">0,0,36,0</Thickness>
+    <Thickness x:Key="LargeLeftRightMargin">36,0,36,0</Thickness>
+    <Thickness x:Key="LargeLeftTopMargin">36,36,0,0</Thickness>
+    <Thickness x:Key="LargeTopRightMargin">0,36,36,0</Thickness>
+    <Thickness x:Key="LargeBottomLeftMargin">36,0,0,36</Thickness>
+    <Thickness x:Key="LargeBottomRightMargin">0,0,36,36</Thickness>
 
+    <!-- MediumLarge -->
+    <Thickness x:Key="MediumLargeMargin">30,30,30,30</Thickness>
+    <Thickness x:Key="MediumLargeLeftTopRightBottomMargin">30,30,30,30</Thickness>
+    <Thickness x:Key="MediumLargeTopMargin">0,30,0,0</Thickness>
+    <Thickness x:Key="MediumLargeBottomMargin">0,0,0,30</Thickness>
+    <Thickness x:Key="MediumLargeTopBottomMargin">0,30,0,30</Thickness>
+    <Thickness x:Key="MediumLargeLeftMargin">30,0,0,0</Thickness>
+    <Thickness x:Key="MediumLargeRightMargin">0,0,30,0</Thickness>
+    <Thickness x:Key="MediumLargeLeftRightMargin">30,0,30,0</Thickness>
+    <Thickness x:Key="MediumLargeLeftTopMargin">30,30,0,0</Thickness>
+    <Thickness x:Key="MediumLargeTopRightMargin">0,30,30,0</Thickness>
+    <Thickness x:Key="MediumLargeBottomLeftMargin">30,0,0,30</Thickness>
+    <Thickness x:Key="MediumLargeBottomRightMargin">0,0,30,30</Thickness>
+
+    <!-- Medium -->
+    <Thickness x:Key="MediumMargin">24,24,24,24</Thickness>
+    <Thickness x:Key="MediumLeftTopRightBottomMargin">24,24,24,24</Thickness>
     <Thickness x:Key="MediumTopMargin">0,24,0,0</Thickness>
-    <Thickness x:Key="MediumTopBottomMargin">0,24,0,24</Thickness>
-    <Thickness x:Key="MediumLeftRightMargin">24,0,24,0</Thickness>
     <Thickness x:Key="MediumBottomMargin">0,0,0,24</Thickness>
+    <Thickness x:Key="MediumTopBottomMargin">0,24,0,24</Thickness>
+    <Thickness x:Key="MediumLeftMargin">24,0,0,0</Thickness>
+    <Thickness x:Key="MediumRightMargin">0,0,24,0</Thickness>
+    <Thickness x:Key="MediumLeftRightMargin">24,0,24,0</Thickness>
+    <Thickness x:Key="MediumLeftTopMargin">24,24,0,0</Thickness>
+    <Thickness x:Key="MediumTopRightMargin">0,24,24,0</Thickness>
+    <Thickness x:Key="MediumBottomLeftMargin">24,0,0,24</Thickness>
+    <Thickness x:Key="MediumBottomRightMargin">0,0,24,24</Thickness>
 
-    <Thickness x:Key="SmallLeftMargin">12,0,0,0</Thickness>
-    <Thickness x:Key="SmallLeftRightMargin">12,0,12,0</Thickness>
+    <!-- MediumSmall -->
+    <Thickness x:Key="MediumSmallMargin">18,18,18,18</Thickness>
+    <Thickness x:Key="MediumSmallLeftTopRightBottomMargin">18,18,18,18</Thickness>
+    <Thickness x:Key="MediumSmallTopMargin">0,18,0,0</Thickness>
+    <Thickness x:Key="MediumSmallBottomMargin">0,0,0,18</Thickness>
+    <Thickness x:Key="MediumSmallTopBottomMargin">0,18,0,18</Thickness>
+    <Thickness x:Key="MediumSmallLeftMargin">18,0,0,0</Thickness>
+    <Thickness x:Key="MediumSmallRightMargin">0,0,18,0</Thickness>
+    <Thickness x:Key="MediumSmallLeftRightMargin">18,0,18,0</Thickness>
+    <Thickness x:Key="MediumSmallLeftTopMargin">18,18,0,0</Thickness>
+    <Thickness x:Key="MediumSmallTopRightMargin">0,18,18,0</Thickness>
+    <Thickness x:Key="MediumSmallBottomLeftMargin">18,0,0,18</Thickness>
+    <Thickness x:Key="MediumSmallBottomRightMargin">0,0,18,18</Thickness>
+
+    <!-- MediumXSmall -->
+    <Thickness x:Key="MediumXSmallMargin">14,14,14,14</Thickness>
+    <Thickness x:Key="MediumXSmallLeftTopRightBottomMargin">14,14,14,14</Thickness>
+    <Thickness x:Key="MediumXSmallTopMargin">0,14,0,0</Thickness>
+    <Thickness x:Key="MediumXSmallBottomMargin">0,0,0,14</Thickness>
+    <Thickness x:Key="MediumXSmallTopBottomMargin">0,14,0,14</Thickness>
+    <Thickness x:Key="MediumXSmallLeftMargin">14,0,0,0</Thickness>
+    <Thickness x:Key="MediumXSmallRightMargin">0,0,14,0</Thickness>
+    <Thickness x:Key="MediumXSmallLeftRightMargin">14,0,14,0</Thickness>
+    <Thickness x:Key="MediumXSmallLeftTopMargin">14,14,0,0</Thickness>
+    <Thickness x:Key="MediumXSmallTopRightMargin">0,14,14,0</Thickness>
+    <Thickness x:Key="MediumXSmallBottomLeftMargin">14,0,0,14</Thickness>
+    <Thickness x:Key="MediumXSmallBottomRightMargin">0,0,14,14</Thickness>
+
+    <!-- Small -->
+    <Thickness x:Key="SmallMargin">12,12,12,12</Thickness>
+    <Thickness x:Key="SmallLeftTopRightBottomMargin">12,12,12,12</Thickness>
     <Thickness x:Key="SmallTopMargin">0,12,0,0</Thickness>
-    <Thickness x:Key="SmallRightMargin">0,0,12,0</Thickness>
+    <Thickness x:Key="SmallBottomMargin">0,0,0,12</Thickness>
     <Thickness x:Key="SmallTopBottomMargin">0,12,0,12</Thickness>
+    <Thickness x:Key="SmallLeftMargin">12,0,0,0</Thickness>
+    <Thickness x:Key="SmallRightMargin">0,0,12,0</Thickness>
+    <Thickness x:Key="SmallLeftRightMargin">12,0,12,0</Thickness>
+    <Thickness x:Key="SmallLeftTopMargin">12,12,0,0</Thickness>
+    <Thickness x:Key="SmallTopRightMargin">0,12,12,0</Thickness>
+    <Thickness x:Key="SmallBottomLeftMargin">12,0,0,12</Thickness>
+    <Thickness x:Key="SmallBottomRightMargin">0,0,12,12</Thickness>
 
-    <Thickness x:Key="XSmallLeftMargin">8,0,0,0</Thickness>
-    <Thickness x:Key="XSmallTopMargin">0,8,0,0</Thickness>
+    <!-- XSmall -->
+    <Thickness x:Key="XSmallMargin">8,8,8,8</Thickness>
     <Thickness x:Key="XSmallLeftTopRightBottomMargin">8,8,8,8</Thickness>
+    <Thickness x:Key="XSmallTopMargin">0,8,0,0</Thickness>
+    <Thickness x:Key="XSmallBottomMargin">0,0,0,8</Thickness>
+    <Thickness x:Key="XSmallTopBottomMargin">0,8,0,8</Thickness>
+    <Thickness x:Key="XSmallLeftMargin">8,0,0,0</Thickness>
+    <Thickness x:Key="XSmallRightMargin">0,0,8,0</Thickness>
+    <Thickness x:Key="XSmallLeftRightMargin">8,0,8,0</Thickness>
+    <Thickness x:Key="XSmallLeftTopMargin">8,8,0,0</Thickness>
+    <Thickness x:Key="XSmallTopRightMargin">0,8,8,0</Thickness>
+    <Thickness x:Key="XSmallBottomLeftMargin">8,0,0,8</Thickness>
+    <Thickness x:Key="XSmallBottomRightMargin">0,0,8,8</Thickness>
 
-    <Thickness x:Key="XXSmallTopMargin">0,4,0,0</Thickness>
+    <!-- XXSmall -->
+    <Thickness x:Key="XXSmallMargin">4,4,4,4</Thickness>
     <Thickness x:Key="XXSmallLeftTopRightBottomMargin">4,4,4,4</Thickness>
+    <Thickness x:Key="XXSmallTopMargin">0,4,0,0</Thickness>
+    <Thickness x:Key="XXSmallBottomMargin">0,0,0,4</Thickness>
+    <Thickness x:Key="XXSmallTopBottomMargin">0,4,0,4</Thickness>
+    <Thickness x:Key="XXSmallLeftMargin">4,0,0,0</Thickness>
+    <Thickness x:Key="XXSmallRightMargin">0,0,4,0</Thickness>
+    <Thickness x:Key="XXSmallLeftRightMargin">4,0,4,0</Thickness>
+    <Thickness x:Key="XXSmallLeftTopMargin">4,4,0,0</Thickness>
+    <Thickness x:Key="XXSmallTopRightMargin">0,4,4,0</Thickness>
+    <Thickness x:Key="XXSmallBottomLeftMargin">4,0,0,4</Thickness>
+    <Thickness x:Key="XXSmallBottomRightMargin">0,0,4,4</Thickness>
+
+    <!-- XXXSmall -->
+    <Thickness x:Key="XXXSmallMargin">2,2,2,2</Thickness>
+    <Thickness x:Key="XXXSmallLeftTopRightBottomMargin">2,2,2,2</Thickness>
+    <Thickness x:Key="XXXSmallTopMargin">0,2,0,0</Thickness>
+    <Thickness x:Key="XXXSmallBottomMargin">0,0,0,2</Thickness>
+    <Thickness x:Key="XXXSmallTopBottomMargin">0,2,0,2</Thickness>
+    <Thickness x:Key="XXXSmallLeftMargin">2,0,0,0</Thickness>
+    <Thickness x:Key="XXXSmallRightMargin">0,0,2,0</Thickness>
+    <Thickness x:Key="XXXSmallLeftRightMargin">2,0,2,0</Thickness>
+    <Thickness x:Key="XXXSmallLeftTopMargin">2,2,0,0</Thickness>
+    <Thickness x:Key="XXXSmallTopRightMargin">0,2,2,0</Thickness>
+    <Thickness x:Key="XXXSmallBottomLeftMargin">2,0,0,2</Thickness>
+    <Thickness x:Key="XXXSmallBottomRightMargin">0,0,2,2</Thickness>
+
 
     <Thickness x:Key="NavigationViewContentGridBorderThickness">1,1,0,0</Thickness>
     <CornerRadius x:Key="NavigationViewContentGridCornerRadius">8,0,0,0</CornerRadius>
     <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
-    <Thickness x:Key="NavigationViewHeaderMargin">56,34,0,0</Thickness>
-    <Thickness x:Key="NavigationViewPageContentMargin">56,24,56,0</Thickness>
+    <Thickness x:Key="NavigationViewHeaderMargin">32,34,0,0</Thickness>
+    <Thickness x:Key="NavigationViewPageContentMargin">16,0,16,0</Thickness>
 
     <Thickness x:Key="MenuBarContentMargin">36,24,36,0</Thickness>
 
     <Thickness x:Key="SettingsPageHyperlinkButtonMargin">-12,4,0,0</Thickness>
-    
+
 </ResourceDictionary>
