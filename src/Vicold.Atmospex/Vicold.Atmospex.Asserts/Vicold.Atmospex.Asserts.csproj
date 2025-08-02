@@ -45,6 +45,10 @@
     <None Remove="dll\h_mchsq.dll" />
     <None Remove="dll\h_smth.dll" />
     <None Remove="dll\netcdf.dll" />
+    <None Remove="lib\HighContour.dll" />
+    <None Remove="lib\HighSmooth.dll" />
+    <None Remove="lib\h_smth.dll" />
+    <None Remove="lib\netcdf.dll" />
   </ItemGroup>
 
   <ItemGroup>
@@ -160,6 +164,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="dll\netcdf.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\HighContour.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\HighSmooth.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\h_smth.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\netcdf.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

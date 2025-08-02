@@ -3,6 +3,7 @@ using Evergine.Components.Cameras;
 using Evergine.Components.Graphics3D;
 using Evergine.Framework;
 using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
 using Evergine.Framework.Services;
 using Evergine.Mathematics;
 using Vicold.Atmospex.Render.Components;
@@ -80,6 +81,45 @@ namespace Vicold.Atmospex.Render
             //               .AddComponent(lineMesh)
             //               .AddComponent(new LineMeshRenderer3D());
             //this.Managers.EntityManager.Add(lineContainer);
+
+
+
+            var assetsService = Application.Current.Container.Resolve<AssetsService>();
+
+            // Create a custom RenderLayer with specified render states
+            RenderLayerDescription customLayer = new RenderLayerDescription()
+            {
+                RenderState = new RenderStateDescription()
+                {
+                    RasterizerState = new RasterizerStateDescription()
+                    {
+                        CullMode = CullMode.Back,
+                        FillMode = FillMode.Wireframe,
+                    },
+                    BlendState = BlendStates.Opaque,
+                    DepthStencilState = DepthStencilStates.ReadWrite,
+                },
+                Order = 0,
+                SortMode = SortMode.FrontToBack,
+            };
+
+            // Load the standard effect
+            Effect standardEffect = assetsService.Load<Effect>(EvergineContent.Effects.StandardEffect);
+
+            // Create a material using the custom RenderLayer
+            Material material = new Material(standardEffect)
+            {
+                LayerDescription = customLayer
+            };
+
+            // Apply the material to an entity
+            Entity primitive = new Entity()
+                .AddComponent(new Transform3D())
+                .AddComponent(new MaterialComponent() { Material = material })
+                .AddComponent(new TeapotMesh())
+                .AddComponent(new MeshRenderer());
+
+            this.Managers.EntityManager.Add(primitive);
         }
     }
 }

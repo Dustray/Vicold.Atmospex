@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
-
+using Vicold.Atmospex.Data;
+using Vicold.Atmospex.Earth;
+using Vicold.Atmospex.Layer;
 using Vicold.Atmospex.Shell.Activation;
 using Vicold.Atmospex.Shell.Contracts.Services;
 using Vicold.Atmospex.Shell.Core.Contracts.Services;
@@ -77,12 +79,21 @@ public partial class App : Application
             services.AddTransient<ShellPage>();
             services.AddTransient<ShellViewModel>();
 
+            //Module Services
+            services.AddSingleton<IDataModuleService, DataModuleService>();
+            services.AddSingleton<IEarthModuleServices, EarthModuleServices>();
+            services.AddSingleton<ILayerModuleServices, LayerModuleServices>();
+
+
             // Configuration
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
         }).
         Build();
 
         App.GetService<IAppNotificationService>().Initialize();
+        App.GetService<IDataModuleService>().Initialize(); 
+        App.GetService<IEarthModuleServices>().Initialize(); 
+        App.GetService<ILayerModuleServices>().Initialize();
 
         UnhandledException += App_UnhandledException;
     }

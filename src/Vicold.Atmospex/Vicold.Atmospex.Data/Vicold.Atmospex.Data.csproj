@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SDSLite" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Vicold.Atmospex.Algorithm\Vicold.Atmospex.Algorithm.csproj" />
+    <ProjectReference Include="..\Vicold.Atmospex.Configration\Vicold.Atmospex.Configration.csproj" />
+    <ProjectReference Include="..\Vicold.Atmospex.FileSystem\Vicold.Atmospex.FileSystem.csproj" />
+  </ItemGroup>
+
+</Project>
