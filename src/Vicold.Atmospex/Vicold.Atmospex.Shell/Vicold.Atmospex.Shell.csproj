@@ -43,6 +43,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Vicold.Atmospex.Render\Vicold.Atmospex.Render.Frame\Vicold.Atmospex.Render.Frame.csproj" />
+    <ProjectReference Include="..\Vicold.Atmospex.Asserts\Vicold.Atmospex.Asserts.csproj" />
     <ProjectReference Include="..\Vicold.Atmospex.Shell.Core\Vicold.Atmospex.Shell.Core.csproj" />
   </ItemGroup>
   <ItemGroup>

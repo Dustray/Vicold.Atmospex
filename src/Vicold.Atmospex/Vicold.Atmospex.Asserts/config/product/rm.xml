@@ -1,0 +1,130 @@
+<root xmlns:json="http://james.newtonking.com/projects/json">
+    <ProductGroups json:Array="true">
+        <Name>cityrm1</Name>
+        <FileFormat>{0}.rm1</FileFormat>
+        <Products json:Array="true">
+            <Display>2m Tem City Day</Display>
+            <Key>t2mcityday</Key>
+            <DataPath>extreme\t2m\2m_temperature\{0}</DataPath>
+            <Style>temperature</Style>
+        </Products>
+        <Products>
+            <Display>2m Tem City Month</Display>
+            <Key>t2mcitymonth</Key>
+            <DataPath>extreme\t2m\2m_temperature_month\{0}</DataPath>
+            <Style>temperature</Style>
+        </Products>
+        <Products>
+            <Display>2m Tem City Year</Display>
+            <Key>t2mcityyear</Key>
+            <DataPath>extreme\t2m\2m_temperature_year\{0}</DataPath>
+            <Style>temperature</Style>
+        </Products>
+    </ProductGroups>
+    <ProductGroups>
+        <Name>global</Name>
+        <FileFormat>{0}.rm2</FileFormat>
+        <Products>
+            <Display>Tem G Avg Min</Display>
+            <Key>t2mgmin</Key>
+            <DataPath>extreme\t2m\2m_temperature_global\{0}</DataPath>
+            <Style>temperature</Style>
+        </Products>
+        <Products>
+            <Display>Tem G Avg Max</Display>
+            <Key>t2mgmax</Key>
+            <DataPath>extreme\t2m\2m_temperature_global\{0}</DataPath>
+            <Style>temperature</Style>
+        </Products>
+        <Products>
+            <Display>Tem G Count Min</Display>
+            <Key>t2mcmin</Key>
+            <DataPath>extreme\t2m\2m_temperature_max_min_count\{0}</DataPath>
+            <Style>tem_min_count</Style>
+        </Products>
+        <Products>
+            <Display>Tem G Count Max</Display>
+            <Key>t2mcmax</Key>
+            <DataPath>extreme\t2m\2m_temperature_max_min_count\{0}</DataPath>
+            <Style>tem_max_count</Style>
+        </Products>
+        <Products>
+            <Display>Tem G Force Min</Display>
+            <Key>t2mfmin</Key>
+            <DataPath>extreme\t2m\2m_temperature_max_min_count\{0}</DataPath>
+            <Style>tem_force</Style>
+        </Products>
+        <Products>
+            <Display>Tem G Force Max</Display>
+            <Key>t2mfmax</Key>
+            <DataPath>extreme\t2m\2m_temperature_max_min_count\{0}</DataPath>
+            <Style>tem_force</Style>
+        </Products>
+        <Products>
+            <Display>Tem G Avg Force Min</Display>
+            <Key>t2mafmin</Key>
+            <DataPath>extreme\t2m\2m_temperature_max_min_count\{0}</DataPath>
+            <Style>tem_force_avg</Style>
+        </Products>
+        <Products>
+            <Display>Tem G Avg Force Max</Display>
+            <Key>t2mafmax</Key>
+            <DataPath>extreme\t2m\2m_temperature_max_min_count\{0}</DataPath>
+            <Style>rain</Style>
+        </Products>
+        <Products>
+            <Display>TP G All</Display>
+            <Key>tpall</Key>
+            <DataPath>extreme\tp\total_precipitation_all\{0}</DataPath>
+            <Style>rain_total_year</Style>
+        </Products>
+        <Products>
+            <Display>TP G All Avg</Display>
+            <Key>tpavg</Key>
+            <DataPath>extreme\tp\total_precipitation_avg\{0}</DataPath>
+            <Style>rain</Style>
+        </Products>
+        <Products>
+            <Display>TP G Power</Display>
+            <Key>tppower</Key>
+            <DataPath>extreme\tp\total_precipitation_power\{0}</DataPath>
+            <Style>rain_heavy</Style>
+        </Products>
+        <Products>
+            <Display>TP G Big</Display>
+            <Key>tpbig</Key>
+            <DataPath>extreme\tp\total_precipitation_big\{0}</DataPath>
+            <Style>rain_heavy</Style>
+        </Products>
+        <Products>
+            <Display>TP G Heavy</Display>
+            <Key>tpheavy</Key>
+            <DataPath>extreme\tp\total_precipitation_heavy\{0}</DataPath>
+            <Style>rain_heavy</Style>
+        </Products>
+        <Products>
+            <Display>TP G Dry Days Year</Display>
+            <Key>tpdrydy</Key>
+            <DataPath>extreme\tp\total_precipitation_heavy\{0}</DataPath>
+            <Style>tp_dry_days_inyear</Style>
+        </Products>
+        <Products>
+            <Display>TP G Dry Score Year</Display>
+            <Key>tpdrysy</Key>
+            <DataPath>extreme\tp\total_precipitation_heavy\{0}</DataPath>
+            <Style>tp_dry_score</Style>
+        </Products>
+        <Products>
+            <Display>TP G Dry Days Acc</Display>
+            <Key>tpdryda</Key>
+            <DataPath>extreme\tp\total_precipitation_heavy\{0}</DataPath>
+            <Style>tp_dry_days_allyear</Style>
+        </Products>
+        <Products>
+            <Display>TP G Dry Score Acc</Display>
+            <Key>tpdrysa</Key>
+            <DataPath>extreme\tp\total_precipitation_heavy\{0}</DataPath>
+            <Style>tp_dry_score</Style>
+        </Products>
+    </ProductGroups>
+</root>

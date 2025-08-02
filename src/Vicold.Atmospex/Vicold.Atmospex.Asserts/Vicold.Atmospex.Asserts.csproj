@@ -1,0 +1,167 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="config\global.json" />
+    <None Remove="config\menu.json" />
+    <None Remove="config\product\era5.xml" />
+    <None Remove="config\product\rm.xml" />
+    <None Remove="config\world\main_city_world.ini" />
+    <None Remove="data\map\full\ChinaCoastalBorder.adr" />
+    <None Remove="data\map\full\ChinaCoastalBorder.ctl" />
+    <None Remove="data\map\full\ChinaInlandBorder.adr" />
+    <None Remove="data\map\full\ChinaInlandBorder.ctl" />
+    <None Remove="data\map\full\WorldContinentBorder.adr" />
+    <None Remove="data\map\full\WorldContinentBorder.ctl" />
+    <None Remove="data\map\low_density\ChinaCoastalBorder.adr" />
+    <None Remove="data\map\low_density\ChinaCoastalBorder.ctl" />
+    <None Remove="data\map\low_density\ChinaInlandBorder.adr" />
+    <None Remove="data\map\low_density\ChinaInlandBorder.ctl" />
+    <None Remove="data\map\low_density\WorldContinentBorder.adr" />
+    <None Remove="data\map\low_density\WorldContinentBorder.ctl" />
+    <None Remove="data\map\super_low_density\ChinaCoastalBorder.adr" />
+    <None Remove="data\map\super_low_density\ChinaCoastalBorder.ctl" />
+    <None Remove="data\map\super_low_density\WorldContinentBorder.adr" />
+    <None Remove="data\map\super_low_density\WorldContinentBorder.ctl" />
+    <None Remove="data\style\palette\default.json" />
+    <None Remove="data\style\palette\radiation.json" />
+    <None Remove="data\style\palette\rain.json" />
+    <None Remove="data\style\palette\rain_heavy.json" />
+    <None Remove="data\style\palette\rain_total_year.json" />
+    <None Remove="data\style\palette\temperature.json" />
+    <None Remove="data\style\palette\tem_force.json" />
+    <None Remove="data\style\palette\tem_force_avg.json" />
+    <None Remove="data\style\palette\tem_max_count.json" />
+    <None Remove="data\style\palette\tem_min_count.json" />
+    <None Remove="data\style\palette\tp_dry_days_allyear.json" />
+    <None Remove="data\style\palette\tp_dry_days_inyear.json" />
+    <None Remove="data\style\palette\tp_dry_score.json" />
+    <None Remove="data\style\palette\water_in_air.json" />
+    <None Remove="dll\h_mchsq.dll" />
+    <None Remove="dll\h_smth.dll" />
+    <None Remove="dll\netcdf.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="config\global.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="config\menu.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="config\product\era5.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="config\product\rm.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="config\world\main_city_world.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\full\ChinaCoastalBorder.adr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\full\ChinaCoastalBorder.ctl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\full\ChinaInlandBorder.adr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\full\ChinaInlandBorder.ctl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\full\WorldContinentBorder.adr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\full\WorldContinentBorder.ctl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\low_density\ChinaCoastalBorder.adr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\low_density\ChinaCoastalBorder.ctl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\low_density\ChinaInlandBorder.adr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\low_density\ChinaInlandBorder.ctl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\low_density\WorldContinentBorder.adr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\low_density\WorldContinentBorder.ctl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\super_low_density\ChinaCoastalBorder.adr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\super_low_density\ChinaCoastalBorder.ctl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\super_low_density\WorldContinentBorder.adr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\super_low_density\WorldContinentBorder.ctl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\style\palette\default.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\style\palette\radiation.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\style\palette\rain.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\style\palette\rain_heavy.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\style\palette\rain_total_year.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\style\palette\temperature.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\style\palette\tem_force.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\style\palette\tem_force_avg.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\style\palette\tem_max_count.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\style\palette\tem_min_count.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\style\palette\tp_dry_days_allyear.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\style\palette\tp_dry_days_inyear.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\style\palette\tp_dry_score.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\style\palette\water_in_air.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\h_mchsq.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\h_smth.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\netcdf.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

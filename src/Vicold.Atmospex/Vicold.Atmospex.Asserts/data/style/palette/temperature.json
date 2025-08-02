@@ -1,0 +1,25 @@
+{
+    "Name":"temperature",
+    "AutoValue":false,
+    "RenderType":"Contour",
+    "Colors":[
+        {"Value":-30, "RGBA":"100, 0, 100" },
+        {"Value":-20, "RGBA":"175, 0, 175" },
+        {"Value":-15, "RGBA":"220, 0, 220" },
+        {"Value":-10, "RGBA":"50, 50, 200" },
+        {"Value":-5,  "RGBA":"0, 100, 255" },
+        {"Value":-3,  "RGBA":"0, 150, 150" },
+        {"Value":-1,  "RGBA":"0, 200, 50"  },
+        {"Value":0,   "RGBA":"100, 255, 0" },
+        {"Value":1,   "RGBA":"150, 255, 0" },
+        {"Value":2,   "RGBA":"200, 255, 0" },
+        {"Value":5,   "RGBA":"255, 255, 0" },
+        {"Value":10,  "RGBA":"255, 200, 0" },
+        {"Value":15,  "RGBA":"255, 160, 0" },
+        {"Value":20,  "RGBA":"255, 125, 0" },
+        {"Value":30,  "RGBA":"255, 25, 0"  },
+        {"Value":40,  "RGBA":"230, 0, 0"   }
+    ],
+    "UseAnaValues":false,
+    "ContourAnaValues":[-30,-20,-10,0,10,20,30]
+}

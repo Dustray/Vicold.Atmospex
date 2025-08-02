@@ -1,0 +1,26 @@
+<root  xmlns:json="http://james.newtonking.com/projects/json">
+    <ProductGroups json:Array="true" >
+        <Name>era5</Name>
+        <FileFormat>{0}.nc</FileFormat>
+        <Products>
+            <Display>2m Temperature</Display>
+            <Key>t2m</Key>
+            <DataPath>era5\reanalysis\total_precipitation\single\{0}</DataPath>
+            <Style>temperature</Style>
+        </Products>
+        <Products>
+            <Display>Total Precipitation</Display>
+            <Key>tp</Key>
+            <DataPath>era5\reanalysis\2m_temperature\single\{0}</DataPath>
+            <Style>rain</Style>
+            <IsMerge>true</IsMerge>
+        </Products>
+        <Products>
+            <Display>Downward Radiation</Display>
+            <Key>uvb</Key>
+            <DataPath>era5\reanalysis\downward_uv_radiation_at_the_surface\single\{0}</DataPath>
+            <Style>radiation</Style>
+            <IsMerge>false</IsMerge>
+        </Products>
+    </ProductGroups>
+</root>

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.Render", "V
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.Render.Frame", "Vicold.Atmospex.Render\Vicold.Atmospex.Render.Frame\Vicold.Atmospex.Render.Frame.csproj", "{8E13BC7A-E117-A53B-BE91-92A909013524}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.Asserts", "Vicold.Atmospex\Vicold.Atmospex.Asserts\Vicold.Atmospex.Asserts.csproj", "{F2DE8927-D80A-4751-952E-36E0B106500B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,10 @@ Global
 		{8E13BC7A-E117-A53B-BE91-92A909013524}.Debug|x64.Build.0 = Debug|x64
 		{8E13BC7A-E117-A53B-BE91-92A909013524}.Release|x64.ActiveCfg = Release|Any CPU
 		{8E13BC7A-E117-A53B-BE91-92A909013524}.Release|x64.Build.0 = Release|Any CPU
+		{F2DE8927-D80A-4751-952E-36E0B106500B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F2DE8927-D80A-4751-952E-36E0B106500B}.Debug|x64.Build.0 = Debug|Any CPU
+		{F2DE8927-D80A-4751-952E-36E0B106500B}.Release|x64.ActiveCfg = Release|Any CPU
+		{F2DE8927-D80A-4751-952E-36E0B106500B}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

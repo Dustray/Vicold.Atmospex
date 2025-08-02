@@ -1,0 +1,15 @@
+[
+    {
+        "Name":"ERA5",
+        "Products":[
+            {
+                "Display":"2米温度",
+                "Key":"era5/t2m"
+            },
+            {
+                "Display":"地面总降水",
+                "Key":"era5/tp"
+            }
+        ]
+    }
+]
