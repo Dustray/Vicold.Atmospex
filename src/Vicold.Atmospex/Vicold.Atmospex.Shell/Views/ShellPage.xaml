@@ -21,18 +21,10 @@
         </Grid>
         <Grid Grid.Row="1" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <AppBarButton Grid.Column="0" x:Name="ShellMenuBarMainButton" x:Uid="ShellMenuBarMainButton" LabelPosition="Collapsed"
-                          Command="{x:Bind ViewModel.MenuViewsMainCommand}">
-                <AppBarButton.KeyboardAccelerators>
-                    <KeyboardAccelerator Modifiers="Control" Key="D"/>
-                </AppBarButton.KeyboardAccelerators>
-                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE80F;"/>
-            </AppBarButton>
-            <MenuBar Grid.Column="1">
+            <MenuBar Grid.Column="0">
                 <MenuBarItem x:Uid="ShellMenuBarItem_File" >
                     <MenuFlyoutItem x:Uid="ShellMenuItem_File_Exit" Command="{x:Bind ViewModel.MenuFileExitCommand}" />
                 </MenuBarItem>
@@ -42,7 +34,7 @@
                     </MenuBarItem.Items>
                 </MenuBarItem>
             </MenuBar>
-            <AppBarButton Grid.Column="2" x:Name="ShellMenuBarSettingsButton" x:Uid="ShellMenuBarSettingsButton"
+            <AppBarButton Grid.Column="1" x:Name="ShellMenuBarSettingsButton" x:Uid="ShellMenuBarSettingsButton"
                           AnimatedIcon.State="Normal"
                           PointerEntered="ShellMenuBarSettingsButton_PointerEntered"
                           PointerExited="ShellMenuBarSettingsButton_PointerExited"
@@ -59,6 +51,11 @@
         </Grid>
         <Grid Grid.Row="2" VerticalAlignment="Center">
             <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" HorizontalAlignment="Left">
+                <AppBarButton Icon="Home" Label="Home" Command="{x:Bind ViewModel.MenuViewsMainCommand}">
+                    <AppBarButton.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="Control" Key="D" />
+                    </AppBarButton.KeyboardAccelerators>
+                </AppBarButton>
                 <AppBarButton Icon="Add" Label="Open"/>
                 <AppBarButton Icon="Edit" Label="Edit"/>
                 <AppBarButton Icon="RepeatAll" Label="ResetView"/>
