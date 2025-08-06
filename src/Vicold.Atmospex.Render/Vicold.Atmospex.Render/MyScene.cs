@@ -104,7 +104,7 @@ namespace Vicold.Atmospex.Render
             };
 
             // Load the standard effect
-            Effect standardEffect = assetsService.Load<Effect>(EvergineContent.Effects.StandardEffect);
+            Effect standardEffect = assetsService.Load<Effect>(EvergineContent.Effects.LineEffect);
 
             // Create a material using the custom RenderLayer
             Material material = new Material(standardEffect)
@@ -118,7 +118,6 @@ namespace Vicold.Atmospex.Render
                 .AddComponent(new MaterialComponent() { Material = material })
                 .AddComponent(new TeapotMesh())
                 .AddComponent(new MeshRenderer());
-
             this.Managers.EntityManager.Add(primitive);
         }
     }
