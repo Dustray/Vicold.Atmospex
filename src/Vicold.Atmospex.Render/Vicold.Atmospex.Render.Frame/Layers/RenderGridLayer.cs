@@ -19,19 +19,17 @@ using Vicold.Atmospex.Style;
 
 namespace Vicold.Atmospex.Render.Frame.Layers
 {
-    internal class RenderGridLayer : GridLayer
+    internal class RenderGridLayer(IGridDataProvider provider, GraphicsContext graphicsContext) : GridLayer(provider)
     {
-        private GraphicsContext graphicsContext;
-
-        public RenderGridLayer(IGridDataProvider provider, GraphicsContext graphicsContext) : base(provider)
-        {
-            this.graphicsContext = graphicsContext;
-        }
+        private readonly GraphicsContext _graphicsContext = graphicsContext;
 
         // 创建纹理图像
-        private Texture RenderImage(GridDataProvider provider, GridData data, IProjection prj, ImageBound bound, IPalette palette)
+        private Texture? RenderImage(GridDataProvider provider, GridData data, IProjection prj, ImageBound bound, IPalette palette)
         {
-            if (data == null) return null;
+            if (data == null)
+            {
+                return null;
+            }
 
             // 计算世界坐标尺寸和图像尺寸
             double world_height = (bound.MaxY - bound.MinY);
@@ -71,7 +69,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             var databox = new DataBox[] { new(dataPointer, rowPitch, slicePitch) };
 
             // 创建纹理
-            var texture = this.graphicsContext.Factory.CreateTexture(databox, ref description);
+            var texture = this._graphicsContext.Factory.CreateTexture(databox, ref description);
 
             // 释放固定的句柄
             pinnedHandle.Free();
@@ -80,7 +78,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
         }
 
         // 生成图像数据
-        private float[] GenerateImageData(GridDataProvider provider, GridData data, IProjection prj, ImageBound bound, IPalette palette, int width, int height)
+        private static float[] GenerateImageData(GridDataProvider provider, GridData data, IProjection prj, ImageBound bound, IPalette palette, int width, int height)
         {
             float[] dataArray = new float[width * height * 4]; // RGBA格式
 
@@ -185,9 +183,11 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             provider.LoadData();
             GridData data = provider.GetData();
             var bound = EMImage.CalculateBound(provider, data, prj);
-            var texture = new RenderTextureNode(graphicsContext)
+            var tx = RenderImage(provider, data, prj, bound, palette);
+            if (tx is not { }) { return null; }
+            var texture = new RenderTextureNode(_graphicsContext)
             {
-                TImage = RenderImage(provider, data, prj, bound, palette),
+                TImage = tx,
                 ID = ID,
                 StartX = (float)bound.MinX,
                 StartY = (float)bound.MinY,
@@ -234,7 +234,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             {
                 data.Dispose();
             }
-            if (texture is RenderTextureNode renderTexture)
+            if (texture is RenderTextureNode renderTexture && newImage is { })
             {
                 renderTexture.ResetImage(newImage);
             }

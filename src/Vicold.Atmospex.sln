@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.FileSystem"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.RenderAbstraction", "Vicold.Atmospex\Vicold.Atmospex.RenderAbstraction\Vicold.Atmospex.RenderAbstraction.csproj", "{834DC966-C39D-4615-B6E2-A8ACA9F27702}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.Core", "Vicold.Atmospex\Vicold.Atmospex.Core\Vicold.Atmospex.Core.csproj", "{9C119819-7645-4EE2-8206-78345A3F22A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -95,6 +97,10 @@ Global
 		{834DC966-C39D-4615-B6E2-A8ACA9F27702}.Debug|x64.Build.0 = Debug|Any CPU
 		{834DC966-C39D-4615-B6E2-A8ACA9F27702}.Release|x64.ActiveCfg = Release|Any CPU
 		{834DC966-C39D-4615-B6E2-A8ACA9F27702}.Release|x64.Build.0 = Release|Any CPU
+		{9C119819-7645-4EE2-8206-78345A3F22A7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9C119819-7645-4EE2-8206-78345A3F22A7}.Debug|x64.Build.0 = Debug|Any CPU
+		{9C119819-7645-4EE2-8206-78345A3F22A7}.Release|x64.ActiveCfg = Release|Any CPU
+		{9C119819-7645-4EE2-8206-78345A3F22A7}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

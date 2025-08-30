@@ -15,7 +15,7 @@ namespace Vicold.Atmospex.GisMap.Map
     internal class MapFileLoader
     {
         private static string _folder = Path.GetFullPath(@"data\map\super_low_density");
-        //private const string _folder = @"D:\Project\RMIAS\dist\data\map\super_low_density";
+        //private const string _folder = @"D:\Project\Vicold.Atmospex\dist\data\map\super_low_density";
         private string _worldContinentControl = $@"{_folder}\WorldContinentBorder.ctl";
         private string _worldContinentData = $@"{_folder}\WorldContinentBorder.adr";
         private string _chinaCoastalControl = $@"{_folder}\ChinaCoastalBorder.ctl";
