@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Vicold.Atmospex.Data.Providers;
-using Vicold.Atmospex.Render.Frame;
 
 namespace Vicold.Atmospex.Layer
 {
-    public sealed class LineLayer : Layer
+    public class LineLayer : Layer
     {
         public LineLayer(IVectorDataProvider provider, string id)
         {
@@ -20,14 +19,13 @@ namespace Vicold.Atmospex.Layer
         {
             base.Render(projection);
 
-            var provider = (IVectorDataProvider)DataProvider;
-            var texture = NodeFactory.CreateLinesNode(ID, provider, projection);
-            if (texture != null)
-            {
-                texture.SetLevel((int)LayerZLevel + ZIndex);
-                _layerNode = texture;
-            }
+            //var provider = (IVectorDataProvider)DataProvider;
+            //var texture = NodeFactory.CreateLinesNode(ID, provider, projection);
+            //if (texture != null)
+            //{
+            //    texture.SetLevel((int)LayerZLevel + ZIndex);
+            //    _layerNode = texture;
+            //}
         }
-
     }
 }

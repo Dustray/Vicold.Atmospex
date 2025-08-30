@@ -13,14 +13,14 @@ namespace Vicold.Atmospex.Render.Frame.Meshes
 {
     public class GenericLineMesh : PrimitiveBaseMesh
     {
-        private class TeapotPatch(bool mirrorZ, int[] indices)
+        private class GenericLinePatch(bool mirrorZ, int[] indices)
         {
             public readonly int[] Indices = indices;
             public readonly bool MirrorZ = mirrorZ;
         }
 
         private Vector3[]? _controlPoints;
-        private TeapotPatch[]? _patches;
+        private GenericLinePatch[]? _patches;
         private float size;
         private int tessellation;
 
@@ -92,8 +92,8 @@ namespace Vicold.Atmospex.Render.Frame.Meshes
             int num5 = 6;
             int num6 = 4;
             builder.SetCapacity(num * num6 + num2 * num5, num3 * num6 + num4 * num5);
-            TeapotPatch[] array = _patches;
-            foreach (TeapotPatch teapotPatch in array)
+            GenericLinePatch[] array = _patches;
+            foreach (GenericLinePatch teapotPatch in array)
             {
                 TessellatePatch(teapotPatch, tessellation, new Vector3(size, size, size), builder);
                 TessellatePatch(teapotPatch, tessellation, new Vector3(0f - size, size, size), builder);
@@ -105,7 +105,7 @@ namespace Vicold.Atmospex.Render.Frame.Meshes
             }
         }
 
-        private void TessellatePatch(TeapotPatch patch, int tessellation, Vector3 scale, PrimitiveModelBuilder builder)
+        private void TessellatePatch(GenericLinePatch patch, int tessellation, Vector3 scale, PrimitiveModelBuilder builder)
         {
             if (_controlPoints == null)
             {

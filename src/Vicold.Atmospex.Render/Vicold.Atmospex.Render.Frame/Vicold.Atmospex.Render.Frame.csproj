@@ -28,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Data\Vicold.Atmospex.Data.csproj" />
     <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Earth\Vicold.Atmospex.Earth.csproj" />
+    <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Layer\Vicold.Atmospex.Layer.csproj" />
     <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Shell.Core\Vicold.Atmospex.Shell.Core.csproj" />
     <ProjectReference Include="..\Vicold.Atmospex.Render\Vicold.Atmospex.Render.csproj" />
   </ItemGroup>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vicold.Atmospex.Render.Frame;
+namespace Vicold.Atmospex.Layer;
 public interface ILayerNode : IDisposable
 {
     /// <summary>

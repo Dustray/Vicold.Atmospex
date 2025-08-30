@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Vicold.Atmospex.Data;
 using Vicold.Atmospex.Data.Providers;
 using Vicold.Atmospex.Earth.Projection;
+using Vicold.Atmospex.Layer;
 using Vicold.Atmospex.Render.Components;
 
 namespace Vicold.Atmospex.Render.Frame

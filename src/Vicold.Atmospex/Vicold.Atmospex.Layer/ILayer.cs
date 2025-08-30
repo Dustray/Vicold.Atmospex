@@ -9,21 +9,45 @@ namespace Vicold.Atmospex.Layer;
 
 public interface ILayer : IDisposable
 {
-    string Name { get; set; }
+    string Name
+    {
+        get; set;
+    }
 
-    string ID { get; set; }
+    string ID
+    {
+        get; set;
+    }
 
-    int ZIndex { get; set; }
+    int ZIndex
+    {
+        get; set;
+    }
 
-    bool IsVisible { get; }
+    bool IsVisible
+    {
+        get;
+    }
 
-    bool IsSystemLayer { get; }
+    bool IsSystemLayer
+    {
+        get;
+    }
 
-    IStyle Style { get; set; }
+    IStyle? Style
+    {
+        get; set;
+    }
 
-    LayerLevel LayerZLevel { get; set; }
+    LayerLevel LayerZLevel
+    {
+        get; set;
+    }
 
-    IProvider DataProvider { get; set; }
+    IProvider? DataProvider
+    {
+        get; set;
+    }
 
     void Render(IProjection projection);
 }

@@ -87,7 +87,7 @@ namespace Vicold.Atmospex.Render
             var assetsService = Application.Current.Container.Resolve<AssetsService>();
 
             // Create a custom RenderLayer with specified render states
-            RenderLayerDescription customLayer = new RenderLayerDescription()
+            RenderLayerDescription customLayer = new()
             {
                 RenderState = new RenderStateDescription()
                 {
