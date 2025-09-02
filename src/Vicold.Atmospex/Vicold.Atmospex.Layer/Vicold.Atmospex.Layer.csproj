@@ -14,6 +14,7 @@
     <ProjectReference Include="..\Vicold.Atmospex.Data\Vicold.Atmospex.Data.csproj" />
     <ProjectReference Include="..\Vicold.Atmospex.Earth\Vicold.Atmospex.Earth.csproj" />
     <ProjectReference Include="..\Vicold.Atmospex.FileSystem\Vicold.Atmospex.FileSystem.csproj" />
+    <ProjectReference Include="..\Vicold.Atmospex.CoreService\Vicold.Atmospex.CoreService.csproj" />
     <ProjectReference Include="..\Vicold.Atmospex.Style\Vicold.Atmospex.Style.csproj" />
   </ItemGroup>
 

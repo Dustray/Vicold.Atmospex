@@ -1,24 +1,21 @@
-using Vicold.Atmospex.Data.DataCenter;
-using System.IO;
 using Vicold.Atmospex.CoreService;
 
-namespace Vicold.Atmospex.Data;
-public class DataModuleService : IDataModuleService
+namespace Vicold.Atmospex.FileSystem;
+
+public class FileSystemModuleService : IFileSystemModuleService
 {
     private static IAppService? _appService;
-    public static DataModuleService? Current
+
+    public static FileSystemModuleService? Current
     {
         get; private set;
     }
 
-    public DataModuleService(IAppService appService)
+    public FileSystemModuleService(IAppService appService)
     {
         _appService = appService;
         Current = this;
     }
-
-
-    internal ProductKeeper Productor { get; } = new(Path.GetFullPath("."));
 
     public void Initialize()
     {

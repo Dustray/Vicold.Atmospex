@@ -10,7 +10,7 @@ namespace Vicold.Atmospex.Style;
 
 public static class StyleHelper
 {
-    public static GridStyle? GetPaletteStyle(IGlobalConfiguration config, string paletteKey)
+    public static GridStyle? GetPaletteStyle(IConfigModuleService config, string paletteKey)
     {
         var palettePath = Path.Combine(config.PaletteHome, $"{paletteKey}.json");
         if (!File.Exists(palettePath))
@@ -31,7 +31,7 @@ public static class StyleHelper
     }
 
 
-    public static GridStyle? GetDefaultPaletteStyle(IGlobalConfiguration config)
+    public static GridStyle? GetDefaultPaletteStyle(IConfigModuleService config)
     {
         return GetPaletteStyle(config, "default");
     }

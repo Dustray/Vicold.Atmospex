@@ -1,4 +1,4 @@
-﻿using Vicold.Atmospex.Data;
+using Vicold.Atmospex.Data;
 using Vicold.Atmospex.Earth;
 using Vicold.Atmospex.Earth.Projection;
 using System;
@@ -21,7 +21,7 @@ namespace Vicold.Atmospex.GisMap.Map
             _mapFileLoader = new MapFileLoader();
 
             _mapFileLoader.LoadData();
-            if (EarthModuleServices.Current is { } earthService)
+            if (EarthModuleService.Current is { } earthService)
             {
                 _gridLoader = new GeographyGridLoader(earthService.ProjectionInfo);
                 _gridLoader.LoadData();

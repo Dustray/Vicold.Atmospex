@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Vicold.Atmospex.CoreService;
 
 namespace Vicold.Atmospex.Data;
-public interface IDataModuleService
+public interface IDataModuleService : IModuleService
 {
-    void Initialize();
+    // 接口成员
 }

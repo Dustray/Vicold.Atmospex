@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vicold.Atmospex.Configration;
 
 namespace Vicold.Atmospex.Core.LayerService
 {
@@ -47,8 +48,11 @@ namespace Vicold.Atmospex.Core.LayerService
 
             if (layer is GridLayer && layer.Style == null)
             {
-                //var ss = _globalBus.GetTransport<IGlobalConfiguration>();
-                layer.Style = StyleHelper.GetDefaultPaletteStyle(ss);
+                var ss = CoreModuleService.GetService<IConfigModuleService>();
+                if (ss is { })
+                {
+                    layer.Style = StyleHelper.GetDefaultPaletteStyle(ss);
+                }
             }
 
             layer.Render(_projection);
@@ -91,8 +95,11 @@ namespace Vicold.Atmospex.Core.LayerService
 
             if (layer is GridLayer && layer.Style == null)
             {
-                var ss = _globalBus.GetTransport<IGlobalConfiguration>();
-                layer.Style = StyleHelper.GetDefaultPaletteStyle(ss);
+                var ss = CoreModuleService.GetService<IConfigModuleService>();
+                if (ss is { })
+                {
+                    layer.Style = StyleHelper.GetDefaultPaletteStyle(ss);
+                }
             }
 
             layer.Render(_projection);

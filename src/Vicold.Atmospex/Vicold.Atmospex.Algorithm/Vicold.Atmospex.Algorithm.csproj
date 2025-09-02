@@ -7,6 +7,10 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Vicold.Atmospex.CoreService\Vicold.Atmospex.CoreService.csproj" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <Reference Include="HighSmooth">

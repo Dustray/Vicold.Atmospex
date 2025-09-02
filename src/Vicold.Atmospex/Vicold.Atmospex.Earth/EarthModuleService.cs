@@ -1,23 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vicold.Atmospex.Earth.Events;
 using Vicold.Atmospex.Earth.Projection;
 using Vicold.Atmospex.GisMap.Map;
+using Vicold.Atmospex.CoreService;
 
 namespace Vicold.Atmospex.Earth;
-public class EarthModuleServices : IEarthModuleServices
+public class EarthModuleService : IEarthModuleService
 {
-    public EarthModuleServices()
+    private static IAppService? _appService;
+    public static EarthModuleService? Current
     {
+        get; private set;
+    }
+
+    public EarthModuleService(IAppService appService)
+    {
+        _appService = appService;
+        Current = this;
         ProjectionInfo = CreateProjectionInfo(0);
     }
 
-    public static EarthModuleServices? Current
+
+    internal static T? GetService<T>() where T : class
     {
-        get; private set;
+        return _appService?.GetService<T>();
     }
 
     public ProjectionInfo ProjectionInfo

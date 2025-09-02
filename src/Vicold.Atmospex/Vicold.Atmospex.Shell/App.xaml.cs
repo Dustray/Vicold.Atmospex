@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
 using Vicold.Atmospex.Data;
 using Vicold.Atmospex.Earth;
 using Vicold.Atmospex.Layer;
+using Vicold.Atmospex.CoreService;
 using Vicold.Atmospex.Shell.Activation;
 using Vicold.Atmospex.Shell.Contracts.Services;
 using Vicold.Atmospex.Shell.Core.Contracts.Services;
@@ -70,6 +71,7 @@ public partial class App : Application
 
             // Core Services
             services.AddSingleton<IFileService, FileService>();
+            services.AddSingleton<IAppService, AppService>();
 
             // Views and ViewModels
             services.AddTransient<SettingsViewModel>();
@@ -81,9 +83,14 @@ public partial class App : Application
 
             //Module Services
             services.AddSingleton<IDataModuleService, DataModuleService>();
-            services.AddSingleton<IEarthModuleServices, EarthModuleServices>();
-            services.AddSingleton<ILayerModuleServices, LayerModuleServices>();
-
+            services.AddSingleton<IEarthModuleService, EarthModuleService>();
+            services.AddSingleton<ILayerModuleService, LayerModuleService>();
+            services.AddSingleton<Vicold.Atmospex.Algorithm.IAlgorithmModuleService, Vicold.Atmospex.Algorithm.AlgorithmModuleService>();
+            services.AddSingleton<Vicold.Atmospex.Configration.IConfigModuleService, Vicold.Atmospex.Configration.ConfigModuleService>();
+            services.AddSingleton<Vicold.Atmospex.Core.ICoreModuleService, Vicold.Atmospex.Core.CoreModuleService>();
+            services.AddSingleton<Vicold.Atmospex.FileSystem.IFileSystemModuleService, Vicold.Atmospex.FileSystem.FileSystemModuleService>();
+            services.AddSingleton<Vicold.Atmospex.Style.IStyleModuleService, Vicold.Atmospex.Style.StyleModuleService>();
+            services.AddSingleton<Vicold.Atmospex.Render.IRenderModuleService, Vicold.Atmospex.Render.RenderModuleService>();
 
             // Configuration
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
@@ -92,8 +99,13 @@ public partial class App : Application
 
         App.GetService<IAppNotificationService>().Initialize();
         App.GetService<IDataModuleService>().Initialize(); 
-        App.GetService<IEarthModuleServices>().Initialize(); 
-        App.GetService<ILayerModuleServices>().Initialize();
+        App.GetService<IEarthModuleService>().Initialize(); 
+        App.GetService<ILayerModuleService>().Initialize();
+        App.GetService<Vicold.Atmospex.Configration.IConfigModuleService>().Initialize();
+        App.GetService<Vicold.Atmospex.Core.ICoreModuleService>().Initialize();
+        App.GetService<Vicold.Atmospex.FileSystem.IFileSystemModuleService>().Initialize();
+        App.GetService<Vicold.Atmospex.Style.IStyleModuleService>().Initialize();
+        App.GetService<Vicold.Atmospex.Render.IRenderModuleService>().Initialize();
 
         UnhandledException += App_UnhandledException;
     }

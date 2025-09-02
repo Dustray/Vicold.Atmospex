@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Vicold.Atmospex.Core.Entities
+namespace Vicold.Atmospex.Configration
 {
     public class BootConfig
     {

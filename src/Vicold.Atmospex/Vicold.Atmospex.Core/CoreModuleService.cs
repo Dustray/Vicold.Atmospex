@@ -1,27 +1,26 @@
-using Vicold.Atmospex.Data.DataCenter;
-using System.IO;
+using Vicold.Atmospex.Configration;
 using Vicold.Atmospex.CoreService;
 
-namespace Vicold.Atmospex.Data;
-public class DataModuleService : IDataModuleService
+namespace Vicold.Atmospex.Core;
+
+public class CoreModuleService : ICoreModuleService
 {
     private static IAppService? _appService;
-    public static DataModuleService? Current
+
+    public static CoreModuleService? Current
     {
         get; private set;
     }
 
-    public DataModuleService(IAppService appService)
+    public CoreModuleService(IAppService appService)
     {
         _appService = appService;
         Current = this;
     }
 
-
-    internal ProductKeeper Productor { get; } = new(Path.GetFullPath("."));
-
     public void Initialize()
     {
+        _appService?.GetService<IConfigModuleService>()?.Init(new BootConfig() { WorkSpaceDebug = "J:\\Example\\RMIAS\\dist" });
     }
 
     internal static T? GetService<T>() where T : class

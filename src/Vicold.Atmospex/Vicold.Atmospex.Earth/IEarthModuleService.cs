@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Vicold.Atmospex.CoreService;
 using Vicold.Atmospex.Earth.Events;
 using Vicold.Atmospex.Earth.Projection;
 
 namespace Vicold.Atmospex.Earth;
-public interface IEarthModuleServices
+public interface IEarthModuleService : IModuleService
 {
     ProjectionInfo ProjectionInfo
     {
@@ -31,5 +27,4 @@ public interface IEarthModuleServices
     event MapChangedEventHandler OnMapCreated;
 
     void ChangeScale(float scale);
-    void Initialize();
 }

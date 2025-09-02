@@ -4,6 +4,7 @@
 		<GenerateEvergineContent>True</GenerateEvergineContent>
 		<GenerateEvergineAssets>False</GenerateEvergineAssets>
 		<GenerateEvergineScenesCode>True</GenerateEvergineScenesCode>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Evergine.Common" Version="2025.3.18.1522" />
@@ -14,5 +15,8 @@
 		<PackageReference Include="Evergine.Runtimes.Image" Version="2025.3.18.1522" />
 		<PackageReference Include="Evergine.Targets" Version="2025.3.18.1522" />
 		<PackageReference Include="Evergine.CodeScenes" Version="2025.3.18.1522" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.CoreService\Vicold.Atmospex.CoreService.csproj" />
 	</ItemGroup>
 </Project>
