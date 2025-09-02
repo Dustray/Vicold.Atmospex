@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Vicold.Atmospex.Earth\Vicold.Atmospex.Earth.csproj" />
     <ProjectReference Include="..\Vicold.Atmospex.Layer\Vicold.Atmospex.Layer.csproj" />
     <ProjectReference Include="..\Vicold.Atmospex.CoreService\Vicold.Atmospex.CoreService.csproj" />
   </ItemGroup>

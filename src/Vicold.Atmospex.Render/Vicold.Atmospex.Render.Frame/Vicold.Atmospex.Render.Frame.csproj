@@ -26,6 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.CoreService\Vicold.Atmospex.CoreService.csproj" />
+    <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Core\Vicold.Atmospex.Core.csproj" />
     <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Data\Vicold.Atmospex.Data.csproj" />
     <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Earth\Vicold.Atmospex.Earth.csproj" />
     <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Layer\Vicold.Atmospex.Layer.csproj" />

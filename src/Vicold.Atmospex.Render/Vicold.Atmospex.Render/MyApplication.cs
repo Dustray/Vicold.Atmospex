@@ -7,6 +7,7 @@ namespace Vicold.Atmospex.Render
 {
     public partial class MyApplication : Application
     {
+
         public MyApplication()
         {
             this.Container.Register<Settings>();
@@ -22,6 +23,11 @@ namespace Vicold.Atmospex.Render
             this.Container.Register<WorkActionScheduler>();
         }
 
+        public MyScene? Scene
+        {
+            get; private set;
+        }
+
         public override void Initialize()
         {
             base.Initialize();
@@ -31,8 +37,8 @@ namespace Vicold.Atmospex.Render
             var assetsService = this.Container.Resolve<AssetsService>();
 
             // Navigate to scene
-            var scene = assetsService.Load<MyScene>(EvergineContent.Scenes.MyScene_wescene);
-            ScreenContext screenContext = new ScreenContext(scene);
+            Scene = assetsService.Load<MyScene>(EvergineContent.Scenes.MyScene_wescene);
+            ScreenContext screenContext = new ScreenContext(Scene);
             screenContextManager.To(screenContext);
         }
     }

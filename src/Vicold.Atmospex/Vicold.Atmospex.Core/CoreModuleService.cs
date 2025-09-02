@@ -1,5 +1,7 @@
 using Vicold.Atmospex.Configration;
 using Vicold.Atmospex.CoreService;
+using Vicold.Atmospex.Earth;
+using Vicold.Atmospex.Layer;
 
 namespace Vicold.Atmospex.Core;
 
@@ -21,6 +23,11 @@ public class CoreModuleService : ICoreModuleService
     public void Initialize()
     {
         _appService?.GetService<IConfigModuleService>()?.Init(new BootConfig() { WorkSpaceDebug = "J:\\Example\\RMIAS\\dist" });
+    }
+
+    public Action? OnViewStart
+    {
+        get; set;
     }
 
     internal static T? GetService<T>() where T : class

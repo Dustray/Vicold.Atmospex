@@ -84,7 +84,10 @@ namespace Vicold.Atmospex.Render.Frame.Views
                 application.UpdateFrame(gameTime);
                 application.DrawFrame(gameTime);
             });
-        
+
+            RenderModuleService.Current?.BindEntityManager(application.Scene?.Managers.EntityManager);
+            RenderModuleService.GetService<Vicold.Atmospex.Core.ICoreModuleService>()?.OnViewStart?.Invoke();
+
         }
 
         private static void ConfigureGraphicsContext(Evergine.Framework.Application application, WinUISurface surface, string displayName)

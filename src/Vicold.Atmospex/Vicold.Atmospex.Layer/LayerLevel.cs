@@ -7,9 +7,9 @@ namespace Vicold.Atmospex.Layer
     public enum LayerLevel
     {
         Lowest = 0,
-        Low = 1000,
-        Middle = 2000,
-        High = 3000,
-        Highest = 4000,
+        Low = 10,
+        Middle = 20,
+        High = 30,
+        Highest = 40,
     }
 }

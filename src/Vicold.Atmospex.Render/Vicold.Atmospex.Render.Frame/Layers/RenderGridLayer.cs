@@ -1,10 +1,14 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using Evergine.Common.Graphics;
+﻿using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
 using Evergine.Framework;
 using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Managers;
+using Evergine.Framework.Services;
 using Evergine.Mathematics;
+using System;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Vicold.Atmospex.Data;
 using Vicold.Atmospex.Data.Providers;
 using Vicold.Atmospex.DataService.Provider;
@@ -19,9 +23,33 @@ using Vicold.Atmospex.Style;
 
 namespace Vicold.Atmospex.Render.Frame.Layers
 {
-    internal class RenderGridLayer(IGridDataProvider provider, GraphicsContext graphicsContext) : GridLayer(provider)
+    public class RenderGridLayer : GridLayer, IRenderLayer
     {
-        private readonly GraphicsContext _graphicsContext = graphicsContext;
+        private readonly GraphicsContext _graphicsContext;
+
+        public RenderGridLayer(IGridDataProvider provider, GraphicsContext graphicsContext) : base(provider)
+        {
+            _graphicsContext = graphicsContext;
+
+            // Create a custom RenderLayer with specified render states
+            LayerDescription = new()
+            {
+                RenderState = new RenderStateDescription()
+                {
+                    RasterizerState = new RasterizerStateDescription()
+                    {
+                        CullMode = CullMode.Back,
+                        FillMode = FillMode.Wireframe,
+                    },
+                    BlendState = BlendStates.Opaque,
+                    DepthStencilState = DepthStencilStates.ReadWrite,
+                },
+                Order = 0,
+                SortMode = SortMode.FrontToBack,
+            };
+        }
+
+        public RenderLayerDescription LayerDescription { get; private set; }
 
         // 创建纹理图像
         private Texture? RenderImage(GridDataProvider provider, GridData data, IProjection prj, ImageBound bound, IPalette palette)
@@ -237,6 +265,14 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             if (texture is RenderTextureNode renderTexture && newImage is { })
             {
                 renderTexture.ResetImage(newImage);
+            }
+        }
+
+        public void Draw(EntityManager entityManager)
+        {
+            if (_layerNode is IRenderNode node)
+            {
+                //node.Draw(entityManager, LayerDescription);
             }
         }
     }

@@ -64,7 +64,8 @@ public class ConfigModuleService : IConfigModuleService
         {
             bootConfig = new BootConfig()
             {
-                WorkSpace = Path.GetFullPath("./")
+                WorkSpace = Path.GetFullPath("./"),
+                WorkSpaceDebug = Path.GetFullPath("./"),
             };
             JsonConvert.SerializeObject(bootConfig, Formatting.Indented);
             return bootConfig;

@@ -10,6 +10,11 @@ public class LayerModuleService : ILayerModuleService
         get; private set;
     }
 
+    public ILayerManager LayerManager
+    {
+        get;
+    } = new LayerManager();
+
     public LayerModuleService(IAppService appService)
     {
         _appService = appService;

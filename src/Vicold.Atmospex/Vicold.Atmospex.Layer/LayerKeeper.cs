@@ -1,12 +1,11 @@
-﻿using Vicold.Atmospex.Layer;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Vicold.Atmospex.Core.LayerService
+namespace Vicold.Atmospex.Layer
 {
     internal class LayerKeeper
     {

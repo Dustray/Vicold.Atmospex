@@ -90,7 +90,8 @@ public abstract  class TextureNode : ILayerNode
     //    return texture;
     //}
 
-    public void Dispose()
+    public virtual void Dispose()
     {
+        GC.SuppressFinalize(this);
     }
 }

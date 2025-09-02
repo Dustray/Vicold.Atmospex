@@ -1,6 +1,6 @@
 using Vicold.Atmospex.Earth.Events;
 using Vicold.Atmospex.Earth.Projection;
-using Vicold.Atmospex.GisMap.Map;
+using Vicold.Atmospex.Earth.Map;
 using Vicold.Atmospex.CoreService;
 
 namespace Vicold.Atmospex.Earth;
@@ -109,4 +109,6 @@ public class EarthModuleService : IEarthModuleService
         };
         return projectionInfo;
     }
+
+    
 }

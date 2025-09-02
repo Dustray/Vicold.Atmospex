@@ -6,7 +6,7 @@ using Vicold.Atmospex.Data.Providers;
 
 namespace Vicold.Atmospex.Layer
 {
-    public class LineLayer : Layer
+    public abstract class LineLayer : Layer
     {
         public LineLayer(IVectorDataProvider provider, string id)
         {
@@ -15,17 +15,23 @@ namespace Vicold.Atmospex.Layer
             ID = id;
         }
 
+        protected abstract ILayerNode? CreateLinesNode(string ID, IVectorDataProvider provider, IProjection prj);
+
         public override void Render(IProjection projection)
         {
             base.Render(projection);
 
-            //var provider = (IVectorDataProvider)DataProvider;
-            //var texture = NodeFactory.CreateLinesNode(ID, provider, projection);
-            //if (texture != null)
-            //{
-            //    texture.SetLevel((int)LayerZLevel + ZIndex);
-            //    _layerNode = texture;
-            //}
+            if (DataProvider is not IVectorDataProvider provider)
+            {
+                throw new Exception("未指定Provider");
+            }
+
+            var texture = CreateLinesNode(ID, provider, projection);
+            if (texture != null)
+            {
+                texture.SetLevel((int)LayerZLevel + ZIndex);
+                _layerNode = texture;
+            }
         }
     }
 }
