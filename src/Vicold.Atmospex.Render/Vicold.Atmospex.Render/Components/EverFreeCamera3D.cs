@@ -31,6 +31,7 @@ internal class EverFreeCamera3D : FreeCamera3D
     {
         base.OnActivated();
         camera.Transform.Position += new Vector3(1, -1, 0);
+        camera.Transform.Rotation = new Vector3(0, 0, 0);
         initialPosition = camera.Transform.Position;
         initialRotation = camera.Transform.Rotation;
         initialOrientation = camera.Transform.Orientation;
