@@ -186,7 +186,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             if (vectorData is LineData lineData)
             {
                 var lines = LineConverterTool.ToVectorLines(lineData, prj);
-                var linesNode = new RenderLinesNode(lines)
+                var linesNode = new RenderLinesNode(lines, LayerDescription)
                 {
                     ID = ID
                 };
@@ -199,7 +199,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
         protected override ILayerNode? CreateLinesNode(string ID, LineData lineData, IProjection prj)
         {
             var lines = LineConverterTool.ToVectorLines(lineData, prj);
-            var linesNode = new RenderLinesNode(lines)
+            var linesNode = new RenderLinesNode(lines, LayerDescription)
             {
                 ID = ID
             };

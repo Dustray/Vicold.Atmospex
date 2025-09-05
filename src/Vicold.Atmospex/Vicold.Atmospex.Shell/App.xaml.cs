@@ -125,7 +125,7 @@ public partial class App : Application
             //{
                 var mapHolder = new MapHolder();
 
-                //var worldLayerLine = new RenderLineLayer(mapHolder.WorldLineProvider, "rmias_world_line");
+                var worldLayerLine = new RenderLineLayer(mapHolder.WorldLineProvider, "rmias_world_line");
                 //var worldLayerPolygon = new LineLayer(mapHolder.WorldPolygonProvider, "rmias_world_polygon");
                 //var chinaCoastalLayer = new RenderLineLayer(mapHolder.ChinaCoastalProvider, "rmias_china_line");
                 var geoGridLayer = new RenderLineLayer(mapHolder.GeoGridProvider, "rmias_geo_line");
@@ -134,7 +134,7 @@ public partial class App : Application
                 var manager = App.GetService<ILayerModuleService>().LayerManager;
                 manager.AddLayer(geoGridLayer);
                 //manager.AddLayer(geoFontLayer);
-                //manager.AddLayer(worldLayerLine);
+                manager.AddLayer(worldLayerLine);
                 //manager.AddLayer(chinaCoastalLayer);
             //});
         };

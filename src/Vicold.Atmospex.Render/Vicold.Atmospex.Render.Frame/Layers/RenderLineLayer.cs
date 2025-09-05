@@ -1,10 +1,6 @@
 ﻿using Evergine.Common.Graphics;
 using Evergine.Framework.Managers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vicold.Atmospex.Data;
 using Vicold.Atmospex.Data.Providers;
 using Vicold.Atmospex.Earth.Projection;
@@ -17,23 +13,23 @@ namespace Vicold.Atmospex.Render.Frame.Layers
     public class RenderLineLayer : LineLayer, IRenderLayer
     {
         public RenderLineLayer(IVectorDataProvider provider, string id) : base(provider, id)
+    {
+        LayerDescription = new()
         {
-            LayerDescription = new()
+            RenderState = new RenderStateDescription()
             {
-                RenderState = new RenderStateDescription()
+                RasterizerState = new RasterizerStateDescription()
                 {
-                    RasterizerState = new RasterizerStateDescription()
-                    {
-                        CullMode = CullMode.Back,
-                        FillMode = FillMode.Wireframe,
-                    },
-                    BlendState = BlendStates.Opaque,
-                    DepthStencilState = DepthStencilStates.ReadWrite,
+                    CullMode = CullMode.Back,
+                    FillMode = FillMode.Wireframe,
                 },
-                Order = 0,
-                SortMode = SortMode.FrontToBack,
-            };
-        }
+                BlendState = BlendStates.Opaque,
+                DepthStencilState = DepthStencilStates.ReadWrite,
+            },
+            Order = 0,
+            SortMode = SortMode.FrontToBack,
+        };
+    }
 
         public RenderLayerDescription LayerDescription { get; private set; }
 
@@ -43,7 +39,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             if (vectorData is LineData lineData)
             {
                 var lines = LineConverterTool.ToVectorLines(lineData, prj);
-                var linesNode = new RenderLinesNode(lines)
+                var linesNode = new RenderLinesNode(lines, LayerDescription)
                 {
                     ID = ID
                 };
