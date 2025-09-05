@@ -43,7 +43,6 @@ public class RenderModuleService : IRenderModuleService
             if (e.Layer is IRenderLayer el&& _entityManager is { })
             {
                 el.Draw(_entityManager);
-             
             }
         };
     }

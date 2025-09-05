@@ -33,13 +33,19 @@ public class GeographyGridLoader
         var i = 0;
         for (var s = south; s <= north; s += lonInterval, i = 0)
         {
-            var data = new float[145 * 2];
+            //var data = new float[145 * 2];
             // 从东到西
-            for (var w = west; w <= east; w += latInterval)
-            {
-                data[i++] = (float)w;
-                data[i++] = (float)s;
-            }
+            //for (var w = west; w <= east; w += latInterval)
+            //{
+            //    data[i++] = (float)w;
+            //    data[i++] = (float)s;
+            //}
+
+            var data = new float[2 * 2];
+            data[i++] = (float)west;
+            data[i++] = (float)s;
+            data[i++] = (float)east;
+            data[i++] = (float)s;
             GridLines.Add(data, 1, 0, _gridColor);
         }
 

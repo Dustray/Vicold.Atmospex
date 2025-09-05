@@ -13,7 +13,7 @@ namespace Vicold.Atmospex.Render.Frame.Meshes
 {
     public class GenericLineMesh : PrimitiveBaseMesh
     {
-        private class GenericLinePatch(bool mirrorZ, int[] indices)
+        internal class GenericLinePatch(bool mirrorZ, int[] indices)
         {
             public readonly int[] Indices = indices;
             public readonly bool MirrorZ = mirrorZ;
@@ -71,6 +71,38 @@ namespace Vicold.Atmospex.Render.Frame.Meshes
         public void AddLine()
         {
 
+        }
+
+        /// <summary>
+        /// 设置控制点数据
+        /// </summary>
+        /// <param name="controlPoints">控制点数组</param>
+        public void SetControlPoints(Vector3[] controlPoints)
+        {
+            _controlPoints = controlPoints;
+            NotifyPropertyChange();
+        }
+
+        /// <summary>
+        /// 设置补丁数据
+        /// </summary>
+        /// <param name="patches">补丁数组</param>
+        internal void SetPatches(GenericLinePatch[] patches)
+        {
+            _patches = patches;
+            NotifyPropertyChange();
+        }
+
+        /// <summary>
+        /// 同时设置控制点和补丁数据
+        /// </summary>
+        /// <param name="controlPoints">控制点数组</param>
+        /// <param name="patches">补丁数组</param>
+        internal void SetLineData(Vector3[] controlPoints, GenericLinePatch[] patches)
+        {
+            _controlPoints = controlPoints;
+            _patches = patches;
+            NotifyPropertyChange();
         }
 
         protected override int GetPrimitiveHashCode()

@@ -75,7 +75,7 @@ namespace Vicold.Atmospex.Render
             //var trans = new Transform3D();
             //trans.Position = new Vector3(0,0, 1.2f).ToChangeOverlook();
             ////trans.ToRotateY(180);
-            //trans.Orientation = Quaternion.CreateFromAxisAngle(Vector3.UnitX, MathHelper.Pi);// ÎÞÐèÐý×ª£¬Ä¬ÈÏÃæÏò Z+
+            //trans.Orientation = Quaternion.CreateFromAxisAngle(Vector3.UnitX, MathHelper.Pi);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Z+
             //var lineContainer = new Entity()
             //               .AddComponent(trans)
             //               .AddComponent(lineMesh)

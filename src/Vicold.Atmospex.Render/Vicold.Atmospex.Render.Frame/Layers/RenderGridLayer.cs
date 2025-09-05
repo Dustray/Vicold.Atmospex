@@ -272,7 +272,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
         {
             if (_layerNode is IRenderNode node)
             {
-                //node.Draw(entityManager, LayerDescription);
+                node.Draw(entityManager, LayerDescription);
             }
         }
     }
