@@ -1,5 +1,6 @@
 using Evergine.Common.Graphics;
 using Evergine.Components.Cameras;
+using Evergine.Components.Environment;
 using Evergine.Components.Graphics3D;
 using Evergine.Framework;
 using Evergine.Framework.Graphics;
@@ -31,16 +32,24 @@ namespace Vicold.Atmospex.Render
             var camera = ettManager.Find("Camera");
             camera.RemoveComponent<FreeCamera3D>();
             camera.AddComponent(new EverFreeCamera3D());
-            //ettManager.Remove(camera);
 
-            //ettManager.Add(new MyCamera("MyCamera"));
-            //Entity cameraEntity = new Entity()
+            // 设置相机的背景颜色 - 这是设置渲染环境默认颜色的主要方法
+            var camera3D = camera.FindComponent<Camera3D>();
+            if (camera3D != null)
+            {
+                // 设置背景颜色为深蓝色
+                camera3D.BackgroundColor = new Color(100, 149, 237);
+            }
+
+            // 如果需要，也可以通过创建新相机实体来设置默认颜色
+            //Entity customCamera = new Entity()
             // .AddComponent(new Transform3D())
             // .AddComponent(new Camera3D()
             // {
             //     BackgroundColor = Color.CornflowerBlue,
+            //     // 其他相机属性...
             // });
-            //this.Managers.EntityManager.Add(cameraEntity);
+            //this.Managers.EntityManager.Add(customCamera);
 
             //var dummyEntity = new Entity()
             //.AddComponent(new Transform3D())
@@ -84,41 +93,58 @@ namespace Vicold.Atmospex.Render
 
 
 
-            var assetsService = Application.Current.Container.Resolve<AssetsService>();
+            //var assetsService = Application.Current.Container.Resolve<AssetsService>();
 
-            // Create a custom RenderLayer with specified render states
-            RenderLayerDescription customLayer = new()
-            {
-                RenderState = new RenderStateDescription()
-                {
-                    RasterizerState = new RasterizerStateDescription()
-                    {
-                        CullMode = CullMode.Back,
-                        FillMode = FillMode.Wireframe,
-                    },
-                    BlendState = BlendStates.Opaque,
-                    DepthStencilState = DepthStencilStates.ReadWrite,
-                },
-                Order = 0,
-                SortMode = SortMode.FrontToBack,
-            };
+            //// Create a custom RenderLayer with specified render states
+            //RenderLayerDescription customLayer = new()
+            //{
+            //    RenderState = new RenderStateDescription()
+            //    {
+            //        RasterizerState = new RasterizerStateDescription()
+            //        {
+            //            CullMode = CullMode.Back,
+            //            FillMode = FillMode.Wireframe,
+            //        },
+            //        BlendState = BlendStates.Opaque,
+            //        DepthStencilState = DepthStencilStates.ReadWrite,
+            //    },
+            //    Order = 0,
+            //    SortMode = SortMode.FrontToBack,
+            //};
 
-            // Load the standard effect
-            Effect standardEffect = assetsService.Load<Effect>(EvergineContent.Effects.LineEffect);
+            //// Load the standard effect
+            //Effect standardEffect = assetsService.Load<Effect>(EvergineContent.Effects.LineEffect);
 
-            // Create a material using the custom RenderLayer
-            Material material = new Material(standardEffect)
-            {
-                LayerDescription = customLayer
-            };
+            //// Create a material using the custom RenderLayer
+            //Material material = new Material(standardEffect)
+            //{
+            //    LayerDescription = customLayer
+            //};
 
-            // Apply the material to an entity
-            Entity primitive = new Entity()
-                .AddComponent(new Transform3D())
-                .AddComponent(new MaterialComponent() { Material = material })
-                .AddComponent(new TeapotMesh())
-                .AddComponent(new MeshRenderer());
-            this.Managers.EntityManager.Add(primitive);
+            //// Apply the material to an entity
+            //Entity primitive = new Entity()
+            //    .AddComponent(new Transform3D())
+            //    .AddComponent(new MaterialComponent() { Material = material })
+            //    .AddComponent(new TeapotMesh())
+            //    .AddComponent(new MeshRenderer());
+            //this.Managers.EntityManager.Add(primitive);
+
+            var sun = new Entity()
+      .AddComponent(new Transform3D() { LocalRotation = new Vector3(-2, 0, 90) }) // Add some rotation to the light...
+      .AddComponent(new PhotometricDirectionalLight())
+      .AddComponent(new SunComponent());
+
+            this.Managers.EntityManager.Add(sun);
+
+            //      // Create the sphere sky dome
+            //      var skyDome = new Entity()
+            //          .AddComponent(new Transform3D() { LocalRotation = new Vector3(0, 0, 90) })
+            //          .AddComponent(new MaterialComponent())
+            //          .AddComponent(new SphereMesh())
+            //          .AddComponent(new MeshRenderer())
+            //          .AddComponent(new AtmosphereController());
+
+            //      this.Managers.EntityManager.Add(skyDome);
         }
     }
 }

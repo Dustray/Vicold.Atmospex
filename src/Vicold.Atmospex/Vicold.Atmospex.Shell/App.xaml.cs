@@ -121,13 +121,13 @@ public partial class App : Application
         App.GetService<Vicold.Atmospex.Render.Frame.IRenderModuleService>().Bind(App.GetService<ILayerModuleService>());
         App.GetService<Vicold.Atmospex.Core.ICoreModuleService>().OnViewStart = () =>
         {
-            //Task.Run(() =>
-            //{
+            Task.Run(() =>
+            {
                 var mapHolder = new MapHolder();
 
                 var worldLayerLine = new RenderLineLayer(mapHolder.WorldLineProvider, "rmias_world_line");
-                //var worldLayerPolygon = new LineLayer(mapHolder.WorldPolygonProvider, "rmias_world_polygon");
-                //var chinaCoastalLayer = new RenderLineLayer(mapHolder.ChinaCoastalProvider, "rmias_china_line");
+                //var worldLayerPolygon = new RenderLineLayer(mapHolder.WorldPolygonProvider, "rmias_world_polygon");
+                var chinaCoastalLayer = new RenderLineLayer(mapHolder.ChinaCoastalProvider, "rmias_china_line");
                 var geoGridLayer = new RenderLineLayer(mapHolder.GeoGridProvider, "rmias_geo_line");
                 //var geoFontLayer = new FontLayer(mapHolder.GeoFontProvider, "rmias_geo_value");
 
@@ -135,8 +135,8 @@ public partial class App : Application
                 manager.AddLayer(geoGridLayer);
                 //manager.AddLayer(geoFontLayer);
                 manager.AddLayer(worldLayerLine);
-                //manager.AddLayer(chinaCoastalLayer);
-            //});
+                manager.AddLayer(chinaCoastalLayer);
+            });
         };
     }
 
