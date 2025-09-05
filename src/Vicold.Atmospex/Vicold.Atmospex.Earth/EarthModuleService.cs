@@ -16,7 +16,6 @@ public class EarthModuleService : IEarthModuleService
     {
         _appService = appService;
         Current = this;
-        ProjectionInfo = CreateProjectionInfo(0);
     }
 
 
@@ -39,11 +38,17 @@ public class EarthModuleService : IEarthModuleService
 
     public event MapChangedEventHandler? OnMapCreated;
 
+    public event InteractionChangedEventHandler? OnMouseMoved;
+
     public float Scale
     {
         get; private set;
     }
 
+    public float WorldScale
+    {
+        get; set;
+    } = 1;
 
     public void ChangeScale(float scale)
     {
@@ -59,6 +64,7 @@ public class EarthModuleService : IEarthModuleService
     public void Initialize()
     {
         Current = this;
+        ProjectionInfo = CreateProjectionInfo(0);
         ChangeProjection(ProjectionType.CloseToReal);
     }
 
@@ -79,7 +85,7 @@ public class EarthModuleService : IEarthModuleService
         }
     }
 
-    private static ProjectionInfo CreateProjectionInfo(double lonCenter)
+    private ProjectionInfo CreateProjectionInfo(double lonCenter)
     {
         var west = lonCenter - 180;
         var east = lonCenter + 180;
@@ -91,9 +97,22 @@ public class EarthModuleService : IEarthModuleService
             West = (float)west,
             East = (float)east,
             MapLonCenter = (float)lonCenter,
+            WorldScale = WorldScale,
         };
         return projectionInfo;
     }
 
-    
+    public void ChangeMouse(float worldX, float worldY, float screenX, float screenY)
+    {
+        if (OnMouseMoved is { } && CurrentProjection is { })
+        {
+            _ = CurrentProjection.Index2Geo(worldX, worldY, out var lon, out var lat);
+            OnMouseMoved(this, new InteractionChangedEventArgs()
+            {
+                WorldCoordinate = new(worldX, worldY),
+                ScreenCoordinate = new(screenX, screenY),
+                GeoCoordinate = new((float)lon, (float)lat)
+            });
+        }
+    }
 }

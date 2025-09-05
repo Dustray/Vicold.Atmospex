@@ -21,6 +21,7 @@ using Evergine.WinUI;
 using Windows.Storage;
 using Microsoft.UI;
 using Vicold.Atmospex.Render.Serviecs;
+using Vicold.Atmospex.Earth;
 
 
 // To learn more about WinUI, the WinUI project structure,
@@ -85,9 +86,18 @@ namespace Vicold.Atmospex.Render.Frame.Views
                 application.DrawFrame(gameTime);
             });
 
+            // ∑˛ŒÒ…Ë÷√
+
+            var earthModuleService = RenderModuleService.GetService<IEarthModuleService>();
+            
+
             RenderModuleService.Current?.BindEntityManager(application.Scene?.Managers.EntityManager);
             RenderModuleService.GetService<Vicold.Atmospex.Core.ICoreModuleService>()?.OnViewStart?.Invoke();
 
+            interactionService.MouseMoveChangedEvent += (s, args) =>
+            {
+                earthModuleService?.ChangeMouse(args.WorldPosition.X, args.WorldPosition.Y, args.ScreenPosition.X, args.ScreenPosition.Y);
+            };
         }
 
         private static void ConfigureGraphicsContext(Evergine.Framework.Application application, WinUISurface surface, string displayName)

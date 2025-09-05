@@ -77,8 +77,8 @@ public class EverBatchLine2 : Drawable3D
             Color lineColor = Color.FromVector4(ref c);
             for (int i = 0; i < line.Data.Length - 1; i++)
             {
-                Vector2 startPoint = new(line.Data[i].X / 1000, line.Data[i].Y / 1000);
-                Vector2 endPoint = new(line.Data[i + 1].X / 1000, line.Data[i + 1].Y / 1000);
+                Vector2 startPoint = new(line.Data[i].X, line.Data[i].Y);
+                Vector2 endPoint = new(line.Data[i + 1].X, line.Data[i + 1].Y);
 
                 if (this.UseBezierCurve)
                 {

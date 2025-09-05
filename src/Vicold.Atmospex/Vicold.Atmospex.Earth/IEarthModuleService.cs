@@ -21,9 +21,19 @@ public interface IEarthModuleService : IModuleService
         get;
     }
 
+
+    float WorldScale
+    {
+        set; get;
+    }
+
     event MapChangedEventHandler OnMapChanged;
 
     event MapChangedEventHandler OnMapCreated;
 
+    event InteractionChangedEventHandler OnMouseMoved;
+
     void ChangeScale(float scale);
+
+    void ChangeMouse(float worldX, float worldY, float screenX, float screenY);
 }

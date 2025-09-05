@@ -6,7 +6,9 @@ using Evergine.Framework.Graphics.Effects;
 using Evergine.Framework.Managers;
 using Evergine.Framework.Services;
 using System;
+using Vicold.Atmospex.Core;
 using Vicold.Atmospex.CoreService;
+using Vicold.Atmospex.Earth;
 using Vicold.Atmospex.Layer;
 using Vicold.Atmospex.Render.Frame.Layers;
 
@@ -40,7 +42,7 @@ public class RenderModuleService : IRenderModuleService
     {
         layerModuleService.LayerManager.OnLayerAdded += (s, e) =>
         {
-            if (e.Layer is IRenderLayer el&& _entityManager is { })
+            if (e.Layer is IRenderLayer el && _entityManager is { })
             {
                 el.Draw(_entityManager);
             }

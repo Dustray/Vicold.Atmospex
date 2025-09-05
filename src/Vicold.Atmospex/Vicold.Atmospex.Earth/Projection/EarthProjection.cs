@@ -7,24 +7,23 @@ using System.Threading.Tasks;
 
 namespace Vicold.Atmospex.Earth.Projection
 {
-    public abstract class  EarthProjection : IProjection
+    public abstract class EarthProjection(ProjectionInfo info) : IProjection
     {
-        public int ID { get; set; }
+        public int ID
+        {
+            get; set;
+        }
 
-        protected Earth2D _bounds;
+        protected Earth2D _bounds = new Earth2D();
 
-        public ProjectionInfo Info { get; protected set; }
+        public ProjectionInfo Info
+        {
+            get; protected set;
+        } = info;
 
         public const double RAD_TO_DEG = 57.29577951308232;
 
         public const double DEG_TO_RAD = .0174532925199432958;
-
-        public EarthProjection(ProjectionInfo info)
-        {
-            Info = info;
-            _bounds = new Earth2D();
-        }
-
 
         protected void _CalculateMapBounds(ProjectionInfo info)
         {
@@ -100,10 +99,24 @@ namespace Vicold.Atmospex.Earth.Projection
             _bounds.SetExtents(min, max);
         }
 
-         
-        public abstract bool Index2Geo(double x, double y, out double lon, out double lat);
+        public bool Index2Geo(double x, double y, out double lon, out double lat)
+        {
+            var res =  Index2GeoInternal(x, y, out lon, out lat);
+            lon *= Info.WorldScale;
+            lat *= Info.WorldScale;
+            return res;
+        }
+        public bool Geo2Index(double lon, double lat, out double x, out double y)
+        {
+            var res =Geo2IndexInternal(lon, lat, out x, out y);
+            x /= Info.WorldScale;
+            y /= Info.WorldScale;
+            return res;
+        }
 
-        public abstract bool Geo2Index(double lon, double lat, out double x, out double y);
+        public abstract bool Index2GeoInternal(double x, double y, out double lon, out double lat);
+
+        public abstract bool Geo2IndexInternal(double lon, double lat, out double x, out double y);
 
 
         public void Dispose()

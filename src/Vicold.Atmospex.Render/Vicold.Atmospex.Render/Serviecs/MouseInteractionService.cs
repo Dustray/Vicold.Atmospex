@@ -33,6 +33,19 @@ public class LocalScaleEventArgs(float localScale, Vector3 position) : EventArgs
     } = position;
 }
 
+
+public class MouseMoveEventArgs(Vector2 screenPosition, Vector2 worldPosition) : EventArgs
+{
+    public Vector2 ScreenPosition
+    {
+        get; set;
+    } = screenPosition;
+    public Vector2 WorldPosition
+    {
+        get; set;
+    } = worldPosition;
+}
+
 public enum MouseScrollMode
 {
     Move,
@@ -94,6 +107,7 @@ public class MouseInteractionService : Service
     public event EventHandler<ResetCameraEventArgs> CameraReset;
     public event EventHandler CameraHeightChangedEvent;
     public event EventHandler<LocalScaleEventArgs> LocalScaleChangedEvent;
+    public event EventHandler<MouseMoveEventArgs> MouseMoveChangedEvent;
 
     public void SetPosition(Vector3? initPosition, Vector3? initRotation)
     {
@@ -319,6 +333,17 @@ public class MouseInteractionService : Service
         #endregion
 
         return new Vector2(worldX, worldY);
+    }
+
+    internal void MouseMove(Point position, Camera camera)
+    {
+        if (MouseMoveChangedEvent is { })
+        {
+            var worldOffset = Screen2World(position, camera);
+            var worldPosition = new Vector2(_x, _y) + worldOffset;
+            // 触发鼠标移动事件
+            MouseMoveChangedEvent.Invoke(this, new(position.ToVector2(), worldPosition));
+        }
     }
 
     public Vector3 CameraPosition => new(_x, _y, _z);

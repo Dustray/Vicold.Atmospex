@@ -29,7 +29,7 @@ namespace Vicold.Atmospex.Earth.Projection
             _ctf_W2G = transformation.CreateFromCoordinateSystems(utm33, GeographicCoordinateSystem.WGS84);
         }
 
-        public override bool Geo2Index(double lon, double lat, out double x, out double y)
+        public override bool Geo2IndexInternal(double lon, double lat, out double x, out double y)
         {
             lon = GeographyAlgorithm.StandardLongitudeConvert(lon, -180, 180);
             var s = _ctf_G2W.MathTransform.Transform(new double[] { lon, lat });
@@ -38,7 +38,7 @@ namespace Vicold.Atmospex.Earth.Projection
             return true;
         }
 
-        public override bool Index2Geo(double x, double y, out double lon, out double lat)
+        public override bool Index2GeoInternal(double x, double y, out double lon, out double lat)
         {
             var s = _ctf_G2W.MathTransform.Transform(new double[] { x * 10000, y * 10000 });
             lon = s[0];

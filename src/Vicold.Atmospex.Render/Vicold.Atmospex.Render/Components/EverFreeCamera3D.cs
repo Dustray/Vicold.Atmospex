@@ -121,6 +121,8 @@ internal class EverFreeCamera3D : FreeCamera3D
                     service.DragRotating(mouseDispatcher.Position, camera, true);
                     break;
             }
+
+            service.MouseMove(mouseDispatcher.Position, camera);
         }
 
         var keyboardDispatcher = graphicsPresenter.FocusedDisplay?.KeyboardDispatcher;

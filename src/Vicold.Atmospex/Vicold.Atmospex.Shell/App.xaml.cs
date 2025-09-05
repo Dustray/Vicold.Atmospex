@@ -6,6 +6,7 @@ using Vicold.Atmospex.Data;
 using Vicold.Atmospex.Earth;
 using Vicold.Atmospex.Earth.Map;
 using Vicold.Atmospex.Layer;
+using Vicold.Atmospex.Render.Frame;
 using Vicold.Atmospex.Render.Frame.Layers;
 using Vicold.Atmospex.Shell.Activation;
 using Vicold.Atmospex.Shell.Contracts.Services;
@@ -105,7 +106,10 @@ public partial class App : Application
         App.GetService<IAppNotificationService>().Initialize();
         App.GetService<Vicold.Atmospex.Configration.IConfigModuleService>().Initialize();
         App.GetService<IDataModuleService>().Initialize();
-        App.GetService<IEarthModuleService>().Initialize();
+        var earth = App.GetService<IEarthModuleService>();
+        earth.WorldScale = 1000;
+        earth.Initialize();
+
         App.GetService<ILayerModuleService>().Initialize();
         App.GetService<Vicold.Atmospex.Core.ICoreModuleService>().Initialize();
         App.GetService<Vicold.Atmospex.FileSystem.IFileSystemModuleService>().Initialize();

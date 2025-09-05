@@ -16,7 +16,7 @@ namespace Vicold.Atmospex.Earth.Projection
             ID = 1;
         }
 
-        public override bool Geo2Index(double lon, double lat, out double x, out double y)
+        public override bool Geo2IndexInternal(double lon, double lat, out double x, out double y)
         {
             lon = GeographyAlgorithm.StandardLongitudeConvert(lon, -180, 180);
 
@@ -25,7 +25,7 @@ namespace Vicold.Atmospex.Earth.Projection
             return true;
         }
 
-        public override bool Index2Geo(double x, double y, out double lon, out double lat)
+        public override bool Index2GeoInternal(double x, double y, out double lon, out double lat)
         {
             lon = x / _interval;
 

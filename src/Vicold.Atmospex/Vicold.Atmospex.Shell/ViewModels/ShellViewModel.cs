@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Navigation;
-
+using Vicold.Atmospex.Earth;
 using Vicold.Atmospex.Shell.Contracts.Services;
 
 namespace Vicold.Atmospex.Shell.ViewModels;
@@ -35,7 +35,29 @@ public partial class ShellViewModel : ObservableRecipient
         get;
     }
 
-    public ShellViewModel(INavigationService navigationService)
+    private float _longtitude = 0;
+    public float Longtitude
+    {
+        get => _longtitude;
+        set
+        {
+            _longtitude = value;
+            OnPropertyChanged(nameof(Longtitude));
+        }
+    }
+
+    private float _latitude = 0;
+    public float Latitude
+    {
+        get => _latitude;
+        set
+        {
+            _latitude = value;
+            OnPropertyChanged(nameof(Latitude));
+        }
+    }
+
+    public ShellViewModel(INavigationService navigationService, IEarthModuleService earthModuleService)
     {
         NavigationService = navigationService;
         NavigationService.Navigated += OnNavigated;
@@ -43,6 +65,13 @@ public partial class ShellViewModel : ObservableRecipient
         MenuFileExitCommand = new RelayCommand(OnMenuFileExit);
         MenuSettingsCommand = new RelayCommand(OnMenuSettings);
         MenuViewsMainCommand = new RelayCommand(OnMenuViewsMain);
+
+
+        earthModuleService.OnMouseMoved += (s, args) =>
+        {
+            Longtitude = args.GeoCoordinate.X;
+            Latitude = args.GeoCoordinate.Y;
+        };
     }
 
     private void OnNavigated(object sender, NavigationEventArgs e) => IsBackEnabled = NavigationService.CanGoBack;
