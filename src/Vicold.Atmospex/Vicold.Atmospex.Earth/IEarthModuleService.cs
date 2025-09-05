@@ -20,7 +20,6 @@ public interface IEarthModuleService : IModuleService
     {
         get;
     }
-    Task InitMap();
 
     event MapChangedEventHandler OnMapChanged;
 

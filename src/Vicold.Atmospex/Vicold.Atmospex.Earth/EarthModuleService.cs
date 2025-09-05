@@ -44,25 +44,6 @@ public class EarthModuleService : IEarthModuleService
         get; private set;
     }
 
-    public Task InitMap()
-    {
-        return Task.Run(() =>
-        {
-            //        var mapHolder = new MapHolder();
-
-            //        var worldLayerLine = new LineLayer(mapHolder.WorldLineProvider, "rmias_world_line");
-            //        //var worldLayerPolygon = new LineLayer(mapHolder.WorldPolygonProvider, "rmias_world_polygon");
-            //        var chinaCoastalLayer = new LineLayer(mapHolder.ChinaCoastalProvider, "rmias_china_line");
-            //        var geoGridLayer = new LineLayer(mapHolder.GeoGridProvider, "rmias_geo_line");
-            //        var geoFontLayer = new FontLayer(mapHolder.GeoFontProvider, "rmias_geo_value");
-
-            //        var manager = _globalBus.GetTransport<ILayerManager>();
-            //        manager.AddLayer(geoGridLayer);
-            //        manager.AddLayer(geoFontLayer);
-            //        manager.AddLayer(worldLayerLine);
-            //        manager.AddLayer(chinaCoastalLayer);
-        });
-    }
 
     public void ChangeScale(float scale)
     {
@@ -78,7 +59,7 @@ public class EarthModuleService : IEarthModuleService
     public void Initialize()
     {
         Current = this;
-        ChangeProjection(ProjectionType.EqualLonLat);
+        ChangeProjection(ProjectionType.CloseToReal);
     }
 
 
@@ -92,9 +73,13 @@ public class EarthModuleService : IEarthModuleService
         {
             CurrentProjection = new Projection4EqualLonLat(ProjectionInfo);
         }
+        else if (projectionType == ProjectionType.CloseToReal)
+        {
+            CurrentProjection = new Projection4CloseToReal(ProjectionInfo);
+        }
     }
 
-    private ProjectionInfo CreateProjectionInfo(double lonCenter)
+    private static ProjectionInfo CreateProjectionInfo(double lonCenter)
     {
         var west = lonCenter - 180;
         var east = lonCenter + 180;

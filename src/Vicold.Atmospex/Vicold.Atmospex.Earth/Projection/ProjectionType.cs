@@ -14,5 +14,9 @@ namespace Vicold.Atmospex.Earth.Projection
         /// 等经纬度投影
         /// </summary>
         EqualLonLat,
+        /// <summary>
+        /// 近似真实投影
+        /// </summary>
+        CloseToReal,
     }
 }
