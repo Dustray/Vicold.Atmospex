@@ -36,6 +36,9 @@ namespace Vicold.Atmospex.Style
             };
             switch (palette.RenderType)
             {
+                case "Polygon":
+                    colorPalette.RenderType = RenderType.Polygon;
+                    break;
                 case "Contour":
                     colorPalette.RenderType = RenderType.Contour;
                     break;

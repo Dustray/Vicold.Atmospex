@@ -206,6 +206,32 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             return linesNode;
         }
 
+        protected override ILayerNode? CreatePolygonsNode(string ID, IVectorDataProvider provider, IProjection prj)
+        {
+            var vectorData = provider.GetData();
+            if (vectorData is LineData lineData)
+            {
+                var polygons = LineConverterTool.ToVectorLines(lineData, prj);
+                var polygonsNode = new RenderPolygonsNode(polygons, LayerDescription)
+                {
+                    ID = ID
+                };
+                return polygonsNode;
+            }
+
+            return null;
+        }
+
+        protected override ILayerNode? CreatePolygonsNode(string ID, LineData lineData, IProjection prj)
+        {
+            var polygons = LineConverterTool.ToVectorLines(lineData, prj);
+            var polygonsNode = new RenderPolygonsNode(polygons, LayerDescription)
+            {
+                ID = ID
+            };
+            return polygonsNode;
+        }
+
         protected override ILayerNode? CreateTextureNode(string ID, GridDataProvider provider, IPalette palette, IProjection prj)
         {
             provider.LoadData();
@@ -265,6 +291,28 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             if (texture is RenderTextureNode renderTexture && newImage is { })
             {
                 renderTexture.ResetImage(newImage);
+            }
+        }
+
+        protected override void ReCreatePolygonsNode(LinesNode polygonsNode, IVectorDataProvider provider, IProjection prj)
+        {
+            if (polygonsNode is RenderPolygonsNode renderPolygonsNode)
+            {
+                var vectorData = provider.GetData();
+                if (vectorData is LineData lineData)
+                {
+                    var polygons = LineConverterTool.ToVectorLines(lineData, prj);
+                    polygonsNode.ResetLines(polygons);
+                }
+            }
+        }
+
+        protected override void ReCreatePolygonsNode(LinesNode polygonsNode, LineData lineData, IProjection prj)
+        {
+            if (polygonsNode is RenderPolygonsNode renderPolygonsNode)
+            {
+                var polygons = LineConverterTool.ToVectorLines(lineData, prj);
+                polygonsNode.ResetLines(polygons);
             }
         }
 

@@ -11,6 +11,7 @@ namespace Vicold.Atmospex.Style
     {
         Bitmap,
         Contour,
+        Polygon,
     }
 
     public class ColorPalette : IPalette

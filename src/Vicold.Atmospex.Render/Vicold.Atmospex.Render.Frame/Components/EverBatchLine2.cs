@@ -14,28 +14,28 @@ public class EverBatchLine2 : Drawable3D
     [BindService]
     private AssetsService assetsService = null;
 
-    private GraphicsContext graphicsContext;
-    private LineBatch3D lineBatch;
-    private RenderLayerDescription renderLayer;
+    private GraphicsContext? graphicsContext;
+    private LineBatch3D? lineBatch;
+    private readonly RenderLayerDescription? renderLayer;
 
-    public VectorLine[] Lines { get; set; }
+    public VectorLine[] Lines { get; set; } = [];
     public bool UseBezierCurve { get; set; } = false;
     public float LineThickness { get; set; } = 0.01f;
 
     public EverBatchLine2(RenderLayerDescription layer)
     {
-        this.renderLayer = layer;
+        renderLayer = layer;
     }
 
     protected override bool OnAttached()
     {
-        this.graphicsContext = Application.Current.Container.Resolve<GraphicsContext>();
+        graphicsContext = Application.Current.Container.Resolve<GraphicsContext>();
 
         // Create custom line batch 3D
-        this.lineBatch = new LineBatch3D(this.graphicsContext, this.renderLayer);
+        lineBatch = new LineBatch3D(graphicsContext, renderLayer);
 
         // Add line batch to render
-        this.Managers.RenderManager.AddRenderObject(this.lineBatch);
+        Managers.RenderManager.AddRenderObject(lineBatch);
 
         return base.OnAttached();
     }
@@ -43,31 +43,39 @@ public class EverBatchLine2 : Drawable3D
     protected override void OnActivated()
     {
         // Enable line batch when the component is activated
-        this.lineBatch.IsEnabled = true;
+        if (lineBatch is { })
+        {
+            lineBatch.IsEnabled = true;
+        }
+
         base.OnActivated();
     }
 
     protected override void OnDeactivated()
     {
         // Disable line batch when the component is deactivated
-        this.lineBatch.IsEnabled = false;
+        if (lineBatch is { })
+        {
+            lineBatch.IsEnabled = false;
+        }
+
         base.OnDeactivated();
     }
 
     protected override void OnDetach()
     {
         // Remove line batch from render when the component is detached
-        this.Managers.RenderManager.RemoveRenderObject(this.lineBatch);
+        Managers.RenderManager.RemoveRenderObject(lineBatch);
         base.OnDetach();
     }
 
     public void UpdateLines()
     {
-        if (this.lineBatch == null || this.Lines == null || this.Lines.Length == 0)
+        if (lineBatch == null || Lines.Length == 0)
             return;
 
         // Clear previous lines
-        foreach (var line in this.Lines)
+        foreach (var line in Lines)
         {
             if (line.Data.Length < 2)
                 continue;
@@ -80,7 +88,7 @@ public class EverBatchLine2 : Drawable3D
                 Vector2 startPoint = new(line.Data[i].X, line.Data[i].Y);
                 Vector2 endPoint = new(line.Data[i + 1].X, line.Data[i + 1].Y);
 
-                if (this.UseBezierCurve)
+                if (UseBezierCurve)
                 {
                     // Use Bezier curve
                     Vector3 p0 = new(startPoint.X, startPoint.Y, 0);
@@ -94,14 +102,14 @@ public class EverBatchLine2 : Drawable3D
                     {
                         float t = j / 10.0f;
                         Vector3 currentPoint = Bezier(p0, p1, p2, p3, t);
-                        this.lineBatch.DrawLine(previousPoint, currentPoint, lineColor);
+                        lineBatch.DrawLine(previousPoint, currentPoint, lineColor);
                         previousPoint = currentPoint;
                     }
                 }
                 else
                 {
                     // Draw line directly
-                    this.lineBatch.DrawLine(
+                    lineBatch.DrawLine(
                         new Vector3(startPoint.X, startPoint.Y, 0),
                         new Vector3(endPoint.X, endPoint.Y, 0),
                         lineColor);

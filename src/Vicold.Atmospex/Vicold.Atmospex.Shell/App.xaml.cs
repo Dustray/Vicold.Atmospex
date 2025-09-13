@@ -133,7 +133,7 @@ public partial class App : Application
 
                 var worldLayerLine = new RenderLineLayer(mapHolder.WorldLineProvider, "rmias_world_line");
                 //var worldLayerPolygon = new RenderLineLayer(mapHolder.WorldPolygonProvider, "rmias_world_polygon");
-                var chinaCoastalLayer = new RenderLineLayer(mapHolder.ChinaCoastalProvider, "rmias_china_line");
+                var chinaCoastalLayer = new RenderLineLayer(mapHolder.ChinaCoastalProvider, "rmias_china_line", Style.RenderType.Contour);
                 var geoGridLayer = new RenderLineLayer(mapHolder.GeoGridProvider, "rmias_geo_line");
                 //var geoFontLayer = new FontLayer(mapHolder.GeoFontProvider, "rmias_geo_value");
 

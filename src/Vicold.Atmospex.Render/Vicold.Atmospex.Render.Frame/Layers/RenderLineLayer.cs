@@ -7,43 +7,62 @@ using Vicold.Atmospex.Earth.Projection;
 using Vicold.Atmospex.Earth.Tool;
 using Vicold.Atmospex.Layer;
 using Vicold.Atmospex.Render.Frame.Nodes;
+using Vicold.Atmospex.Style;
 
 namespace Vicold.Atmospex.Render.Frame.Layers
 {
     public class RenderLineLayer : LineLayer, IRenderLayer
     {
-        public RenderLineLayer(IVectorDataProvider provider, string id) : base(provider, id)
-    {
-        LayerDescription = new()
+        private RenderType _renderType;
+        public RenderLineLayer(IVectorDataProvider provider, string id, RenderType renderType = RenderType.Contour) : base(provider, id)
         {
-            RenderState = new RenderStateDescription()
+            _renderType = renderType;
+            LayerDescription = new()
             {
-                RasterizerState = new RasterizerStateDescription()
+                RenderState = new RenderStateDescription()
                 {
-                    CullMode = CullMode.Back,
-                    FillMode = FillMode.Wireframe,
+                    RasterizerState = new RasterizerStateDescription()
+                    {
+                        CullMode = CullMode.Back,
+                        FillMode = FillMode.Wireframe,
+                    },
+                    BlendState = BlendStates.Opaque,
+                    DepthStencilState = DepthStencilStates.ReadWrite,
                 },
-                BlendState = BlendStates.Opaque,
-                DepthStencilState = DepthStencilStates.ReadWrite,
-            },
-            Order = 0,
-            SortMode = SortMode.FrontToBack,
-        };
-    }
+                Order = 0,
+                SortMode = SortMode.FrontToBack,
+            };
+        }
 
         public RenderLayerDescription LayerDescription { get; private set; }
 
         protected override ILayerNode? CreateLinesNode(string ID, IVectorDataProvider provider, IProjection prj)
         {
             var vectorData = provider.GetData();
-            if (vectorData is LineData lineData)
+            if (_renderType == RenderType.Contour)
             {
-                var lines = LineConverterTool.ToVectorLines(lineData, prj);
-                var linesNode = new RenderLinesNode(lines, LayerDescription)
+
+                if (vectorData is LineData lineData)
                 {
-                    ID = ID
-                };
-                return linesNode;
+                    var lines = LineConverterTool.ToVectorLines(lineData, prj);
+                    var linesNode = new RenderLinesNode(lines, LayerDescription)
+                    {
+                        ID = ID
+                    };
+                    return linesNode;
+                }
+            }
+            else if (_renderType == RenderType.Polygon)
+            {
+                if (vectorData is LineData polygonData)
+                {
+                    var lines = LineConverterTool.ToVectorLines(polygonData, prj);
+                    var linesNode = new RenderPolygonsNode(lines, LayerDescription)
+                    {
+                        ID = ID
+                    };
+                    return linesNode;
+                }
             }
 
             return null;

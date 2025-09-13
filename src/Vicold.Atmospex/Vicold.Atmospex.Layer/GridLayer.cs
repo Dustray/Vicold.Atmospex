@@ -24,11 +24,16 @@ public abstract class GridLayer : Layer
     protected abstract ILayerNode? CreateLinesNode(string ID, LineData lineData, IProjection prj);
     protected abstract void ReCreateLinesNode(LinesNode texture, LineData lineData, IProjection prj);
 
+    protected abstract ILayerNode? CreatePolygonsNode(string ID, IVectorDataProvider provider, IProjection prj);
+    protected abstract void ReCreatePolygonsNode(LinesNode texture, IVectorDataProvider provider, IProjection prj);
+    protected abstract ILayerNode? CreatePolygonsNode(string ID, LineData lineData, IProjection prj);
+    protected abstract void ReCreatePolygonsNode(LinesNode texture, LineData lineData, IProjection prj);
+
     public override void Render(IProjection projection)
     {
         base.Render(projection);
 
-        if(DataProvider is not GridDataProvider provider)
+        if (DataProvider is not GridDataProvider provider)
         {
             throw new Exception("未指定Provider");
         }
@@ -70,7 +75,7 @@ public abstract class GridLayer : Layer
                 ReCreateTextureNode((TextureNode)_layerNode, provider, Style.Palette, projection);
             }
         }
-        else if (Style.Palette.RenderType == RenderType.Contour)
+        else if (Style.Palette.RenderType == RenderType.Contour || Style.Palette.RenderType == RenderType.Polygon)
         {
             LayerZLevel = LayerLevel.High;
 
@@ -129,19 +134,39 @@ public abstract class GridLayer : Layer
                 }
             }
 
-            if (_layerNode == null)
+            if (Style.Palette.RenderType == RenderType.Contour)
             {
-                var texture = CreateLinesNode(ID, lineData, projection);
-                if (texture != null)
+                if (_layerNode == null)
                 {
-                    texture.SetLevel((int)LayerZLevel + ZIndex);
-                }
+                    var texture = CreateLinesNode(ID, lineData, projection);
+                    if (texture != null)
+                    {
+                        texture.SetLevel((int)LayerZLevel + ZIndex);
+                    }
 
-                _layerNode = texture;
+                    _layerNode = texture;
+                }
+                else
+                {
+                    ReCreateLinesNode((LinesNode)_layerNode, lineData, projection);
+                }
             }
             else
             {
-                ReCreateLinesNode((LinesNode)_layerNode, lineData, projection);
+                if (_layerNode == null)
+                {
+                    var texture = CreatePolygonsNode(ID, lineData, projection);
+                    if (texture != null)
+                    {
+                        texture.SetLevel((int)LayerZLevel + ZIndex);
+                    }
+
+                    _layerNode = texture;
+                }
+                else
+                {
+                    ReCreatePolygonsNode((LinesNode)_layerNode, lineData, projection);
+                }
             }
         }
     }
