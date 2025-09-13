@@ -31,15 +31,15 @@ namespace Vicold.Atmospex.Earth.Projection
 
             if (y > 0)
             {// 北纬
-                var bfang = _interval * _interval - (4 * y * _interval) / _intervalV;
+                var bfang = _interval * _interval + (4 * y * _interval) / _intervalV;
                 lat = (-_interval + Math.Sqrt(bfang)) / (2 * _interval / _intervalV);
             }
             else
             {// 南纬
-                var bfang = _interval * _interval + (4 * y * _interval) / _intervalV; // b方-4ac
+                var bfang = _interval * _interval - (4 * y * _interval) / _intervalV; // b方-4ac
                 lat = (_interval - Math.Sqrt(bfang)) / (2 * _interval / _intervalV);
             }
-
+            //lat = -lat;
             return true;
         }
     }

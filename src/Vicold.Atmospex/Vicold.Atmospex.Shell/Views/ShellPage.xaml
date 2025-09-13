@@ -5,9 +5,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:local="using:Vicold.Atmospex.Shell.Helpers.Converters"
     Loaded="OnLoaded"
     Unloaded="OnUnloaded"
     mc:Ignorable="d">
+    <Page.Resources>
+        <local:FloatFormatConverter x:Key="FloatFormatConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32" />
@@ -78,9 +82,9 @@
         <Grid Grid.Row="4"  x:Name="FootBar" Padding="5">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Longitude: " Margin="10,0,0,0"/>
-                <TextBlock x:Name="LongitudeTextBlock" Text="{x:Bind ViewModel.Longtitude, Mode=OneWay}"/>
+                <TextBlock x:Name="LongitudeTextBlock" Text="{x:Bind ViewModel.LongtitudeDisplay, Mode=OneWay}" Width="100"/>
                 <TextBlock Text="Latitude: " />
-                <TextBlock x:Name="LatitudeTextBlock" Text="{x:Bind ViewModel.Latitude, Mode=OneWay}"/>
+                <TextBlock x:Name="LatitudeTextBlock" Text="{x:Bind ViewModel.LatitudeDisplay, Mode=OneWay}" Width="100"/>
             </StackPanel>
         </Grid>
     </Grid>

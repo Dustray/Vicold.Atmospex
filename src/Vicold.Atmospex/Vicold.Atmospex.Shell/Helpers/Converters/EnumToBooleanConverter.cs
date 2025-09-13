@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
 
-namespace Vicold.Atmospex.Shell.Helpers;
+namespace Vicold.Atmospex.Shell.Helpers.Converters;
 
 public class EnumToBooleanConverter : IValueConverter
 {

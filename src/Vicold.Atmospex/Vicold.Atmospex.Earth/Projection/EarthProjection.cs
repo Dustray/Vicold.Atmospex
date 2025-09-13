@@ -101,9 +101,9 @@ namespace Vicold.Atmospex.Earth.Projection
 
         public bool Index2Geo(double x, double y, out double lon, out double lat)
         {
+            x *= Info.WorldScale;
+            y *= Info.WorldScale;
             var res =  Index2GeoInternal(x, y, out lon, out lat);
-            lon *= Info.WorldScale;
-            lat *= Info.WorldScale;
             return res;
         }
         public bool Geo2Index(double lon, double lat, out double x, out double y)

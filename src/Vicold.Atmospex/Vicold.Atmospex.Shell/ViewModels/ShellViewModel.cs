@@ -42,7 +42,7 @@ public partial class ShellViewModel : ObservableRecipient
         set
         {
             _longtitude = value;
-            OnPropertyChanged(nameof(Longtitude));
+            OnPropertyChanged(nameof(LongtitudeDisplay));
         }
     }
 
@@ -53,9 +53,13 @@ public partial class ShellViewModel : ObservableRecipient
         set
         {
             _latitude = value;
-            OnPropertyChanged(nameof(Latitude));
+            OnPropertyChanged(nameof(LatitudeDisplay));
         }
     }
+
+    public string LongtitudeDisplay => $"{Math.Abs(Math.Min(180, Math.Max(-180,Longtitude))):F4}° {(Longtitude >= 0 ? "E" : "W")}";
+    public string LatitudeDisplay => $"{Math.Abs(Math.Min(90, Math.Max(-90, Latitude))):F4}° {(Latitude >= 0 ? "N" : "S")}";
+
 
     public ShellViewModel(INavigationService navigationService, IEarthModuleService earthModuleService)
     {
