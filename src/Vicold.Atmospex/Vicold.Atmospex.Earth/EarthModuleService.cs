@@ -7,6 +7,7 @@ namespace Vicold.Atmospex.Earth;
 public class EarthModuleService : IEarthModuleService
 {
     private static IAppService? _appService;
+    private ProjectionType _projectionType;
     public static EarthModuleService? Current
     {
         get; private set;
@@ -16,6 +17,7 @@ public class EarthModuleService : IEarthModuleService
     {
         _appService = appService;
         Current = this;
+        _projectionType = ProjectionType.CloseToReal;
     }
 
 
@@ -50,6 +52,8 @@ public class EarthModuleService : IEarthModuleService
         get; set;
     } = 1;
 
+    public ProjectionType Projection => _projectionType;
+
     public void ChangeScale(float scale)
     {
         Scale = scale;
@@ -65,12 +69,18 @@ public class EarthModuleService : IEarthModuleService
     {
         Current = this;
         ProjectionInfo = CreateProjectionInfo(0);
-        ChangeProjection(ProjectionType.CloseToReal);
+        ChangeProjection(_projectionType);
     }
 
 
     public void ChangeProjection(ProjectionType projectionType)
     {
+        if (CurrentProjection is { } && projectionType == _projectionType)
+        {
+            return;
+        }
+
+        _projectionType = projectionType;
         if (projectionType == ProjectionType.Mercator)
         {
             CurrentProjection = new Projection4Mercator(ProjectionInfo);

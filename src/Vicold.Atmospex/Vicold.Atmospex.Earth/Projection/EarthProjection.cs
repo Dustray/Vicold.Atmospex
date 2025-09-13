@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vicold.Atmospex.Algorithm;
 
 namespace Vicold.Atmospex.Earth.Projection
 {
@@ -108,6 +109,7 @@ namespace Vicold.Atmospex.Earth.Projection
         }
         public bool Geo2Index(double lon, double lat, out double x, out double y)
         {
+            lon = GeographyAlgorithm.StandardLongitudeConvert(lon, -180, 180);
             var res =Geo2IndexInternal(lon, lat, out x, out y);
             x /= Info.WorldScale;
             y /= Info.WorldScale;

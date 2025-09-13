@@ -16,6 +16,7 @@ public interface IEarthModuleService : IModuleService
     }
 
     void ChangeProjection(ProjectionType projectionType);
+
     float Scale
     {
         get;
@@ -25,6 +26,11 @@ public interface IEarthModuleService : IModuleService
     float WorldScale
     {
         set; get;
+    }
+
+    ProjectionType Projection
+    {
+        get;
     }
 
     event MapChangedEventHandler OnMapChanged;

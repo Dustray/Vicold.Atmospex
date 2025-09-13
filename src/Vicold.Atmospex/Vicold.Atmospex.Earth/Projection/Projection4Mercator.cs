@@ -12,35 +12,55 @@ namespace Vicold.Atmospex.Earth.Projection
     public class Projection4Mercator : EarthProjection
     {
 
-        private ICoordinateTransformation _ctf_G2W;
-        private ICoordinateTransformation _ctf_W2G;
+        private readonly ICoordinateTransformation _ctf_G2W;
+        private readonly ICoordinateTransformation _ctf_W2G;
 
         public Projection4Mercator(ProjectionInfo info) : base(info)
         {
-            var system = new CoordinateSystemFactory();
             var transformation = new CoordinateTransformationFactory();
-            //ICoordinateTransformation trans = transformation.CreateFromCoordinateSystems(GeographicCoordinateSystem.WGS84, toCS);
-            var utm35ETRS = system.CreateFromWkt(
-                    "PROJCS[\"ETRS89 / ETRS-TM35\",GEOGCS[\"ETRS89\",DATUM[\"D_ETRS_1989\",SPHEROID[\"GRS_1980\",6378137,298.257222101]],PRIMEM[\"Greenwich\",0],UNIT[\"Degree\",0.017453292519943295]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",27],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1]]");
-            // 带数=（经度整数位/6）的整数部分+31
-            var utm33 = ProjectedCoordinateSystem.WGS84_UTM(49, true);
 
-            _ctf_G2W = transformation.CreateFromCoordinateSystems(GeographicCoordinateSystem.WGS84, utm33);
-            _ctf_W2G = transformation.CreateFromCoordinateSystems(utm33, GeographicCoordinateSystem.WGS84);
+            // 使用WGS84地理坐标系作为源（经度范围-180到180）
+            var geographicCs = GeographicCoordinateSystem.WGS84;
+
+            // 使用Web Mercator作为目标投影
+            var webMercator = ProjectedCoordinateSystem.WebMercator;
+
+            // 创建转换器
+            _ctf_G2W = transformation.CreateFromCoordinateSystems(geographicCs, webMercator);
+            _ctf_W2G = transformation.CreateFromCoordinateSystems(webMercator, geographicCs);
         }
 
         public override bool Geo2IndexInternal(double lon, double lat, out double x, out double y)
         {
-            lon = GeographyAlgorithm.StandardLongitudeConvert(lon, -180, 180);
-            var s = _ctf_G2W.MathTransform.Transform(new double[] { lon, lat });
-            x = s[0] / 10000;
-            y = s[1] / 10000;
+            if (lon < -180)
+            {
+                lon = -180;
+            }
+
+            if (lon > 180)
+            {
+                lon = 180;
+            }
+
+            if (lat < -85.06)
+            {
+                lat = -85.06;
+            }
+
+            if (lat > 85.06)
+            {
+                lat = 85.06;
+            }
+
+            var s = _ctf_G2W.MathTransform.Transform([lon, lat]);
+            x = s[0] / 5000;
+            y = s[1] / 5000;
             return true;
         }
 
         public override bool Index2GeoInternal(double x, double y, out double lon, out double lat)
         {
-            var s = _ctf_G2W.MathTransform.Transform(new double[] { x * 10000, y * 10000 });
+            var s = _ctf_W2G.MathTransform.Transform([x * 5000, y * 5000]);
             lon = s[0];
             lat = s[1];
             return true;

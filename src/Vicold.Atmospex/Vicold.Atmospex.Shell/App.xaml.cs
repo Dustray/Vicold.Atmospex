@@ -5,6 +5,7 @@ using Vicold.Atmospex.CoreService;
 using Vicold.Atmospex.Data;
 using Vicold.Atmospex.Earth;
 using Vicold.Atmospex.Earth.Map;
+using Vicold.Atmospex.Earth.Projection;
 using Vicold.Atmospex.Layer;
 using Vicold.Atmospex.Render.Frame;
 using Vicold.Atmospex.Render.Frame.Layers;
@@ -109,6 +110,7 @@ public partial class App : Application
         var earth = App.GetService<IEarthModuleService>();
         earth.WorldScale = 1000;
         earth.Initialize();
+        earth.ChangeProjection(ProjectionType.CloseToReal);
 
         App.GetService<ILayerModuleService>().Initialize();
         App.GetService<Vicold.Atmospex.Core.ICoreModuleService>().Initialize();

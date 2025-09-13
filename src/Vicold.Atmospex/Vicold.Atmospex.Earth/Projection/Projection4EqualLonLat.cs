@@ -18,8 +18,6 @@ namespace Vicold.Atmospex.Earth.Projection
 
         public override bool Geo2IndexInternal(double lon, double lat, out double x, out double y)
         {
-            lon = GeographyAlgorithm.StandardLongitudeConvert(lon, -180, 180);
-
             x = lon * _interval;
             y = lat * _intervalV;
             return true;
