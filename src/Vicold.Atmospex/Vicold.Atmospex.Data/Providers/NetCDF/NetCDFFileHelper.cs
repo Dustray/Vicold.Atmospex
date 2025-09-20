@@ -13,7 +13,8 @@ namespace Vicold.Atmospex.Data.Provider.NetCDF
             try
             {
                 using (_ = new NetCDFDataSet(filePath, ResourceOpenMode.Open))
-                { }
+                {
+                }
                 return true;
             }
             catch (Exception e)

@@ -39,12 +39,12 @@ namespace Vicold.Atmospex.Render.Frame.Layers
                     RasterizerState = new RasterizerStateDescription()
                     {
                         CullMode = CullMode.Back,
-                        FillMode = FillMode.Wireframe,
+                        FillMode = FillMode.Solid,
                     },
                     BlendState = BlendStates.Opaque,
                     DepthStencilState = DepthStencilStates.ReadWrite,
                 },
-                Order = 0,
+                Order = -120,
                 SortMode = SortMode.FrontToBack,
             };
         }
@@ -79,7 +79,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
                 Usage = ResourceUsage.Default,
                 CpuAccess = ResourceCpuAccess.None,
                 Flags = TextureFlags.ShaderResource,
-                Format = PixelFormat.R8G8B8A8_UNorm,
+                Format = PixelFormat.R32G32B32A32_Float,
                 MipLevels = 1,
                 SampleCount = TextureSampleCount.None,
             };
@@ -88,8 +88,8 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             float[] imageData = GenerateImageData(provider, data, prj, bound, palette, bmp_width, bmp_height);
 
             // 计算行间距和切片间距
-            var rowPitch = Evergine.Common.Graphics.Helpers.GetRowPitch((uint)bmp_width, PixelFormat.R8G8B8A8_UNorm);
-            var slicePitch = Evergine.Common.Graphics.Helpers.GetSlicePitch(rowPitch, (uint)bmp_height, PixelFormat.R8G8B8A8_UNorm);
+            var rowPitch = Evergine.Common.Graphics.Helpers.GetRowPitch((uint)bmp_width, PixelFormat.R32G32B32A32_Float);
+            var slicePitch = Evergine.Common.Graphics.Helpers.GetSlicePitch(rowPitch, (uint)bmp_height, PixelFormat.R32G32B32A32_Float);
 
             // 固定数据以便获取指针
             var pinnedHandle = GCHandle.Alloc(imageData, GCHandleType.Pinned);
@@ -164,8 +164,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
                         else
                         {
                             ColorItem colorItem = palette.Select(ci);
-                            var c = new Vector4(colorItem.R, colorItem.G, colorItem.B, colorItem.A);
-                            color = Color.FromVector4(ref c);
+                            color = new Color(colorItem.R, colorItem.G, colorItem.B, colorItem.A);
                         }
 
                         int index = (yS * width + xS) * 4;

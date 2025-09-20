@@ -1,7 +1,7 @@
 {
     "Name":"temperature",
     "AutoValue":false,
-    "RenderType":"Contour",
+    "RenderType":"Bitmap",
     "Colors":[
         {"Value":-30, "RGBA":"100, 0, 100" },
         {"Value":-20, "RGBA":"175, 0, 175" },

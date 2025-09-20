@@ -8,6 +8,12 @@
             <DataPath>era5\reanalysis\total_precipitation\single\{0}</DataPath>
             <Style>temperature</Style>
         </Products>
+      <Products>
+        <Display>Temperature</Display>
+        <Key>t</Key>
+        <DataPath>era5\reanalysis\total_precipitation\single\{0}</DataPath>
+        <Style>temperature</Style>
+      </Products>
         <Products>
             <Display>Total Precipitation</Display>
             <Key>tp</Key>

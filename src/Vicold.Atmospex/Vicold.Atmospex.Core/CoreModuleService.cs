@@ -29,7 +29,7 @@ public class CoreModuleService : ICoreModuleService
 
     public void Initialize()
     {
-        _appService?.GetService<IConfigModuleService>()?.Init(new BootConfig() { WorkSpaceDebug = "J:\\Example\\RMIAS\\dist" });
+        //_appService?.GetService<IConfigModuleService>()?.Init(new BootConfig() { WorkSpaceDebug = "J:\\Example\\RMIAS\\dist" });
     }
 
     public Action? OnViewStart
