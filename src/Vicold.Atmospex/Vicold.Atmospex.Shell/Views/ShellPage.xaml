@@ -61,7 +61,7 @@
                         <KeyboardAccelerator Modifiers="Control" Key="D" />
                     </AppBarButton.KeyboardAccelerators>
                 </AppBarButton>
-                <AppBarButton Icon="Add" Label="Open"/>
+                <AppBarButton Icon="Add" Label="Open" Command="{x:Bind ViewModel.MenuFileOpenCommand}"/>
                 <AppBarButton Icon="Edit" Label="Edit"/>
                 <AppBarButton Icon="RepeatAll" Label="ResetView"/>
                 <AppBarButton Icon="Cancel" Label="Cancel"/>

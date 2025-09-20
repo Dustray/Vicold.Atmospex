@@ -41,14 +41,14 @@ public class ConfigModuleService : IConfigModuleService
     {
 
         var jsonPath = "./Config/boot.json";
-            BootConfig? bootConfig;
+        BootConfig? bootConfig;
         if (System.IO.File.Exists(jsonPath))
         {
             var bootJson = System.IO.File.ReadAllText(jsonPath);
             try
             {
                 bootConfig = JsonConvert.DeserializeObject<BootConfig>(bootJson);
-                if(bootConfig == null)
+                if (bootConfig == null)
                 {
                     throw new Exception("Boot configuration wrong.");
                 }
@@ -75,6 +75,7 @@ public class ConfigModuleService : IConfigModuleService
     public void Initialize()
     {
         Init(GetOrCreateBootConfig());
+        Environment.SetEnvironmentVariable("LIBNETCDFPATH", Path.GetFullPath("./dll"), EnvironmentVariableTarget.Process);
     }
 
     public void Init(BootConfig bootConfig)

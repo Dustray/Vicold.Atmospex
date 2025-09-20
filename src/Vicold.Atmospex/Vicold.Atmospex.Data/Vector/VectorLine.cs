@@ -5,6 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using static Vicold.Atmospex.Data.LineData;
 
 namespace Vicold.Atmospex.Data.Vector;
 public class VectorLine
@@ -15,6 +16,14 @@ public class VectorLine
     public VectorLine(int length)
     {
         _line = new Vector2[length];
+    }
+
+    public VectorLine(Vector2[] vector2s, Color lineColor, int lineWidth, Color fillColor)
+    {
+        _line = vector2s;
+        LineColor = lineColor;
+        FillColor = fillColor;
+        LineWidth = lineWidth;
     }
 
     public PolygonType PolygonType
@@ -38,6 +47,13 @@ public class VectorLine
     }
 
     public Vector2[] Data => _line;
+
+    public int LineWidth
+    {
+        get;
+        set;
+    } = 1;
+
     //public Vector2 this[int index]
     //{
     //    get

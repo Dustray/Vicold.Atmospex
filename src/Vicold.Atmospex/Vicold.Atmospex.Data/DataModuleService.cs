@@ -18,7 +18,7 @@ public class DataModuleService : IDataModuleService
     }
 
 
-    internal ProductKeeper Productor { get; } = new(Path.GetFullPath("."));
+    public ProductKeeper Productor { get; } = new(Path.GetFullPath("."));
 
     public void Initialize()
     {

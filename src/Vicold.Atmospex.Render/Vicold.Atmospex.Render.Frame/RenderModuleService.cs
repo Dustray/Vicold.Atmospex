@@ -8,6 +8,7 @@ using Evergine.Framework.Services;
 using System;
 using Vicold.Atmospex.Core;
 using Vicold.Atmospex.CoreService;
+using Vicold.Atmospex.Data;
 using Vicold.Atmospex.Earth;
 using Vicold.Atmospex.Layer;
 using Vicold.Atmospex.Render.Frame.Layers;
@@ -31,6 +32,16 @@ public class RenderModuleService : IRenderModuleService
 
     public void Initialize()
     {
+        var coreService = GetService<ICoreModuleService>();
+        if (coreService is { })
+        {
+            coreService.BindingGridLayer = (provider) =>
+            {
+                var graphicsContext = Application.Current.Container.Resolve<GraphicsContext>();
+                var layer = new RenderGridLayer(provider, graphicsContext);
+                return layer;
+            };
+        }
     }
 
     internal static T? GetService<T>() where T : class

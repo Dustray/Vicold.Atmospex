@@ -42,9 +42,22 @@
     <None Remove="data\style\palette\tp_dry_days_inyear.json" />
     <None Remove="data\style\palette\tp_dry_score.json" />
     <None Remove="data\style\palette\water_in_air.json" />
+    <None Remove="dll\concrt140.dll" />
+    <None Remove="dll\hdf5.dll" />
+    <None Remove="dll\hdf5_hl.dll" />
+    <None Remove="dll\hdf5_tools.dll" />
     <None Remove="dll\h_mchsq.dll" />
     <None Remove="dll\h_smth.dll" />
+    <None Remove="dll\libcurl.dll" />
+    <None Remove="dll\msvcp140.dll" />
+    <None Remove="dll\msvcp140_1.dll" />
+    <None Remove="dll\msvcp140_2.dll" />
+    <None Remove="dll\msvcp140_atomic_wait.dll" />
+    <None Remove="dll\msvcp140_codecvt_ids.dll" />
     <None Remove="dll\netcdf.dll" />
+    <None Remove="dll\vcruntime140.dll" />
+    <None Remove="dll\vcruntime140_1.dll" />
+    <None Remove="dll\zlib1.dll" />
     <None Remove="lib\HighContour.dll" />
     <None Remove="lib\HighSmooth.dll" />
     <None Remove="lib\h_smth.dll" />
@@ -157,13 +170,52 @@
     <Content Include="data\style\palette\water_in_air.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="dll\concrt140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\hdf5.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\hdf5_hl.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\hdf5_tools.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="dll\h_mchsq.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="dll\h_smth.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="dll\libcurl.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\msvcp140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\msvcp140_1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\msvcp140_2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\msvcp140_atomic_wait.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\msvcp140_codecvt_ids.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="dll\netcdf.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\vcruntime140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\vcruntime140_1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\zlib1.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="lib\HighContour.dll">

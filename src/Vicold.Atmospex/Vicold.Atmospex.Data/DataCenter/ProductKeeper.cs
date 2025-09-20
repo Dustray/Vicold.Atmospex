@@ -7,7 +7,7 @@ using Vicold.Atmospex.Configration;
 
 namespace Vicold.Atmospex.Data.DataCenter
 {
-    internal class ProductKeeper
+    public class ProductKeeper
     {
         private List<ProductGroup> _groups = new List<ProductGroup>();
 
