@@ -56,17 +56,17 @@
         </Grid>
         <Grid Grid.Row="2" VerticalAlignment="Center">
             <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" HorizontalAlignment="Left">
-                <AppBarButton Icon="Home" Label="Home" Command="{x:Bind ViewModel.MenuViewsMainCommand}">
+                <AppBarButton Icon="Home" x:Uid="ShellCommandBar_Home" Command="{x:Bind ViewModel.MenuViewsMainCommand}">
                     <AppBarButton.KeyboardAccelerators>
                         <KeyboardAccelerator Modifiers="Control" Key="D" />
                     </AppBarButton.KeyboardAccelerators>
                 </AppBarButton>
-                <AppBarButton Icon="Add" Label="Open" Command="{x:Bind ViewModel.MenuFileOpenCommand}"/>
-                <AppBarButton Icon="Edit" Label="Edit"/>
-                <AppBarButton Icon="RepeatAll" Label="ResetView"/>
-                <AppBarButton Icon="Cancel" Label="Cancel"/>
+                <AppBarButton Icon="Add" x:Uid="ShellCommandBar_Open" Command="{x:Bind ViewModel.MenuFileOpenCommand}"/>
+                <AppBarButton Icon="Edit" x:Uid="ShellCommandBar_Edit"/>
+                <AppBarButton Icon="RepeatAll" x:Uid="ShellCommandBar_ResetView"/>
+                <AppBarButton Icon="Cancel" x:Uid="ShellCommandBar_Cancel"/>
                 <CommandBar.SecondaryCommands>
-                    <AppBarButton Icon="Setting" Label="Settings">
+                    <AppBarButton Icon="Setting" x:Uid="ShellCommandBar_Settings">
                         <AppBarButton.KeyboardAccelerators>
                             <KeyboardAccelerator Modifiers="Control" Key="I" />
                         </AppBarButton.KeyboardAccelerators>
@@ -81,9 +81,9 @@
 
         <Grid Grid.Row="4"  x:Name="FootBar" Padding="5">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Longitude: " Margin="10,0,0,0"/>
+                <TextBlock x:Uid="ShellPage_LongitudeText" Margin="10,0,0,0"/>
                 <TextBlock x:Name="LongitudeTextBlock" Text="{x:Bind ViewModel.LongtitudeDisplay, Mode=OneWay}" Width="100"/>
-                <TextBlock Text="Latitude: " />
+                <TextBlock x:Uid="ShellPage_LatitudeText" />
                 <TextBlock x:Name="LatitudeTextBlock" Text="{x:Bind ViewModel.LatitudeDisplay, Mode=OneWay}" Width="100"/>
             </StackPanel>
         </Grid>

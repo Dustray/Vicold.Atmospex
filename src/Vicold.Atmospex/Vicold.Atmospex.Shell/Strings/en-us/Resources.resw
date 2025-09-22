@@ -190,4 +190,28 @@
   <data name="ShellMenuBarMainButton.Label" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="ShellCommandBar_Home.Label" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="ShellCommandBar_Open.Label" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="ShellCommandBar_Edit.Label" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ShellCommandBar_ResetView.Label" xml:space="preserve">
+    <value>Reset View</value>
+  </data>
+  <data name="ShellCommandBar_Cancel.Label" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ShellCommandBar_Settings.Label" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="ShellPage_LongitudeText" xml:space="preserve">
+    <value>Longitude: </value>
+  </data>
+  <data name="ShellPage_LatitudeText" xml:space="preserve">
+    <value>Latitude: </value>
+  </data>
 </root>

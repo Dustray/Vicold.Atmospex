@@ -191,4 +191,28 @@
     <value>主页</value>
     <comment>Home</comment>
   </data>
+  <data name="ShellCommandBar_Home.Label" xml:space="preserve">
+    <value>主页</value>
+  </data>
+  <data name="ShellCommandBar_Open.Label" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="ShellCommandBar_Edit.Label" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="ShellCommandBar_ResetView.Label" xml:space="preserve">
+    <value>重置视图</value>
+  </data>
+  <data name="ShellCommandBar_Cancel.Label" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ShellCommandBar_Settings.Label" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="ShellPage_LongitudeText" xml:space="preserve">
+    <value>经度: </value>
+  </data>
+  <data name="ShellPage_LatitudeText" xml:space="preserve">
+    <value>纬度: </value>
+  </data>
 </root>
