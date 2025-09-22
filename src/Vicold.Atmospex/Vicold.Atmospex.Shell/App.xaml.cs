@@ -137,11 +137,11 @@ public partial class App : Application
                 //var worldLayerPolygon = new RenderLineLayer(mapHolder.WorldPolygonProvider, "rmias_world_polygon");
                 var chinaCoastalLayer = new RenderLineLayer(mapHolder.ChinaCoastalProvider, "rmias_china_line", Style.RenderType.Contour);
                 var geoGridLayer = new RenderLineLayer(mapHolder.GeoGridProvider, "rmias_geo_line");
-                //var geoFontLayer = new FontLayer(mapHolder.GeoFontProvider, "rmias_geo_value");
+                var geoFontLayer = new RenderFontLayer(mapHolder.GeoFontProvider, "rmias_geo_value");
 
                 var manager = App.GetService<ILayerModuleService>().LayerManager;
                 manager.AddLayer(geoGridLayer);
-                //manager.AddLayer(geoFontLayer);
+                manager.AddLayer(geoFontLayer);
                 manager.AddLayer(worldLayerLine);
                 manager.AddLayer(chinaCoastalLayer);
             });

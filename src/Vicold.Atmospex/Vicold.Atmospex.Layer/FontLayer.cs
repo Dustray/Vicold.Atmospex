@@ -7,7 +7,7 @@ using Vicold.Atmospex.Style;
 
 namespace Vicold.Atmospex.Layer;
 
-public class FontLayer : Layer
+public abstract class FontLayer : Layer
 {
     public FontLayer(IVectorDataProvider provider, string id)
     {
@@ -16,10 +16,7 @@ public class FontLayer : Layer
         ID = id;
     }
 
-    protected virtual ILayerNode? CreateVectorsNode(string ID, IVectorDataProvider provider, IProjection proj)
-    {
-        return null;
-    }
+    protected abstract ILayerNode? CreateVectorsNode(string ID, IVectorDataProvider provider, IProjection proj);
 
     public override void Render(IProjection projection)
     {
