@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -18,5 +18,9 @@ namespace Vicold.Atmospex.Earth.Projection
         /// 近似真实投影
         /// </summary>
         CloseToReal,
+        /// <summary>
+        /// 兰伯特投影
+        /// </summary>
+        Lambert
     }
 }

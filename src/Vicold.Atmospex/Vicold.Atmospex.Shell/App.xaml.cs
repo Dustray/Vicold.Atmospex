@@ -110,7 +110,7 @@ public partial class App : Application
         var earth = App.GetService<IEarthModuleService>();
         earth.WorldScale = 1000;
         earth.Initialize();
-        earth.ChangeProjection(ProjectionType.CloseToReal);
+        earth.ChangeProjection(ProjectionType.Lambert);
 
         App.GetService<ILayerModuleService>().Initialize();
         App.GetService<Vicold.Atmospex.Core.ICoreModuleService>().Initialize();

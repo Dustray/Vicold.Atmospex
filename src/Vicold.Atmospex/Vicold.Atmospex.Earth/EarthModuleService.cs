@@ -93,6 +93,10 @@ public class EarthModuleService : IEarthModuleService
         {
             CurrentProjection = new Projection4CloseToReal(ProjectionInfo);
         }
+        else if (projectionType == ProjectionType.Lambert)
+        {
+            CurrentProjection = new Projection4Lambert(ProjectionInfo);
+        }
     }
 
     private ProjectionInfo CreateProjectionInfo(double lonCenter)
