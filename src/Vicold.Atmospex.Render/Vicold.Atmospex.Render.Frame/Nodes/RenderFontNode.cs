@@ -94,8 +94,8 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
                     Origin = new Vector2(0f, 0f), // Center the text
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    ScaleFactor = vectorFont.FontSize/500, // Adjust the scale factor as needed
-                    //Size = WorldSize,
+                    ScaleFactor = vectorFont.FontSize/300, // Adjust the scale factor as needed
+                    Size = new Vector2(2f, 1f),
                     Wrapping = false,
                     Color = new Color(
                         vectorFont.FontColor.R,
@@ -106,12 +106,11 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
                 };
 
                 // 获取位置信息
-                Vector3 position = new Vector3(vectorFont.Position.X, vectorFont.Position.Y, 0);
+                Vector3 position = new Vector3(vectorFont.Position.X- textMesh.Size.X/2, vectorFont.Position.Y+ textMesh.Size.Y/2, 0);
                 var renderer = new Text3DRenderer() { DebugMode = false };
                 var textTrans = new Transform3D
                 {
                     Position = position,
-
                 };
                 // 创建立方体作为文本占位符
                 Entity textEntity = new Entity()
