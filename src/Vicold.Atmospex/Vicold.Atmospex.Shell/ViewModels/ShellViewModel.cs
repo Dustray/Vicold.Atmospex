@@ -21,6 +21,17 @@ public partial class ShellViewModel : ObservableRecipient
     [ObservableProperty]
     private bool isBackEnabled;
 
+    private int _fps = 0;
+    public int Fps
+    {
+        get => _fps;
+        set
+        {
+            _fps = value;
+            OnPropertyChanged();
+        }
+    }
+
     public ICommand MenuFileExitCommand
     {
         get;
@@ -83,6 +94,11 @@ public partial class ShellViewModel : ObservableRecipient
         MenuViewsMainCommand = new RelayCommand(OnMenuViewsMain);
         MenuFileOpenCommand = new RelayCommand(OnMenuFileOpen);
 
+        // 订阅FPS变化事件
+        coreModuleService.OnFpsChanged += (fps) =>
+        {
+            Fps = fps;
+        };
 
         earthModuleService.OnMouseMoved += (s, args) =>
         {

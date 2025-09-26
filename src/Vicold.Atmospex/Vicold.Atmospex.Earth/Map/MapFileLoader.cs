@@ -25,7 +25,7 @@ internal class MapFileLoader
     private readonly string _globalData = @"J:\Example\TestProjectRepos\projects\Sharp2LiteDB\Sharp2LiteDB\Appx\output\shp2b.adr";
     private readonly string _chinaProvinceControl = $@"{_folder}\ChinaProvinceBorder.ctl";
     private readonly string _chinaProvinceData = $@"{_folder}\ChinaProvinceBorder.adr";
-    private readonly string _chinaProvinceSape = $@"{_mapFolder}\source\中国_省.geojson";
+    private readonly string _chinaProvinceShape = $@"{_mapFolder}\source\中国_省.geojson";
 
     public MapFileLoader()
     {
@@ -46,7 +46,7 @@ internal class MapFileLoader
 
         if (!File.Exists(_chinaProvinceControl) || !File.Exists(_chinaProvinceData))
         {
-            WriteControlAndDataShape(_chinaProvinceSape, _chinaProvinceControl, _chinaProvinceData);
+            WriteControlAndDataShape(_chinaProvinceShape, _chinaProvinceControl, _chinaProvinceData);
         }
         ChinaProvinceLines = LoadAdrShape(_chinaProvinceControl, _chinaProvinceData, 1, Color.Black, Color.White);
 

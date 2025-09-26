@@ -36,6 +36,9 @@ public class CoreModuleService : ICoreModuleService
     {
         get; set;
     }
+    
+    public event Action<int>? OnFpsChanged;
+    
     public Func<IGridDataProvider, GridLayer>? BindingGridLayer
     {
         get; set;
@@ -69,5 +72,10 @@ public class CoreModuleService : ICoreModuleService
                 }
             }
         });
+    }
+
+    public void SetFps(int fps)
+    {
+        OnFpsChanged?.Invoke(fps);
     }
 }

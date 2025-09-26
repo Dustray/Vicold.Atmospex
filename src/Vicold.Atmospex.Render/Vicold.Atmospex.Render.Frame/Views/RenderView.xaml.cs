@@ -37,10 +37,15 @@ namespace Vicold.Atmospex.Render.Frame.Views
             get; set;
         }
 
+        private int _frameCount = 0;
+        private DateTime _lastUpdateTime;
+        private const double UpdateIntervalMilliseconds = 1000; // 每秒更新一次
+
         public RenderView()
         {
             this.InitializeComponent();
             SwapChainPanel.Loaded += OnSwapChainPanelLoaded;
+            _lastUpdateTime = DateTime.Now;
         }
 
         private void OnSwapChainPanelLoaded(object sender, RoutedEventArgs e)
@@ -84,9 +89,10 @@ namespace Vicold.Atmospex.Render.Frame.Views
 
                 application.UpdateFrame(gameTime);
                 application.DrawFrame(gameTime);
+                UpdateFPS();
             });
 
-            // ��������
+            // 服务设置
 
             var earthModuleService = RenderModuleService.GetService<IEarthModuleService>();
             
@@ -98,6 +104,29 @@ namespace Vicold.Atmospex.Render.Frame.Views
             {
                 earthModuleService?.ChangeMouse(args.WorldPosition.X, args.WorldPosition.Y, args.ScreenPosition.X, args.ScreenPosition.Y);
             };
+        }
+
+        private void UpdateFPS()
+        {
+            // 计算帧率
+            _frameCount++;
+            var currentTime = DateTime.Now;
+            var elapsedTime = currentTime - _lastUpdateTime;
+
+            if (elapsedTime.TotalMilliseconds >= UpdateIntervalMilliseconds)
+            {
+                // 计算帧率
+                double fps = _frameCount / elapsedTime.TotalSeconds;
+                int roundedFps = (int)Math.Round(fps);
+
+                // 通过CoreModuleService更新FPS
+                var coreModuleService = RenderModuleService.GetService<Vicold.Atmospex.Core.ICoreModuleService>();
+                coreModuleService?.SetFps(roundedFps);
+
+                // 重置计数器
+                _frameCount = 0;
+                _lastUpdateTime = currentTime;
+            }
         }
 
         private static void ConfigureGraphicsContext(Evergine.Framework.Application application, WinUISurface surface, string displayName)

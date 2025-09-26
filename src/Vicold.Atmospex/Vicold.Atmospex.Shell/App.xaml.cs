@@ -145,7 +145,7 @@ public partial class App : Application
                 manager.AddLayer(geoFontLayer);
                 manager.AddLayer(worldLayerLine);
                 //manager.AddLayer(chinaCoastalLayer);
-                manager.AddLayer(chinaProvinceLayer);
+                //manager.AddLayer(chinaProvinceLayer);
             });
         };
     }

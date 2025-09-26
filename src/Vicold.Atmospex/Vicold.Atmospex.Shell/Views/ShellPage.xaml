@@ -85,6 +85,8 @@
                 <TextBlock x:Name="LongitudeTextBlock" Text="{x:Bind ViewModel.LongtitudeDisplay, Mode=OneWay}" Width="100"/>
                 <TextBlock x:Uid="ShellPage_LatitudeText" />
                 <TextBlock x:Name="LatitudeTextBlock" Text="{x:Bind ViewModel.LatitudeDisplay, Mode=OneWay}" Width="100"/>
+                <TextBlock Text="FPS: " />
+                <TextBlock x:Name="FpsTextBlock" Text="{x:Bind ViewModel.Fps, Mode=OneWay}" Width="80" HorizontalAlignment="Left" />
             </StackPanel>
         </Grid>
     </Grid>

@@ -6,6 +6,8 @@ namespace Vicold.Atmospex.Core;
 
 public interface ICoreModuleService : IModuleService
 {
+    event Action<int>? OnFpsChanged;
+
     // 接口成员
     Action? OnViewStart
     {
@@ -18,5 +20,7 @@ public interface ICoreModuleService : IModuleService
     }
 
     Task AddDataAsync(string path);
+
+    void SetFps(int fps);
 
 }
