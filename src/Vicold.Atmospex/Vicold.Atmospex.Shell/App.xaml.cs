@@ -136,6 +136,7 @@ public partial class App : Application
                 var worldLayerLine = new RenderLineLayer(mapHolder.WorldLineProvider, "rmias_world_line");
                 //var worldLayerPolygon = new RenderLineLayer(mapHolder.WorldPolygonProvider, "rmias_world_polygon");
                 var chinaCoastalLayer = new RenderLineLayer(mapHolder.ChinaCoastalProvider, "rmias_china_line", Style.RenderType.Contour);
+                var chinaProvinceLayer = new RenderLineLayer(mapHolder.ChinaProvinceProvider, "rmias_province_line", Style.RenderType.Contour);
                 var geoGridLayer = new RenderLineLayer(mapHolder.GeoGridProvider, "rmias_geo_line");
                 var geoFontLayer = new RenderFontLayer(mapHolder.GeoFontProvider, "rmias_geo_value");
 
@@ -143,7 +144,8 @@ public partial class App : Application
                 manager.AddLayer(geoGridLayer);
                 manager.AddLayer(geoFontLayer);
                 manager.AddLayer(worldLayerLine);
-                manager.AddLayer(chinaCoastalLayer);
+                //manager.AddLayer(chinaCoastalLayer);
+                manager.AddLayer(chinaProvinceLayer);
             });
         };
     }

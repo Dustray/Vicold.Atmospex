@@ -24,6 +24,9 @@
     <None Remove="data\map\low_density\ChinaInlandBorder.ctl" />
     <None Remove="data\map\low_density\WorldContinentBorder.adr" />
     <None Remove="data\map\low_density\WorldContinentBorder.ctl" />
+    <None Remove="data\map\source\中国_县.geojson" />
+    <None Remove="data\map\source\中国_市.geojson" />
+    <None Remove="data\map\source\中国_省.geojson" />
     <None Remove="data\map\super_low_density\ChinaCoastalBorder.adr" />
     <None Remove="data\map\super_low_density\ChinaCoastalBorder.ctl" />
     <None Remove="data\map\super_low_density\WorldContinentBorder.adr" />
@@ -228,6 +231,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="lib\netcdf.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="data\map\source\中国_县.geojson">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\source\中国_市.geojson">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\source\中国_省.geojson">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

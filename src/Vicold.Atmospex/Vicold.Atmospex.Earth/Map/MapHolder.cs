@@ -39,6 +39,8 @@ public sealed class MapHolder
 
     public IVectorDataProvider ChinaCoastalProvider => CreateProvider(_mapFileLoader.ChinaCoastalLines, "中国边界");
 
+    public IVectorDataProvider ChinaProvinceProvider => CreateProvider(_mapFileLoader.ChinaProvinceLines, "省边界");
+
     //public LineDataProvider ChinaInlandProvider => new LineDataProvider(_mapFileLoader.ChinaInlandLines);
 
     public IVectorDataProvider GeoGridProvider => CreateProvider(_gridLoader.GridLines, "经纬线");
