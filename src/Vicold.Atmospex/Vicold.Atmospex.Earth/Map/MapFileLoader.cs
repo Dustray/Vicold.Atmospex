@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vicold.Atmospex.Algorithm;
 
 namespace Vicold.Atmospex.Earth.Map;
 
@@ -41,14 +42,14 @@ internal class MapFileLoader
             return;
         }
 
-        LoadAdrShapeLinePolygon(_worldContinentControl, _worldContinentData, 1, Color.FromArgb(100, 100, 100), Color.White);
+        LoadAdrShapeLinePolygon(_worldContinentControl, _worldContinentData, 1, Color.FromArgb(140, 140, 140), Color.White);
         ChinaCoastalLines = LoadAdrShape(_chinaCoastalControl, _chinaCoastalData, 1, Color.Black, Color.White);
 
         if (!File.Exists(_chinaProvinceControl) || !File.Exists(_chinaProvinceData))
         {
             WriteControlAndDataShape(_chinaProvinceShape, _chinaProvinceControl, _chinaProvinceData);
         }
-        ChinaProvinceLines = LoadAdrShape(_chinaProvinceControl, _chinaProvinceData, 1, Color.Black, Color.White);
+        ChinaProvinceLines = LoadAdrShape(_chinaProvinceControl, _chinaProvinceData, 1, Color.FromArgb(40, 40, 40), Color.White);
 
     }
 
@@ -207,6 +208,7 @@ internal class MapFileLoader
         }
     }
 
+
     private static LineData LoadAdrShape(string ctlPath, string dataPath, float width, Color color, Color fillColor, PolygonType polygonType = PolygonType.Line)
     {
         var ctlFile = File.ReadAllText(Path.GetFullPath(ctlPath));
@@ -230,7 +232,11 @@ internal class MapFileLoader
                         dataArray[j] = (float)BitConverter.ToDouble(b, i);
                     }
 
-                    result.Add(dataArray, width, 0, color, fillColor, polygonType);
+                    var dataArrayTiles = LineTileAlgorithm.CreateTileLines(dataArray);
+                    foreach (var line in dataArrayTiles)
+                    {
+                        result.Add(dataArray, line, width, 0, color, fillColor, polygonType);
+                    }
                 }
             }
         }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -28,22 +28,26 @@ public class VectorLine
 
     public PolygonType PolygonType
     {
-        get; set;
+        get;
+        set;
     }
 
     public Color LineColor
     {
-        get; set;
+        get;
+        set;
     }
 
     public Color FillColor
     {
-        get; set;
+        get;
+        set;
     }
 
     public float Width
     {
-        get; set;
+        get;
+        set;
     }
 
     public Vector2[] Data => _line;
@@ -53,6 +57,12 @@ public class VectorLine
         get;
         set;
     } = 1;
+
+    // 新增最大最小值属性
+    public float MinX { get; set; } = float.MaxValue;
+    public float MinY { get; set; } = float.MaxValue;
+    public float MaxX { get; set; } = float.MinValue;
+    public float MaxY { get; set; } = float.MinValue;
 
     //public Vector2 this[int index]
     //{

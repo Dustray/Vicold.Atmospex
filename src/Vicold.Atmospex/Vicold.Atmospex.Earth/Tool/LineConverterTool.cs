@@ -45,19 +45,45 @@ public static class LineConverterTool
         for (var i = 0; i < dic.Count; i++)
         {
             var line = dic[i];
-            var length = line.Data.Length / 2;
+            var length = line.DataSpan.Length / 2;
+            var span = line.DataSpan.Span;
             var points = new VectorLine(length);
             points.LineColor = line.Color;
             points.FillColor = line.FillColor;
             points.PolygonType = line.PolygonType;
             points.Width = line.Width;
+            
+            // 初始化最大最小值
+            var minX = float.MaxValue;
+            var minY = float.MaxValue;
+            var maxX = float.MinValue;
+            var maxY = float.MinValue;
+            
             var newIndex = 0;
             for (var j = 0; j < length; j++)
             {
-                proj.Geo2Index(line.Data[2 * j], line.Data[2 * j + 1], out var x, out var y);
-                points.Set(newIndex, (float)x, (float)y);
+                // 转换坐标
+                proj.Geo2Index(span[2 * j], span[2 * j + 1], out var x, out var y);
+                var projX = (float)x;
+                var projY = (float)y;
+                
+                // 更新最大最小值
+                minX = Math.Min(minX, projX);
+                minY = Math.Min(minY, projY);
+                maxX = Math.Max(maxX, projX);
+                maxY = Math.Max(maxY, projY);
+                
+                // 设置点坐标
+                points.Set(newIndex, projX, projY);
                 newIndex++;
             }
+            
+            // 赋值最大最小值
+            points.MinX = minX;
+            points.MinY = minY;
+            points.MaxX = maxX;
+            points.MaxY = maxY;
+            
             list[i] = points;
         }
         return list;

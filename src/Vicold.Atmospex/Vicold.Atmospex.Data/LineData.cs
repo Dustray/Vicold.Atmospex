@@ -1,19 +1,16 @@
-﻿using Vicold.Atmospex.Data.Vector;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using Newtonsoft.Json.Linq;
+using Vicold.Atmospex.Data.Vector;
 
 namespace Vicold.Atmospex.Data
 {
     public class LineData : IVectorData
     {
-        private IList<Line> _data;
+        private readonly IList<Line> _data = [];
 
-        public LineData()
-        {
-            _data = new List<Line>();
-        }
 
         public int Count => _data.Count;
 
@@ -22,12 +19,29 @@ namespace Vicold.Atmospex.Data
             Add(data, width, value, color, Color.White, polygonType);
         }
 
-        public void Add(float[] data, float width, float value,
-            Color color, Color fillColor, PolygonType polygonType = PolygonType.Line | PolygonType.Fill)
+        public void Add(float[] data, float width, float value, Color color, Color fillColor, PolygonType polygonType = PolygonType.Fill)
         {
-            _data.Add(new Line()
+            _data.Add(new Line(data)
             {
-                Data = data,
+                DataSpan = data.AsMemory(),
+                Color = color,
+                FillColor = fillColor,
+                Value = value,
+                Width = width,
+                PolygonType = polygonType,
+            });
+        }
+
+
+        public void Add(float[] source, ReadOnlyMemory<float> data, float width, float value, Color color, PolygonType polygonType = PolygonType.Line)
+        {
+            Add(source, data, width, value, color, Color.White, polygonType);
+        }
+        public void Add(float[] source, ReadOnlyMemory<float> data, float width, float value, Color color, Color fillColor, PolygonType polygonType = PolygonType.Fill)
+        {
+            _data.Add(new Line(source)
+            {
+                DataSpan = data,
                 Color = color,
                 FillColor = fillColor,
                 Value = value,
@@ -55,11 +69,18 @@ namespace Vicold.Atmospex.Data
             _data.Clear();
         }
 
-        public class Line
+
+        public class Line(float[] source)
         {
             public float[] Data
             {
                 get; set;
+            } = source;
+
+            public ReadOnlyMemory<float> DataSpan
+            {
+                get;
+                internal set;
             }
 
             public Color Color
@@ -86,6 +107,7 @@ namespace Vicold.Atmospex.Data
             {
                 get; set;
             }
+
         }
     }
 }
