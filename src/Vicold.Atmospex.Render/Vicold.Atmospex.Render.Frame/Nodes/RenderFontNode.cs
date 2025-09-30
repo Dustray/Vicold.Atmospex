@@ -53,11 +53,23 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
         public override void SetLevel(int zIndex)
         {
             ZIndex = zIndex;
+            _renderLayer.Order = ZIndex;
         }
 
         public int ZIndex { get; set; }
 
         public bool IsTileEnabled { get; set; } = true;
+
+        public override bool Visible
+        {
+            get => _fontEntity?.IsEnabled ?? false; set
+            {
+                if (_fontEntity is { })
+                {
+                    _fontEntity.IsEnabled = value;
+                }
+            }
+        }
 
         public void Draw(EntityManager entityManager, RenderLayerDescription layerDescription)
         {

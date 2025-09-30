@@ -14,25 +14,29 @@ public abstract  class TextureNode : ILayerNode
     public string ID
     {
         get; set;
-    }
+    } = string.Empty;
 
     public float StartX
     {
         get; set;
     }
+
     public float StartY
     {
         get; set;
     }
+
     public float WorldWidth
     {
         get; set;
     }
+
     public float WorldHeight
     {
         get; set;
     }
-    public bool Visible
+
+    public abstract bool Visible
     {
         get;set;
     }

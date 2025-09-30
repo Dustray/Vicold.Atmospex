@@ -43,7 +43,17 @@ public abstract class Layer : ILayer
         get; set;
     }
 
-    public bool IsVisible => _layerNode?.Visible ?? false;
+    public bool IsVisible
+    {
+        get => _layerNode?.Visible ?? false;
+        set
+        {
+            if (_layerNode is { } && _layerNode.Visible != value)
+            {
+                _layerNode.Visible = value;
+            }
+        }
+    }
 
     public bool IsSystemLayer => ID.StartsWith("rmias");
 

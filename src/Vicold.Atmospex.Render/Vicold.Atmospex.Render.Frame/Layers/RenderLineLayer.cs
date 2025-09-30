@@ -31,7 +31,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
                     BlendState = BlendStates.Opaque,
                     DepthStencilState = DepthStencilStates.ReadWrite,
                 },
-                Order = 0,
+                Order = (int)LayerZLevel,
                 SortMode = SortMode.FrontToBack,
             };
         }

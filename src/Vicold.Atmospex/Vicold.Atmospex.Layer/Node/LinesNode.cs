@@ -24,7 +24,7 @@ public abstract class LinesNode : ILayerNode
         get; set;
     } = string.Empty;
 
-    public bool Visible
+    public abstract bool Visible
     {
         get; set;
     }

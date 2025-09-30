@@ -135,16 +135,16 @@ public partial class App : Application
 
                 var worldLayerLine = new RenderLineLayer(mapHolder.WorldLineProvider, "rmias_world_line") { ZIndex = 7 };
                 //var worldLayerPolygon = new RenderLineLayer(mapHolder.WorldPolygonProvider, "rmias_world_polygon");
-                //var chinaCoastalLayer = new RenderLineLayer(mapHolder.ChinaCoastalProvider, "rmias_china_line", Style.RenderType.Contour) { ZIndex = 9 };
-                var chinaProvinceLayer = new RenderLineLayer(mapHolder.ChinaProvinceProvider, "rmias_province_line", Style.RenderType.Contour) { ZIndex = 10 };
-                var geoGridLayer = new RenderLineLayer(mapHolder.GeoGridProvider, "rmias_geo_line", cutLineToTile: false) { ZIndex = 5 };
+                var chinaCoastalLayer = new RenderLineLayer(mapHolder.ChinaCoastalProvider, "rmias_china_line", Style.RenderType.Contour) { ZIndex = 9 };
+                var chinaProvinceLayer = new RenderLineLayer(mapHolder.ChinaProvinceProvider, "rmias_province_line", Style.RenderType.Contour) { ZIndex = 8 };
+                var geoGridLayer = new RenderLineLayer(mapHolder.GeoGridProvider, "rmias_geo_line", cutLineToTile: false) { ZIndex = 6 };
                 var geoFontLayer = new RenderFontLayer(mapHolder.GeoFontProvider, "rmias_geo_value") { ZIndex = 20 };
 
                 var manager = App.GetService<ILayerModuleService>().LayerManager;
                 manager.AddLayer(geoGridLayer);
                 manager.AddLayer(geoFontLayer);
                 manager.AddLayer(worldLayerLine);
-                //manager.AddLayer(chinaCoastalLayer);
+                manager.AddLayer(chinaCoastalLayer);
                 manager.AddLayer(chinaProvinceLayer);
             });
         };

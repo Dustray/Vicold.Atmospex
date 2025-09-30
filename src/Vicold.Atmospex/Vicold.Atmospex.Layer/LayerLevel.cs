@@ -6,10 +6,10 @@ namespace Vicold.Atmospex.Layer
     /// </summary>
     public enum LayerLevel
     {
-        Lowest = 0,
-        Low = 10,
-        Middle = 20,
-        High = 30,
-        Highest = 40,
+        Lowest = -400,
+        Low = -200,
+        Middle = 0,
+        High = 200,
+        Highest = 400,
     }
 }

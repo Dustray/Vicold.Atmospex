@@ -77,7 +77,7 @@ public abstract class GridLayer : Layer
         }
         else if (Style.Palette.RenderType == RenderType.Contour || Style.Palette.RenderType == RenderType.Polygon)
         {
-            LayerZLevel = LayerLevel.High;
+            LayerZLevel = Style.Palette.RenderType == RenderType.Contour ? LayerLevel.High : LayerLevel.Low;
 
             if (_layerNode != null && _layerNode is not LinesNode)
             {

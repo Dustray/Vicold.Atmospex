@@ -26,7 +26,7 @@ public interface ILayer : IDisposable
 
     bool IsVisible
     {
-        get;
+        get; set;
     }
 
     bool IsSystemLayer

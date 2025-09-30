@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 
+using Vicold.Atmospex.Layer;
 using Vicold.Atmospex.Shell.Contracts.Services;
 using Vicold.Atmospex.Shell.Helpers;
 using Vicold.Atmospex.Shell.ViewModels;
@@ -97,5 +98,23 @@ public sealed partial class ShellPage : Page
     private void ShellMenuBarSettingsButton_PointerExited(object sender, PointerRoutedEventArgs e)
     {
         AnimatedIcon.SetState((UIElement)sender, "Normal");
+    }
+
+    /// <summary>
+    /// 处理图层可见性切换
+    /// </summary>
+    private void LayerVisibility_Toggled(object sender, RoutedEventArgs e)
+    {
+        var toggleSwitch = sender as ToggleSwitch;
+        if (toggleSwitch != null && toggleSwitch.Tag is ILayer layer)
+        {
+            // 通过ViewModel来设置图层可见性
+            // 这样可以通过ILayerManager正确处理图层的显示和隐藏
+            var layerManager = App.GetService<ILayerModuleService>()?.LayerManager;
+            if (layerManager != null)
+            {
+                layerManager.SetLayerVisible(layer, toggleSwitch.IsOn);
+            }
+        }
     }
 }

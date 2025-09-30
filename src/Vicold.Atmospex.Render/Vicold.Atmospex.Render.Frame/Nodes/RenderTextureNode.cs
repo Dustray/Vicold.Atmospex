@@ -24,6 +24,7 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
     public class RenderTextureNode : TextureNode, IRenderNode
     {
         private readonly GraphicsContext graphicsContext;
+        private Entity? _planeEntity;
 
         public RenderTextureNode(GraphicsContext? graphicsContext = null)
         {
@@ -35,11 +36,24 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
             get; set;
         }
 
+        public int ZIndex { get; set; }
+
         public bool IsTileEnabled { get; set; } = true;
+
+        public override bool Visible
+        {
+            get => _planeEntity?.IsEnabled ?? false; set
+            {
+                if (_planeEntity is { })
+                {
+                    _planeEntity.IsEnabled = value;
+                }
+            }
+        }
 
         public override void SetLevel(int zIndex)
         {
-            // 设置纹理层级，如果需要
+           ZIndex = zIndex;
         }
 
         internal void ResetImage(Texture newImage)
@@ -85,6 +99,7 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
             // 创建StandardMaterial并设置属性
             StandardMaterial standardMaterial = new StandardMaterial(standardEffect);
 
+            layerDescription.Order = ZIndex;
             // 设置渲染层
             standardMaterial.LayerDescription = layerDescription;
 
@@ -111,22 +126,22 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
                 //Orientation = Quaternion.CreateFromAxisAngle(Vector3.UnitZ, MathHelper.Pi) // 无需旋转，默认面向 Z+
             };
             // 创建PlaneMesh实体，使用WorldWidth和WorldHeight设置大小
-            Entity planeEntity = new Entity()
-                .AddComponent(tectTrans)
-                .AddComponent(new PlaneMesh()
-                {
-                    Width = WorldWidth,
-                    Height = WorldHeight,
-                    TwoSides = false,
-                    PlaneNormal = NormalAxis.ZPositive,
-                    VMirror = true,
-                    //UMirror = true,
-                })
-                .AddComponent(new MaterialComponent() { Material = standardMaterial.Material })
-                .AddComponent(new MeshRenderer());
+            _planeEntity = new Entity()
+              .AddComponent(tectTrans)
+              .AddComponent(new PlaneMesh()
+              {
+                  Width = WorldWidth,
+                  Height = WorldHeight,
+                  TwoSides = false,
+                  PlaneNormal = NormalAxis.ZPositive,
+                  VMirror = true,
+                  //UMirror = true,
+              })
+              .AddComponent(new MaterialComponent() { Material = standardMaterial.Material })
+              .AddComponent(new MeshRenderer());
 
             // 添加到场景
-            entityManager.Add(planeEntity);
+            entityManager.Add(_planeEntity);
         }
     }
 }

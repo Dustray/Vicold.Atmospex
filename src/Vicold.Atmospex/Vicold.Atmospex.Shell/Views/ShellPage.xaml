@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:local="using:Vicold.Atmospex.Shell.Helpers.Converters"
+    xmlns:layer="using:Vicold.Atmospex.Layer"
     Loaded="OnLoaded"
     Unloaded="OnUnloaded"
     mc:Ignorable="d">
@@ -20,11 +21,15 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" x:Name="AppTitleBar">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" x:Name="AppTitleBar">
             <Image Source="/Assets/WindowIcon.ico" HorizontalAlignment="Left" Width="16" Height="16" Margin="8,0"/>
             <TextBlock x:Name="AppTitleBarText" VerticalAlignment="Center" TextWrapping="NoWrap" Style="{StaticResource CaptionTextBlockStyle}" Margin="32, 0, 0, 0"/>
         </Grid>
-        <Grid Grid.Row="1" VerticalAlignment="Center">
+        <Grid Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -79,7 +84,37 @@
             <Frame x:Name="NavigationFrame" Padding="0"/>
         </Grid>
 
-        <Grid Grid.Row="4"  x:Name="FootBar" Padding="5">
+        <Grid Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" BorderThickness="1" BorderBrush="Gray">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" HorizontalAlignment="Left">
+                <AppBarButton Icon="View"  Label="Hidden"/>
+                <AppBarButton Icon="Cancel" Label="Clear"/>
+            </CommandBar>
+            
+            <ScrollViewer Grid.Row="1" Margin="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <ListView x:Name="LayerListView" ItemsSource="{x:Bind ViewModel.Layers}"
+                          SelectionMode="Single" Height="auto">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="layer:ILayer">
+                            <Grid Padding="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{x:Bind Name}" VerticalAlignment="Center" Margin="5,0"/>
+                                <ToggleSwitch Grid.Column="1" IsOn="{x:Bind IsVisible, Mode=TwoWay}" Margin="5,0" Toggled="LayerVisibility_Toggled" OnContent="" OffContent="" Width="15" HorizontalAlignment="Right"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+            
+        </Grid>
+
+        <Grid Grid.Row="4" Grid.ColumnSpan="2" x:Name="FootBar" Padding="5">
             <StackPanel Orientation="Horizontal">
                 <TextBlock x:Uid="ShellPage_LongitudeText" Margin="10,0,0,0"/>
                 <TextBlock x:Name="LongitudeTextBlock" Text="{x:Bind ViewModel.LongtitudeDisplay, Mode=OneWay}" Width="100"/>

@@ -87,15 +87,25 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
             ZIndex = zIndex;
             // LineBatch3D doesn't have a direct ZIndex property, but we can adjust the Z position
             // This would require modifying the line positions, which we can do in UpdateLineBatch
+            _renderLayer.Order = ZIndex;
         }
 
         public int ZIndex { get; set; }
+        public override bool Visible
+        {
+            get => _batchLineEntity?.IsEnabled ?? false; set
+            {
+                if (_batchLineEntity is { })
+                {
+                    _batchLineEntity.IsEnabled = value;
+                }
+            }
+        }
 
         public void Draw(EntityManager entityManager, RenderLayerDescription layerDescription)
         {
             if (_batchLineEntity == null)
             {
-
                 // 初始化EverBatchLine
                 InitializeEverBatchLine();
 
