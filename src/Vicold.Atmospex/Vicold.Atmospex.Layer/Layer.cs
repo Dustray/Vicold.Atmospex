@@ -65,4 +65,5 @@ public abstract class Layer : ILayer
         DataProvider?.Dispose();
     }
 
+    public abstract void ScaleChange(float scale);
 }

@@ -67,14 +67,14 @@ public class GeographyGridLoader
         //画字符
         for (var w = west; w <= east; w += lonInterval)
         {
-            GridFonts.Collection.Add(w.ToString(), 14, _gridFontColor, new Float2((float)w, (float)north), new Float2(0, 0), new Float2(0, 0));// 上
-            GridFonts.Collection.Add(w.ToString(), 14, _gridFontColor, new Float2((float)w, (float)south), new Float2(0, 0), new Float2(0, 0));// 下
+            GridFonts.Collection.Add(w.ToString(), 14, _gridFontColor, new Float2((float)w, (float)north), new Float2(0f, 0.10f), new Float2(0.5f, 0.5f));// 上
+            GridFonts.Collection.Add(w.ToString(), 14, _gridFontColor, new Float2((float)w, (float)south), new Float2(0f, -0.10f), new Float2(0.5f, 0.5f));// 下
         }
 
         for (var s = south; s <= north; s += lonInterval)
         {
-            GridFonts.Collection.Add(s.ToString(), 14, _gridFontColor, new Float2((float)west, (float)s), new Float2(0, 0), new Float2(0, 0));// 左
-            GridFonts.Collection.Add(s.ToString(), 14, _gridFontColor, new Float2((float)east, (float)s), new Float2(0, 0), new Float2(0, 0));// 右
+            GridFonts.Collection.Add(s.ToString(), 14, _gridFontColor, new Float2((float)west, (float)s), new Float2(-0.10f, 0f), new Float2(0.5f, 0.5f));// 左
+            GridFonts.Collection.Add(s.ToString(), 14, _gridFontColor, new Float2((float)east, (float)s), new Float2(0.10f, 0f), new Float2(0.5f, 0.5f));// 右
         }
     }
 

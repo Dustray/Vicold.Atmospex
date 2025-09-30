@@ -22,6 +22,7 @@ namespace Vicold.Atmospex.Layer
         void SetLayerLevel(ILayer layer, LayerLevel layerLevel);
 
         IEnumerable<ILayer> GetAllLayers();
+        void ChangeScale(float localScale);
 
         event LayerChangedEventHandler OnLayerAdded;
 

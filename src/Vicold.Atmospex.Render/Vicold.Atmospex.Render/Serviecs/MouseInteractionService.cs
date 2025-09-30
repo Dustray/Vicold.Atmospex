@@ -118,7 +118,7 @@ public class MouseInteractionService : Service
     }
 
     public event EventHandler<ResetCameraEventArgs> CameraReset;
-    public event EventHandler CameraHeightChangedEvent;
+    //public event EventHandler CameraHeightChangedEvent;
     public event EventHandler<LocalScaleEventArgs> LocalScaleChangedEvent;
     public event EventHandler<MouseMoveEventArgs> MouseMoveChangedEvent;
     public event EventHandler<ViewportChangedEventArgs> ViewportChangedEvent;
@@ -131,7 +131,7 @@ public class MouseInteractionService : Service
             _y = initPosition.Value.Y;
             _z = initPosition.Value.Z;
         }
-        CameraHeightChangedEvent?.Invoke(this, null);
+        //CameraHeightChangedEvent?.Invoke(this, null);
         // 重置旋转角度
         if (initRotation is { })
         {
@@ -158,6 +158,12 @@ public class MouseInteractionService : Service
         _z = z;
         CameraPositionChanged?.Invoke(new Vector3(_x, _y, _z));
     }
+
+    public void UpdateScale()
+    {
+        LocalScaleChangedEvent?.Invoke(this, new(_z, new(_x, _y, _z)));
+    }
+
     /// <summary>
     /// 鼠标上下滚动 修改高度
     /// </summary>
@@ -217,8 +223,10 @@ public class MouseInteractionService : Service
         UpdatePosition(_x, _y, _z);
         #endregion
 
-        CameraHeightChangedEvent?.Invoke(this, null);
+        //CameraHeightChangedEvent?.Invoke(this, null);
+        UpdateScale();
     }
+
 
     /// <summary>
     /// 鼠标上下滚动 修改缩放值
@@ -284,7 +292,7 @@ public class MouseInteractionService : Service
         UpdatePosition(_x, _y);
         #endregion
 
-        CameraHeightChangedEvent?.Invoke(this, null);
+        //CameraHeightChangedEvent?.Invoke(this, null);
         _lastPosition = position;
     }
 

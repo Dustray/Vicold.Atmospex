@@ -7,6 +7,8 @@ using Evergine.Framework.Managers;
 using Evergine.Framework.Services;
 using Evergine.Mathematics;
 using System;
+using System.Reflection.Emit;
+using System.Reflection.Metadata;
 using Vicold.Atmospex.Core;
 using Vicold.Atmospex.CoreService;
 using Vicold.Atmospex.Data;
@@ -26,6 +28,7 @@ public class RenderModuleService : IRenderModuleService
 
     // 地球投影服务
     private readonly IEarthModuleService _earthService;
+    private readonly ILayerModuleService _layerModuleService;
 
     // 相机
     private Camera? _currentCamera => _mouseInteractionService?.BindingCamera;
@@ -35,13 +38,23 @@ public class RenderModuleService : IRenderModuleService
         get; private set;
     }
 
-    public RenderModuleService(IAppService appService, IEarthModuleService earthService)
+    public RenderModuleService(IAppService appService, IEarthModuleService earthService, ILayerModuleService layerModuleService)
     {
         _appService = appService;
         Current = this;
 
         // 初始化地球服务
         _earthService = earthService;
+        _layerModuleService = layerModuleService;
+
+        layerModuleService.LayerManager.OnLayerAdded += (s, e) =>
+        {
+            if (e.Layer is IRenderLayer el && _entityManager is { })
+            {
+                el.Draw(_entityManager);
+                //e.Layer.ScaleChange(Viewport.ScrollScale);
+            }
+        };
     }
 
 
@@ -67,16 +80,16 @@ public class RenderModuleService : IRenderModuleService
         return _appService?.GetService<T>();
     }
 
-    public void Bind(ILayerModuleService layerModuleService)
-    {
-        layerModuleService.LayerManager.OnLayerAdded += (s, e) =>
-        {
-            if (e.Layer is IRenderLayer el && _entityManager is { })
-            {
-                el.Draw(_entityManager);
-            }
-        };
-    }
+    //public void Bind(ILayerModuleService layerModuleService)
+    //{
+    //    layerModuleService.LayerManager.OnLayerAdded += (s, e) =>
+    //    {
+    //        if (e.Layer is IRenderLayer el && _entityManager is { })
+    //        {
+    //            el.Draw(_entityManager);
+    //        }
+    //    };
+    //}
 
     internal void BindEntityManager(EntityManager? entityManager)
     {
@@ -92,8 +105,14 @@ public class RenderModuleService : IRenderModuleService
         if (_mouseInteractionService is null)
         {
             _mouseInteractionService = mouseInteractionService;
-            mouseInteractionService.ViewportChangedEvent += OnViewportChanged;
+            _mouseInteractionService.ViewportChangedEvent += OnViewportChanged;
+            _mouseInteractionService.LocalScaleChangedEvent += OnScaleChanged;
         }
+    }
+
+    private void OnScaleChanged(object? sender, LocalScaleEventArgs e)
+    {
+        _layerModuleService.LayerManager.ChangeScale(e.LocalScale);
     }
 
     private void OnViewportChanged(object? sender, ViewportChangedEventArgs e)

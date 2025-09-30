@@ -126,7 +126,7 @@ public partial class App : Application
 
     private void AfterInit()
     {
-        App.GetService<Vicold.Atmospex.Render.Frame.IRenderModuleService>().Bind(App.GetService<ILayerModuleService>());
+        //App.GetService<Vicold.Atmospex.Render.Frame.IRenderModuleService>().Bind(App.GetService<ILayerModuleService>());
         App.GetService<Vicold.Atmospex.Core.ICoreModuleService>().OnViewStart = () =>
         {
             Task.Run(() =>

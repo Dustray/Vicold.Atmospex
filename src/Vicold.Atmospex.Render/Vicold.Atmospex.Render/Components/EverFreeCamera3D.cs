@@ -39,6 +39,7 @@ internal class EverFreeCamera3D : FreeCamera3D
         service.BindingCamera = camera;
         service.SetPosition(initialPosition, initialRotation);
         service.UpdateViewport();
+        service.UpdateScale();
 
         if (service is { })
         {

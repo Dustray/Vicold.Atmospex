@@ -9,6 +9,7 @@ using Evergine.Framework.Services;
 using Evergine.Mathematics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Vicold.Atmospex.Data;
 using Vicold.Atmospex.Data.Vector;
 using Vicold.Atmospex.Layer.Node;
@@ -93,10 +94,10 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
                 {
                     Font = defaultFont,
                     Text = vectorFont.Font,
-                    Origin = new Vector2(0f, 0f), // Center the text
+                    Origin = new Vector2(vectorFont.Pivot.X, vectorFont.Pivot.Y), // Center the text
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    ScaleFactor = vectorFont.FontSize / 300, // Adjust the scale factor as needed
+                    ScaleFactor = vectorFont.FontSize / 800, // Adjust the scale factor as needed
                     Size = new Vector2(2f, 1f),
                     Wrapping = false,
                     Color = new Color(
@@ -108,11 +109,12 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
                 };
 
                 // 获取位置信息
-                Vector3 position = new Vector3(vectorFont.Position.X - textMesh.Size.X / 2, vectorFont.Position.Y + textMesh.Size.Y / 2, 0);
+                Vector3 position = new Vector3(vectorFont.Position.X , vectorFont.Position.Y, 0);
                 var renderer = new Text3DRenderer() { DebugMode = false };
                 var textTrans = new Transform3D
                 {
-                    Position = position,
+                    LocalPosition = position,
+                    LocalScale = new Vector3(1, 1, 1),
                 };
                 // 创建立方体作为文本占位符
                 Entity textEntity = new Entity()
@@ -136,6 +138,32 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
                 }
 
                 _fontEntity = null;
+            }
+        }
+
+        internal void UpdateScale(float scale)
+        {
+            // 检查字体实体是否存在
+            if (_fontEntity == null || _fontEntity.ChildEntities.Count() == 0)
+                return;
+
+            // 遍历所有文本子实体
+            foreach (var childEntity in _fontEntity.ChildEntities)
+            {
+                // 获取Transform3D组件
+                var textTrans = childEntity.FindComponent<Transform3D>();
+                if (textTrans == null)
+                    continue;
+
+                // 计算缩放因子，使字体大小相对于屏幕保持不变
+                // 当相机高度增加时，需要放大字体；当相机高度减小时，需要缩小字体
+                float scaleFactor = scale; // 直接使用相机高度作为缩放因子
+                
+                // 添加边界保护，避免字体变得过大或过小
+                scaleFactor = Math.Max(0.1f, Math.Min(10.0f, scaleFactor));
+
+                // 应用调整后的缩放因子
+                textTrans.LocalScale = new Vector3(scaleFactor, scaleFactor, 1.0f);
             }
         }
     }

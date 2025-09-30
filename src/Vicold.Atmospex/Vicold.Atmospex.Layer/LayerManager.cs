@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using Vicold.Atmospex.Configration;
@@ -61,6 +62,7 @@ namespace Vicold.Atmospex.Layer
             }
 
             layer.Render(earthService.CurrentProjection);
+
             var node = LayerExtractor.ExtractLayerNode(layer);
             if (node != null)
             {
@@ -142,5 +144,12 @@ namespace Vicold.Atmospex.Layer
             return new LayerChangedEventArgs(layer);
         }
 
+        public void ChangeScale(float localScale)
+        {
+            foreach (var layer in _layerKeeper.GetAllLayers())
+            {
+                layer.ScaleChange(localScale);
+            }
+        }
     }
 }

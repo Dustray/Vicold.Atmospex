@@ -50,4 +50,7 @@ public interface ILayer : IDisposable
     }
 
     void Render(IProjection projection);
+
+    void ScaleChange(float scale);
+
 }

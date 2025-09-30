@@ -97,5 +97,13 @@ namespace Vicold.Atmospex.Render.Frame.Layers
                 node.Draw(entityManager, LayerDescription);
             }
         }
+
+        public override void ScaleChange(float scale)
+        {
+            if (_layerNode is RenderFontNode node)
+            {
+                node.UpdateScale(scale);
+            }
+        }
     }
 }

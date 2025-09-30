@@ -18,7 +18,7 @@ public interface IRenderModuleService : IModuleService
     ViewportInfo Viewport { get; }
 
     // 接口成员
-    void Bind(ILayerModuleService layerModuleService);
+    //void Bind(ILayerModuleService layerModuleService);
 
     /// <summary>
     /// 屏幕坐标转换为世界坐标

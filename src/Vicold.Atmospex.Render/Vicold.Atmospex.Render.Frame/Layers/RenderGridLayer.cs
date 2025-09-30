@@ -322,5 +322,9 @@ namespace Vicold.Atmospex.Render.Frame.Layers
                 node.Draw(entityManager, LayerDescription);
             }
         }
+
+        public override void ScaleChange(float scale)
+        {
+        }
     }
 }
