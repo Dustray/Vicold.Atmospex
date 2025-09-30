@@ -13,7 +13,8 @@ namespace Vicold.Atmospex.Earth.Projection
 
         public Projection4CloseToReal(ProjectionInfo info) : base(info)
         {
-            ID = 1;
+            ID = 0;
+            Type = ProjectionType.CloseToReal;
         }
 
         public override bool Geo2IndexInternal(double lon, double lat, out double x, out double y)

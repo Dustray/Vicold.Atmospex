@@ -14,6 +14,7 @@ namespace Vicold.Atmospex.Earth.Projection
         public Projection4EqualLonLat(ProjectionInfo info) : base(info)
         {
             ID = 1;
+            Type = ProjectionType.EqualLonLat;
         }
 
         public override bool Geo2IndexInternal(double lon, double lat, out double x, out double y)

@@ -14,6 +14,8 @@ namespace Vicold.Atmospex.Earth.Projection
 
         public Projection4Lambert(ProjectionInfo info) : base(info)
         {
+            ID = 2;
+            Type = ProjectionType.Lambert;
             var transformationFactory = new CoordinateTransformationFactory();
             var coordinateSystemFactory = new CoordinateSystemFactory();
 

@@ -27,6 +27,18 @@ public class EMImage
         double north = provider.StartLatitude;
         double east = provider.EndLongitude;
         double south = provider.EndLatitude;
+        //if(projection.Type == ProjectionType.Lambert)
+        //{
+        //    if (north > 80)
+        //    {
+        //        north = 80;
+        //    }
+
+        //    if (south < -80)
+        //    {
+        //        south = -80;
+        //    }
+        //}
 
         var validBounds = grid.ValidSubRegion;
 
@@ -68,7 +80,7 @@ public class EMImage
             y_size = (end_y - start_y + 1);
         }
 
-        if (srid != 1001 || fore_no_prj)
+        if (projection.Type != ProjectionType.Lambert || fore_no_prj)
         {
             projection.Geo2Index(west, south, out minx, out miny);
             projection.Geo2Index(east, north, out maxx, out maxy);

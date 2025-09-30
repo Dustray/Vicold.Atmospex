@@ -18,6 +18,10 @@ namespace Vicold.Atmospex.Earth.Projection
 
         public Projection4Mercator(ProjectionInfo info) : base(info)
         {
+
+            ID = 3;
+            Type = ProjectionType.Mercator;
+
             var transformation = new CoordinateTransformationFactory();
 
             // 使用WGS84地理坐标系作为源（经度范围-180到180）
