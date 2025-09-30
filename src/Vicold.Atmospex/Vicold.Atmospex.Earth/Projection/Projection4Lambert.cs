@@ -10,6 +10,7 @@ namespace Vicold.Atmospex.Earth.Projection
     {
         private readonly ICoordinateTransformation _ctf_G2W;
         private readonly ICoordinateTransformation _ctf_W2G;
+        private static readonly int LAMBERT_ZOOM = 2000;
 
         public Projection4Lambert(ProjectionInfo info) : base(info)
         {
@@ -20,10 +21,10 @@ namespace Vicold.Atmospex.Earth.Projection
             var ellipsoid = Ellipsoid.WGS84;
             var datum = coordinateSystemFactory.CreateHorizontalDatum("WGS 1984", DatumType.HD_Geocentric, ellipsoid, null);
             var gcs = coordinateSystemFactory.CreateGeographicCoordinateSystem(
-                "WGS 1984", 
-                AngularUnit.Degrees, 
+                "WGS 1984",
+                AngularUnit.Degrees,
                 datum,
-                PrimeMeridian.Greenwich, 
+                PrimeMeridian.Greenwich,
                 new AxisInfo("Lon", AxisOrientationEnum.East),
                 new AxisInfo("Lat", AxisOrientationEnum.North)
             );
@@ -32,7 +33,7 @@ namespace Vicold.Atmospex.Earth.Projection
             // 中国中心约为东经105度，北纬36度
             double chinaCentralLat = Info.LatCenter > 0 ? Info.LatCenter : 36; // 如果未指定或无效，默认使用36°N
             double chinaCentralLon = Info.LonCenter > 0 ? Info.LonCenter : 105; // 如果未指定或无效，默认使用105°E
-            
+
             // 创建兰伯特投影参数 - 以中国为中心
             var parameters = new List<ProjectionParameter>(6)
             {
@@ -49,11 +50,11 @@ namespace Vicold.Atmospex.Earth.Projection
 
             // 创建投影坐标系
             var coordsys = coordinateSystemFactory.CreateProjectedCoordinateSystem(
-                "WGS 1984 / Lambert Conic Conformal", 
-                gcs, 
-                projection, 
-                LinearUnit.Metre, 
-                new AxisInfo("East", AxisOrientationEnum.East), 
+                "WGS 1984 / Lambert Conic Conformal",
+                gcs,
+                projection,
+                LinearUnit.Metre,
+                new AxisInfo("East", AxisOrientationEnum.East),
                 new AxisInfo("North", AxisOrientationEnum.North)
             );
 
@@ -61,7 +62,7 @@ namespace Vicold.Atmospex.Earth.Projection
             _ctf_G2W = transformationFactory.CreateFromCoordinateSystems(gcs, coordsys);
             _ctf_W2G = transformationFactory.CreateFromCoordinateSystems(coordsys, gcs);
         }
-        
+
         /// <summary>
         /// 创建以中国为中心的兰伯特投影实例
         /// </summary>
@@ -79,23 +80,28 @@ namespace Vicold.Atmospex.Earth.Projection
                 South = 4,    // 中国最南端纬度
                 WorldScale = 1.0f // 设置适当的世界缩放比例
             };
-            
+
             return new Projection4Lambert(info);
         }
+
 
         public override bool Geo2IndexInternal(double lon, double lat, out double x, out double y)
         {
             // 转换经纬度范围以适应兰伯特投影
-            if (lon < -180) {
+            if (lon < -180)
+            {
                 lon = -180;
             }
-            if (lon > 180) {
+            if (lon > 180)
+            {
                 lon = 180;
             }
-            if (lat < -80) {
+            if (lat < -80)
+            {
                 lat = -80;
             }
-            if (lat > 80) {
+            if (lat > 80)
+            {
                 lat = 80;
             }
 
@@ -103,15 +109,15 @@ namespace Vicold.Atmospex.Earth.Projection
             var s = _ctf_G2W.MathTransform.Transform([lon, lat]);
             // 兰伯特投影的坐标值通常很大，增加一个更大的缩放因子来减小最终的坐标值
             // 测试代码中显示坐标值可达数百万米，所以使用更大的缩放因子
-            x = s[0] / 10000; // 使用100000作为缩放因子
-            y = s[1] / 10000;
+            x = s[0] / LAMBERT_ZOOM; // 使用LAMBERT_ZOOM作为缩放因子
+            y = s[1] / LAMBERT_ZOOM;
             return true;
         }
 
         public override bool Index2GeoInternal(double x, double y, out double lon, out double lat)
         {
             // 反向转换，使用相同的缩放因子
-            var s = _ctf_W2G.MathTransform.Transform([x * 10000, y * 10000]);
+            var s = _ctf_W2G.MathTransform.Transform([x * LAMBERT_ZOOM, y * LAMBERT_ZOOM]);
             lon = s[0];
             lat = s[1];
             return true;

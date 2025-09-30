@@ -42,4 +42,5 @@ public interface IEarthModuleService : IModuleService
     void ChangeScale(float scale);
 
     void ChangeMouse(float worldX, float worldY, float screenX, float screenY);
+
 }

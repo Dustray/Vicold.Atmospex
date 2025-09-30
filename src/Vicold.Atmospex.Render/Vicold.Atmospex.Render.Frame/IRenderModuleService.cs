@@ -68,7 +68,11 @@ public interface IRenderModuleService : IModuleService
     /// <returns>屏幕坐标</returns>
     Vector2 GeoToScreen(double longitude, double latitude);
 
-    void SetLaunchGeoPosition(float v1, float v2, float v3);
+    void SetLaunchGeoPosition(float lon, float lat, float z);
+
+    void SetLaunchGeoPosition(float lon, float lat);
+
+    (float lon, float lat) GetCurrentGeoPosition();
 
     void ResetCamera();
 }

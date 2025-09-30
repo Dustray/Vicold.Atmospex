@@ -14,6 +14,7 @@ namespace Vicold.Atmospex.Earth.Projection
 
         private readonly ICoordinateTransformation _ctf_G2W;
         private readonly ICoordinateTransformation _ctf_W2G;
+        private static readonly int LAMBERT_ZOOM = 2500;
 
         public Projection4Mercator(ProjectionInfo info) : base(info)
         {
@@ -53,14 +54,14 @@ namespace Vicold.Atmospex.Earth.Projection
             }
 
             var s = _ctf_G2W.MathTransform.Transform([lon, lat]);
-            x = s[0] / 5000;
-            y = s[1] / 5000;
+            x = s[0] / LAMBERT_ZOOM;
+            y = s[1] / LAMBERT_ZOOM;
             return true;
         }
 
         public override bool Index2GeoInternal(double x, double y, out double lon, out double lat)
         {
-            var s = _ctf_W2G.MathTransform.Transform([x * 5000, y * 5000]);
+            var s = _ctf_W2G.MathTransform.Transform([x * LAMBERT_ZOOM, y * LAMBERT_ZOOM]);
             lon = s[0];
             lat = s[1];
             return true;

@@ -280,6 +280,16 @@ public class RenderModuleService : IRenderModuleService
         return WorldToScreen(worldPos.X, worldPos.Y);
     }
 
+
+    public void SetLaunchGeoPosition(float lon, float lat)
+    {
+        var world = GeoToWorld(lon, lat);
+        if (_mouseInteractionService is { })
+        {
+            _mouseInteractionService.SetInitialPositionValue(new(world.X, world.Y, 0),true);
+        }
+    }
+
     public void SetLaunchGeoPosition(float lon, float lat, float z)
     {
         var world = GeoToWorld(lon, lat);
@@ -287,6 +297,17 @@ public class RenderModuleService : IRenderModuleService
         {
             _mouseInteractionService.SetInitialPositionValue(new(world.X, world.Y, z));
         }
+    }
+
+    public (float lon, float lat) GetCurrentGeoPosition()
+    {
+        if (_mouseInteractionService is { })
+        {
+            var geo = WorldToGeo(_mouseInteractionService.CameraPosition.X, _mouseInteractionService.CameraPosition.Y);
+            return (geo.X, geo.Y);
+        }
+
+        return (0, 0);
     }
 
     public void ResetCamera()

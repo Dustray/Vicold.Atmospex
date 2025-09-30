@@ -129,9 +129,16 @@ public class MouseInteractionService : Service
     public event EventHandler<MouseMoveEventArgs> MouseMoveChangedEvent;
     public event EventHandler<ViewportChangedEventArgs> ViewportChangedEvent;
 
-    public void SetInitialPositionValue(Vector3 initPosition)
+    public void SetInitialPositionValue(Vector3 initPosition, bool donotModifyZ = false)
     {
-        InitialPosition = initPosition;
+        if (donotModifyZ)
+        {
+            InitialPosition = new Vector3(initPosition.X, initPosition.Y, _z);
+        }
+        else
+        {
+            InitialPosition = initPosition;
+        }
     }
 
     public void SetPosition(Vector3 initPosition)

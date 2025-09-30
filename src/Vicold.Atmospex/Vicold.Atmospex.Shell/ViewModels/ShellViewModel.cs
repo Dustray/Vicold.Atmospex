@@ -262,7 +262,19 @@ public partial class ShellViewModel : ObservableRecipient
         {
             if (type != _earthModuleService.Projection)
             {
+                // 获取当前经纬度
+                (var lon, var lat) = _renderModuleService.GetCurrentGeoPosition();
+
+                // 修改当前投影
                 _earthModuleService.ChangeProjection(type);
+
+                // 重新设置默认相机位置（根据经纬度）
+                _renderModuleService.SetLaunchGeoPosition(lon, lat);
+
+                // 重设相机位置
+                _renderModuleService.ResetCamera();
+
+                // 更新所有图层
                 _layerModuleService.LayerManager.UpdateAllLayers();
             }
         }
