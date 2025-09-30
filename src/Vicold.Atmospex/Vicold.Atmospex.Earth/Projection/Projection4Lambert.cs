@@ -11,11 +11,17 @@ namespace Vicold.Atmospex.Earth.Projection
         private readonly ICoordinateTransformation _ctf_G2W;
         private readonly ICoordinateTransformation _ctf_W2G;
         private static readonly int LAMBERT_ZOOM = 2000;
+        private static readonly int CENTER_LON = 105;
+        private static readonly int CENTER_LAT = 36;
 
         public Projection4Lambert(ProjectionInfo info) : base(info)
         {
             ID = 2;
             Type = ProjectionType.Lambert;
+
+            //MinLongitude = CENTER_LON - 180;
+            //MaxLongitude = CENTER_LON + 180;
+
             var transformationFactory = new CoordinateTransformationFactory();
             var coordinateSystemFactory = new CoordinateSystemFactory();
 
@@ -34,7 +40,7 @@ namespace Vicold.Atmospex.Earth.Projection
             // 设置中国中心的参数
             // 中国中心约为东经105度，北纬36度
             double chinaCentralLat = Info.LatCenter > 0 ? Info.LatCenter : 36; // 如果未指定或无效，默认使用36°N
-            double chinaCentralLon = Info.LonCenter > 0 ? Info.LonCenter : 105; // 如果未指定或无效，默认使用105°E
+            double chinaCentralLon = Info.LonCenter > 0 ? Info.LonCenter : info.MapLonCenter; // 如果未指定或无效，默认使用105°E
 
             // 创建兰伯特投影参数 - 以中国为中心
             var parameters = new List<ProjectionParameter>(6)

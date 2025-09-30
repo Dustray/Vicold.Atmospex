@@ -18,30 +18,6 @@ namespace Vicold.Atmospex.Earth.Projection
             get;
         }
 
-        double MinLongitude
-        {
-            get;
-            set;
-        }
-
-        double MaxLongitude
-        {
-            get;
-            set;
-        }
-
-        double MinLatitude
-        {
-            get;
-            set;
-        }
-
-        double MaxLatitude
-        {
-            get;
-            set;
-        }
-
         bool Index2Geo(double x, double y, out double lon, out double lat);
 
         bool Geo2Index(double lon, double lat, out double x, out double y);

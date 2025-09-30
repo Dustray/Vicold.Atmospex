@@ -8,7 +8,7 @@ using Vicold.Atmospex.Algorithm;
 
 namespace Vicold.Atmospex.Earth.Projection
 {
-    public abstract class EarthProjection(ProjectionInfo info) : IProjection
+    public abstract class EarthProjection : IProjection
     {
         public int ID
         {
@@ -20,40 +20,21 @@ namespace Vicold.Atmospex.Earth.Projection
         public ProjectionInfo Info
         {
             get; protected set;
-        } = info;
+        }
 
         public ProjectionType Type
         {
             get; protected set;
         }
 
-        public double MinLongitude
-        {
-            get;
-            set;
-        }
-
-        public double MaxLongitude
-        {
-            get;
-            set;
-        }
-
-        public double MinLatitude
-        {
-            get;
-            set;
-        }
-
-        public double MaxLatitude
-        {
-            get;
-            set;
-        }
-
         public const double RAD_TO_DEG = 57.29577951308232;
 
         public const double DEG_TO_RAD = .0174532925199432958;
+
+        public EarthProjection(ProjectionInfo info)
+        {
+            Info = info;
+        }
 
         protected void _CalculateMapBounds(ProjectionInfo info)
         {

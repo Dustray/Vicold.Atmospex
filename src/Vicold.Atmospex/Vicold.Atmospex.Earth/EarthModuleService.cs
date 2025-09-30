@@ -68,7 +68,6 @@ public class EarthModuleService : IEarthModuleService
     public void Initialize()
     {
         Current = this;
-        ProjectionInfo = CreateProjectionInfo(0);
         ChangeProjection(_projectionType);
     }
 
@@ -83,18 +82,22 @@ public class EarthModuleService : IEarthModuleService
         _projectionType = projectionType;
         if (projectionType == ProjectionType.Mercator)
         {
+            ProjectionInfo = CreateProjectionInfo(0);
             CurrentProjection = new Projection4Mercator(ProjectionInfo);
         }
         else if (projectionType == ProjectionType.EqualLonLat)
         {
+            ProjectionInfo = CreateProjectionInfo(0);
             CurrentProjection = new Projection4EqualLonLat(ProjectionInfo);
         }
         else if (projectionType == ProjectionType.CloseToReal)
         {
+            ProjectionInfo = CreateProjectionInfo(0);
             CurrentProjection = new Projection4CloseToReal(ProjectionInfo);
         }
         else if (projectionType == ProjectionType.Lambert)
         {
+            ProjectionInfo = CreateProjectionInfo(105);
             CurrentProjection = new Projection4Lambert(ProjectionInfo);
         }
     }
