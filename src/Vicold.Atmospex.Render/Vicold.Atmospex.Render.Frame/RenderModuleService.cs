@@ -126,7 +126,7 @@ public class RenderModuleService : IRenderModuleService
     /// <returns>视口信息对象</returns>
     public void UpdateViewportInfo()
     {
-        if(_currentCamera is null)
+        if (_currentCamera is null)
         {
             return;
         }
@@ -254,5 +254,14 @@ public class RenderModuleService : IRenderModuleService
         // 先转换为世界坐标，再转换为屏幕坐标
         var worldPos = GeoToWorld(longitude, latitude);
         return WorldToScreen(worldPos.X, worldPos.Y);
+    }
+
+    public void SetLaunchGeoPosition(float lon, float lat, float z)
+    {
+        var world = GeoToWorld(lon, lat);
+        if (_mouseInteractionService is { })
+        {
+            _mouseInteractionService.SetInitialPositionValue(new(world.X, world.Y, z));
+        }
     }
 }

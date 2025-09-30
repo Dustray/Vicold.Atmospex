@@ -107,23 +107,55 @@ public class MouseInteractionService : Service
     } = 0;
 
 
-    public Action<Vector3> CameraPositionChanged
+    internal Vector3 InitialPosition { get; set; } = Vector3.Zero;
+    internal Vector3 InitialRotation { get; set; } = Vector3.Zero;
+
+
+    public Action<bool, bool>? CameraReset
     {
         get; set;
     }
 
-    public Action<Vector3> CameraRotationChanged
+    public Action<Vector3>? CameraPositionChanged
     {
         get; set;
     }
 
-    public event EventHandler<ResetCameraEventArgs> CameraReset;
+    public Action<Vector3>? CameraRotationChanged
+    {
+        get; set;
+    }
+
     //public event EventHandler CameraHeightChangedEvent;
     public event EventHandler<LocalScaleEventArgs> LocalScaleChangedEvent;
     public event EventHandler<MouseMoveEventArgs> MouseMoveChangedEvent;
     public event EventHandler<ViewportChangedEventArgs> ViewportChangedEvent;
 
-    public void SetPosition(Vector3? initPosition, Vector3? initRotation)
+    public void SetInitialPositionValue(Vector3 initPosition)
+    {
+        InitialPosition = initPosition;
+    }
+
+    public void SetPosition(Vector3 initPosition)
+    {
+        SetPosition(initPosition, null);
+        CameraPositionChanged?.Invoke(initPosition);
+    }
+
+    public void ResetPosition()
+    {
+        SetPosition(InitialPosition, null);
+        CameraReset?.Invoke(true, false);
+    }
+
+    public void ResetRotation()
+    {
+        SetPosition(null, InitialRotation);
+        CameraReset?.Invoke(false, true);
+    }
+
+
+    private void SetPosition(Vector3? initPosition, Vector3? initRotation)
     {
         if (initPosition is { })
         {
@@ -139,11 +171,6 @@ public class MouseInteractionService : Service
             _rotationY = initRotation.Value.Y;
             _rotationZ = initRotation.Value.Z;
         }
-    }
-
-    public void ResetCamera(bool isResetPosition, bool isResetRotation)
-    {
-        this.CameraReset?.Invoke(this, new(isResetPosition, isResetRotation));
     }
 
     public void UpdatePosition(float x, float y)

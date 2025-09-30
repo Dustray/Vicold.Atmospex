@@ -128,11 +128,12 @@ public partial class App : Application
 
     private void AfterInit()
     {
-        //App.GetService<Vicold.Atmospex.Render.Frame.IRenderModuleService>().Bind(App.GetService<ILayerModuleService>());
         App.GetService<Vicold.Atmospex.Core.ICoreModuleService>().OnViewStart = () =>
         {
             Task.Run(() =>
             {
+                App.GetService<Vicold.Atmospex.Render.Frame.IRenderModuleService>().SetLaunchGeoPosition(105f, 35f, 3f);
+
                 var mapHolder = new MapHolder();
 
                 //var worldLayerPolygon = new RenderLineLayer(mapHolder.WorldPolygonProvider, "rmias_world_polygon");

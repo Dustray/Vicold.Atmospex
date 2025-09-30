@@ -24,67 +24,57 @@ internal class EverFreeCamera3D : FreeCamera3D
     [BindService(false)]
     protected MouseInteractionService service;
 
-    private Vector3 initialPosition;
-    private Vector3 initialRotation;
     private Quaternion initialOrientation;
 
     protected override void OnActivated()
     {
         base.OnActivated();
-        camera.Transform.Position += new Vector3(1, -1, 0);
+        //camera.Transform.Position += new Vector3(1, -1, 0);
         camera.Transform.Rotation = new Vector3(0, 0, 0);
-        initialPosition = camera.Transform.Position;
-        initialRotation = camera.Transform.Rotation;
+
+        service.CameraPositionChanged = Service_SetCameraPosition;
+        service.CameraRotationChanged = Service_SetCameraRotation;
+        service.CameraReset = Service_ResetCamera;
+
+        //service.InitialPosition = camera.Transform.Position;
+        service.InitialRotation = camera.Transform.Rotation;
+
         initialOrientation = camera.Transform.Orientation;
+
         service.BindingCamera = camera;
-        service.SetPosition(initialPosition, initialRotation);
+        service.ResetPosition();
         service.UpdateViewport();
         service.UpdateScale();
-
-        if (service is { })
-        {
-            service.CameraPositionChanged = Service_SetCameraPosition;
-            service.CameraRotationChanged = Service_SetCameraRotation;
-            service.CameraReset += Service_CameraReset;
-        }
     }
 
     protected override void OnDeactivated()
     {
         base.OnDeactivated();
-
-        if (service != null)
-        {
-            service.CameraReset -= Service_CameraReset;
-        }
     }
 
     private void Service_SetCameraPosition(Vector3 position)
     {
-        //var position = camera.Transform.Position;
         camera.Transform.Position = position;
     }
 
     private void Service_SetCameraRotation(Vector3 rotation)
     {
-        //var position = camera.Transform.Position;
         camera.Transform.Rotation = rotation;
     }
 
-    private void Service_CameraReset(object sender, ResetCameraEventArgs e)
+    private void Service_ResetCamera(bool isResetPosition, bool isResetRotation)
     {
-        if (e.IsResetPosition)
+        if (isResetPosition)
         {
-            camera.Transform.Position = initialPosition;
+            camera.Transform.Position = service.InitialPosition;
         }
 
-        if (e.IsResetRotation)
+        if (isResetRotation)
         {
-            camera.Transform.Rotation = initialRotation;
+            camera.Transform.Rotation = service.InitialRotation;
+            camera.Transform.Orientation = initialOrientation;
         }
 
-        camera.Transform.Orientation = initialOrientation;
-        service.SetPosition(initialPosition, initialRotation);
         service.UpdateViewport();
     }
 
@@ -141,8 +131,7 @@ internal class EverFreeCamera3D : FreeCamera3D
         {
             if (keyboardDispatcher.IsKeyDown(Keys.Space))
             {
-                camera.Transform.Rotation = initialRotation;
-                service.SetPosition(null, initialRotation);
+                service.ResetRotation();
             }
             else
             {
@@ -176,11 +165,11 @@ internal class EverFreeCamera3D : FreeCamera3D
             //{
             //    case ButtonState.Pressing:
             //        Service_CameraReset(null, null);
-            //        service.ResetCamera(initialPosition, initialRotation);
+            //        service.ResetCamera(service.InitialPosition, service.InitialRotation);
             //        break;
             //    case ButtonState.Pressed:
             //        Service_CameraReset(null, null);
-            //        service.ResetCamera(initialPosition, initialRotation);
+            //        service.ResetCamera(service.InitialPosition, service.InitialRotation);
             //        break;
             //}
         }

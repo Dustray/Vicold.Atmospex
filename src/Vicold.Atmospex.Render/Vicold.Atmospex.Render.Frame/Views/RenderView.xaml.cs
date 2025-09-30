@@ -95,7 +95,7 @@ namespace Vicold.Atmospex.Render.Frame.Views
             // 服务设置
 
             var earthModuleService = RenderModuleService.GetService<IEarthModuleService>();
-            
+
 
             RenderModuleService.Current?.BindEntityManager(application.Scene?.Managers.EntityManager);
             RenderModuleService.Current?.BindCurrentMouseInteractionService(interactionService);
@@ -156,6 +156,7 @@ namespace Vicold.Atmospex.Render.Frame.Views
             var firstDisplay = new Display(surface, swapChain);
             graphicsPresenter.AddDisplay(displayName, firstDisplay);
         }
+
         private void OnSwapChainPanelPointerPressed(object sender, PointerRoutedEventArgs e)
         {
             ((SwapChainPanel)sender).Focus(FocusState.Pointer);
@@ -169,40 +170,8 @@ namespace Vicold.Atmospex.Render.Frame.Views
 
         private void ResetCamera_Click(object sender, RoutedEventArgs e)
         {
-            interactionService?.ResetCamera(false, true);
+            interactionService?.ResetRotation();
         }
-
-        private void DisplacementChanged(object sender, RangeBaseValueChangedEventArgs e)
-        {
-            interactionService.Displacement = (float)e.NewValue;
-        }
-
-
-        #region Log Opt
-
-        private async void OpenLogButton_Click(object sender, RoutedEventArgs e)
-        {
-            // open log file
-            var filePicker = new Windows.Storage.Pickers.FileOpenPicker
-            {
-                ViewMode = Windows.Storage.Pickers.PickerViewMode.List,
-                SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary
-            };
-            filePicker.FileTypeFilter.Add(".log");
-            filePicker.FileTypeFilter.Add(".log0");
-            filePicker.FileTypeFilter.Add(".txt");
-            filePicker.FileTypeFilter.Add(".json");
-            filePicker.FileTypeFilter.Add(".");
-            WinRT.Interop.InitializeWithWindow.Initialize(filePicker, Hwnd);
-
-            StorageFile file = await filePicker.PickSingleFileAsync();
-            if (file != null)
-            {
-                interactionService?.SetPosition(null, null);
-            }
-        }
-
-        #endregion
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
