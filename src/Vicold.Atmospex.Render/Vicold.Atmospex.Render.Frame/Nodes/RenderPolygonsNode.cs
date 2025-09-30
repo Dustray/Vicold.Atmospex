@@ -2,6 +2,7 @@ using Evergine.Common.Graphics;
 using Evergine.Framework;
 using Evergine.Framework.Managers;
 using Evergine.Mathematics;
+using System.Collections.Generic;
 using Vicold.Atmospex.Data.Vector;
 using Vicold.Atmospex.Layer.Node;
 using Vicold.Atmospex.Render.Frame.Models;
@@ -12,6 +13,8 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
         private VectorLine[] _polygons;
         private readonly RenderLayerDescription _renderLayer;
         private Entity? _polygonEntity;
+        private List<Entity> _childrenEntities = [];
+
         private PolygonsModel? _polygonsModel;
         public RenderPolygonsNode(VectorLine[] polygons, RenderLayerDescription renderLayer) : base(polygons)
         {
@@ -56,8 +59,31 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
                 foreach (var entity in modelEntities)
                 {
                     _polygonEntity.AddChild(entity);
+                    _childrenEntities.Add(entity);
                 }
             }
+        }
+
+        public void Erase(EntityManager entityManager)
+        {
+            if (_polygonEntity is { })
+            {
+                foreach (var c in _childrenEntities)
+                {
+                    entityManager.Detach(c);
+                    c.Destroy();
+                }
+                _childrenEntities.Clear();
+                
+                entityManager.Detach(_polygonEntity);
+                _polygonEntity.Destroy();
+                _polygonEntity = null;
+            }
+        }
+
+        public override void Dispose()
+        {
+                        _childrenEntities.Clear();
         }
     }
 }

@@ -106,10 +106,8 @@ public class MouseInteractionService : Service
         get; set;
     } = 0;
 
-
     internal Vector3 InitialPosition { get; set; } = Vector3.Zero;
     internal Vector3 InitialRotation { get; set; } = Vector3.Zero;
-
 
     public Action<bool, bool>? CameraReset
     {

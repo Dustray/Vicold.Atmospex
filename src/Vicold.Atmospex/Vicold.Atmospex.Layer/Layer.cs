@@ -59,6 +59,12 @@ public abstract class Layer : ILayer
 
     public virtual void Render(IProjection projection)
     {
+        if (_layerNode is { })
+        {
+            _layerNode.Dispose();
+            _layerNode = null;
+        }
+
         if (DataProvider == null)
         {
             throw new Exception("未指定Provider");

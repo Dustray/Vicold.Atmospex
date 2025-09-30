@@ -43,6 +43,12 @@
                         <MenuFlyoutItem x:Uid="ShellMenuItem_Views_Main" Command="{x:Bind ViewModel.MenuViewsMainCommand}" />
                     </MenuBarItem.Items>
                 </MenuBarItem>
+                <MenuBarItem x:Name="ProjectionMenuBarItem" Title="投影">
+                    <MenuFlyoutItem Text="墨卡托投影" Command="{x:Bind ViewModel.SetProjectionCommand}" CommandParameter="Mercator" />
+                    <MenuFlyoutItem Text="等经纬度投影" Command="{x:Bind ViewModel.SetProjectionCommand}" CommandParameter="EqualLonLat" />
+                    <MenuFlyoutItem Text="近似真实投影" Command="{x:Bind ViewModel.SetProjectionCommand}" CommandParameter="CloseToReal" />
+                    <MenuFlyoutItem Text="兰伯特投影" Command="{x:Bind ViewModel.SetProjectionCommand}" CommandParameter="Lambert" />
+                </MenuBarItem>
             </MenuBar>
             <AppBarButton Grid.Column="1" x:Name="ShellMenuBarSettingsButton" x:Uid="ShellMenuBarSettingsButton"
                           AnimatedIcon.State="Normal"
@@ -68,7 +74,7 @@
                 </AppBarButton>
                 <AppBarButton Icon="Add" x:Uid="ShellCommandBar_Open" Command="{x:Bind ViewModel.MenuFileOpenCommand}"/>
                 <AppBarButton Icon="Edit" x:Uid="ShellCommandBar_Edit"/>
-                <AppBarButton Icon="RepeatAll" x:Uid="ShellCommandBar_ResetView"/>
+                <AppBarButton Icon="RepeatAll" x:Uid="ShellCommandBar_ResetView"  Command="{x:Bind ViewModel.MenuResetViewCommand}"/>
                 <AppBarButton Icon="Cancel" x:Uid="ShellCommandBar_Cancel"/>
                 <CommandBar.SecondaryCommands>
                     <AppBarButton Icon="Setting" x:Uid="ShellCommandBar_Settings">

@@ -74,7 +74,6 @@ public class EverBatchLine2 : Drawable3D
     {
         // Remove line batch from render when the component is detached
         Managers.RenderManager.RemoveRenderObject(lineBatch);
-        
         base.OnDetach();
     }
 

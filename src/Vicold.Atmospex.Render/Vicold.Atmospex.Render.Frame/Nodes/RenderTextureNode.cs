@@ -143,5 +143,17 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
             // 添加到场景
             entityManager.Add(_planeEntity);
         }
+
+
+        public void Erase(EntityManager entityManager)
+        {
+            if (_planeEntity is { })
+            {
+                entityManager.Detach(_planeEntity);
+                _planeEntity.Destroy();
+                _planeEntity = null;
+            }
+        }
+
     }
 }

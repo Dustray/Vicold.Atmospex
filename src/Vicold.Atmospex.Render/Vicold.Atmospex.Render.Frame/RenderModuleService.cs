@@ -52,7 +52,31 @@ public class RenderModuleService : IRenderModuleService
             if (e.Layer is IRenderLayer el && _entityManager is { })
             {
                 el.Draw(_entityManager);
-                //e.Layer.ScaleChange(Viewport.ScrollScale);
+            }
+        };
+
+        layerModuleService.LayerManager.OnLayerUpdating += (s, e) =>
+        {
+            if (e.Layer is IRenderLayer el && _entityManager is { })
+            {
+                el.Erase(_entityManager);
+            }
+        };
+
+        layerModuleService.LayerManager.OnLayerUpdated += (s, e) =>
+        {
+            if (e.Layer is IRenderLayer el && _entityManager is { })
+            {
+                el.Draw(_entityManager);
+            }
+        };
+
+
+        layerModuleService.LayerManager.OnLayerRemoved += (s, e) =>
+        {
+            if (e.Layer is IRenderLayer el && _entityManager is { })
+            {
+                el.Erase(_entityManager);
             }
         };
     }
@@ -264,4 +288,14 @@ public class RenderModuleService : IRenderModuleService
             _mouseInteractionService.SetInitialPositionValue(new(world.X, world.Y, z));
         }
     }
+
+    public void ResetCamera()
+    {
+        if (_mouseInteractionService is { })
+        {
+            _mouseInteractionService.ResetPosition();
+            _mouseInteractionService.ResetRotation();
+        }
+    }
+
 }

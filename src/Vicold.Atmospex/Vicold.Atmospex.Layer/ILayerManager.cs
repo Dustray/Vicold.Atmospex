@@ -23,10 +23,13 @@ namespace Vicold.Atmospex.Layer
 
         IEnumerable<ILayer> GetAllLayers();
         void ChangeScale(float localScale);
+        void UpdateAllLayers();
 
         event LayerChangedEventHandler OnLayerAdded;
 
         event LayerChangedEventHandler OnLayerRemoved;
+
+        event LayerChangedEventHandler OnLayerUpdating;
 
         event LayerChangedEventHandler OnLayerUpdated;
 

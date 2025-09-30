@@ -16,8 +16,7 @@ namespace Vicold.Atmospex.Layer
     internal class LayerManager : ILayerManager
     {
         //private IBus _globalBus;
-        private LayerKeeper _layerKeeper;
-        private IProjection _projection;
+        private readonly LayerKeeper _layerKeeper;
 
         //private VisionGate _vision => Launcher.Current.VisionBinding;
 
@@ -29,6 +28,8 @@ namespace Vicold.Atmospex.Layer
         public event LayerChangedEventHandler OnLayerAdded;
 
         public event LayerChangedEventHandler OnLayerRemoved;
+
+        public event LayerChangedEventHandler OnLayerUpdating;
 
         public event LayerChangedEventHandler OnLayerUpdated;
 
@@ -66,11 +67,11 @@ namespace Vicold.Atmospex.Layer
             var node = LayerExtractor.ExtractLayerNode(layer);
             if (node != null)
             {
-                if (_layerKeeper.TryGet(layer.ID, out var oldLayer))
-                {
-                    var oldNode = LayerExtractor.ExtractLayerNode(layer);
-                    //_vision.OnNodeRemove.Invoke(oldNode);
-                }
+                //if (_layerKeeper.TryGet(layer.ID, out var oldLayer))
+                //{
+                //    var oldNode = LayerExtractor.ExtractLayerNode(layer);
+                //    //_vision.OnNodeRemove.Invoke(oldNode);
+                //}
 
                 //_vision.OnNodeLoad.Invoke(node);
                 OnLayerAdded?.Invoke(this, CreateArgs(layer));
@@ -100,6 +101,7 @@ namespace Vicold.Atmospex.Layer
                 return;
             }
 
+            OnLayerUpdating?.Invoke(this, CreateArgs(layer));
             if (layer is GridLayer && layer.Style == null)
             {
                 var ss = LayerModuleService.GetService<IConfigModuleService>();
@@ -109,7 +111,13 @@ namespace Vicold.Atmospex.Layer
                 }
             }
 
-            layer.Render(_projection);
+            var earthService = LayerModuleService.GetService<IEarthModuleService>();
+            if (earthService == null || earthService.CurrentProjection == null)
+            {
+                throw new Exception("未找到EarthService");
+            }
+
+            layer.Render(earthService.CurrentProjection);
             var node = LayerExtractor.ExtractLayerNode(layer);
             if (node != null)
             {
@@ -149,6 +157,20 @@ namespace Vicold.Atmospex.Layer
             foreach (var layer in _layerKeeper.GetAllLayers())
             {
                 layer.ScaleChange(localScale);
+            }
+        }
+
+        public void UpdateAllLayers()
+        {
+            var earthService = LayerModuleService.GetService<IEarthModuleService>();
+            if (earthService == null || earthService.CurrentProjection == null)
+            {
+                throw new Exception("未找到EarthService");
+            }
+
+            foreach (var layer in _layerKeeper.GetAllLayers())
+            {
+                UpdateLayer(layer);
             }
         }
     }

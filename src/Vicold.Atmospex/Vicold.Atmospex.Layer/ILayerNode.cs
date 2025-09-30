@@ -29,4 +29,5 @@ public interface ILayerNode : IDisposable
     /// </summary>
     /// <param name="scale"></param>
     void ResetScale(float scale);
+
 }

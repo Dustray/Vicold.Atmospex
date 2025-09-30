@@ -13,5 +13,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
         RenderLayerDescription LayerDescription { get; }
 
         void Draw(EntityManager entityManager);
+
+        void Erase(EntityManager entityManager);
     }
 }

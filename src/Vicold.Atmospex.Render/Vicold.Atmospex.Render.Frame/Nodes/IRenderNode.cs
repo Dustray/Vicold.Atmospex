@@ -13,5 +13,7 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
         public bool IsTileEnabled { get; set; }
 
         void Draw(EntityManager entityManager, RenderLayerDescription layerDescription);
+
+        void Erase(EntityManager entityManager);
     }
 }

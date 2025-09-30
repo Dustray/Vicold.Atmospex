@@ -128,5 +128,20 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
                 //UpdateEverBatchLine();
             }
         }
+
+
+        public void Erase(EntityManager entityManager)
+        {
+            if (_batchLineEntity is { })
+            {
+                entityManager.Detach(_batchLineEntity);
+                _batchLineEntity.Destroy();
+                _batchLineEntity = null;
+            }
+        }
+
+        public override void Dispose()
+        {
+        }
     }
 }

@@ -98,6 +98,15 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             }
         }
 
+        public void Erase(EntityManager entityManager)
+        {
+            if (_layerNode is IRenderNode node)
+            {
+                node.Erase(entityManager);
+            }
+        }
+
+
         public override void ScaleChange(float scale)
         {
             if (_layerNode is RenderFontNode node)

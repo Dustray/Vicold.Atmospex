@@ -12,15 +12,17 @@ using System.Collections.Generic;
 using System.Linq;
 using Vicold.Atmospex.Data;
 using Vicold.Atmospex.Data.Vector;
+using Vicold.Atmospex.Layer;
 using Vicold.Atmospex.Layer.Node;
 
 namespace Vicold.Atmospex.Render.Frame.Nodes
 {
-    internal class RenderFontNode : TextureNode, IRenderNode
+    internal class RenderFontNode : ILayerNode, IRenderNode
     {
         private readonly VectorData _fontData;
         private readonly RenderLayerDescription _renderLayer;
         private Entity? _fontEntity;
+        private List<Entity> _childrenEntities = [];
         private IList<VectorFont> _vectorFonts = [];
 
         public RenderFontNode(VectorData fontData, RenderLayerDescription renderLayer)
@@ -37,20 +39,9 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
         public void SetFonts(IList<VectorFont> fonts)
         {
             _vectorFonts = fonts;
-            // 当字体数据更新时，重置字体实体以便重新创建
-            if (_fontEntity != null)
-            {
-                // 释放旧的字体实体资源
-                foreach (var c in _fontEntity.ChildEntities)
-                {
-                    _fontEntity.DetachChild(c);
-                }
-
-                _fontEntity = null;
-            }
         }
 
-        public override void SetLevel(int zIndex)
+        public void SetLevel(int zIndex)
         {
             ZIndex = zIndex;
             _renderLayer.Order = ZIndex;
@@ -60,7 +51,7 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
 
         public bool IsTileEnabled { get; set; } = true;
 
-        public override bool Visible
+        public bool Visible
         {
             get => _fontEntity?.IsEnabled ?? false; set
             {
@@ -71,6 +62,8 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
             }
         }
 
+        public string ID { get; set; } = string.Empty;
+
         public void Draw(EntityManager entityManager, RenderLayerDescription layerDescription)
         {
             if (_fontEntity == null)
@@ -78,13 +71,29 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
                 // 创建容器实体
                 _fontEntity = new Entity();
                 entityManager.Add(_fontEntity);
-
                 // 检查是否有字体数据
                 if (_vectorFonts != null && _vectorFonts.Count > 0)
                 {
                     // 直接使用VectorFonts创建文本实体
                     CreateTextEntitiesFromVectorFonts(_vectorFonts, _fontEntity, layerDescription);
                 }
+            }
+        }
+
+        public void Erase(EntityManager entityManager)
+        {
+            if (_fontEntity is { })
+            {
+                foreach (var c in _childrenEntities)
+                {
+                    entityManager.Detach(c);
+                    c.Destroy();
+                }
+                _childrenEntities.Clear(); 
+
+                entityManager.Detach(_fontEntity);
+                _fontEntity.Destroy();
+                _fontEntity = null;
             }
         }
 
@@ -121,7 +130,7 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
                 };
 
                 // 获取位置信息
-                Vector3 position = new Vector3(vectorFont.Position.X , vectorFont.Position.Y, 0);
+                Vector3 position = new Vector3(vectorFont.Position.X, vectorFont.Position.Y, 0);
                 var renderer = new Text3DRenderer() { DebugMode = false };
                 var textTrans = new Transform3D
                 {
@@ -135,22 +144,14 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
                     .AddComponent(renderer);
                 // 添加到父实体
                 parentEntity.AddChild(textEntity);
+                _childrenEntities.Add(textEntity);
             }
+
         }
 
-        public override void Dispose()
+        public void Dispose()
         {
-            base.Dispose();
-            if (_fontEntity != null)
-            {
-                // 释放旧的字体实体资源
-                foreach (var c in _fontEntity.ChildEntities)
-                {
-                    _fontEntity.DetachChild(c);
-                }
-
-                _fontEntity = null;
-            }
+            _childrenEntities.Clear();
         }
 
         internal void UpdateScale(float scale)
@@ -170,13 +171,17 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
                 // 计算缩放因子，使字体大小相对于屏幕保持不变
                 // 当相机高度增加时，需要放大字体；当相机高度减小时，需要缩小字体
                 float scaleFactor = scale; // 直接使用相机高度作为缩放因子
-                
+
                 // 添加边界保护，避免字体变得过大或过小
                 scaleFactor = Math.Max(0.1f, Math.Min(10.0f, scaleFactor));
 
                 // 应用调整后的缩放因子
                 textTrans.LocalScale = new Vector3(scaleFactor, scaleFactor, 1.0f);
             }
+        }
+
+        public void ResetScale(float scale)
+        {
         }
     }
 }

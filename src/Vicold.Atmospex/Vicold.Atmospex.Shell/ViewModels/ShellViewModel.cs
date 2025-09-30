@@ -11,6 +11,8 @@ using Vicold.Atmospex.Earth;
 using Vicold.Atmospex.FileSystem;
 using Vicold.Atmospex.Layer;
 using Vicold.Atmospex.Layer.Events;
+using Vicold.Atmospex.Render.Frame;
+using Vicold.Atmospex.Earth.Projection;
 using Vicold.Atmospex.Shell.Contracts.Services;
 using Windows.Foundation;
 using Windows.Storage;
@@ -20,8 +22,12 @@ namespace Vicold.Atmospex.Shell.ViewModels;
 
 public partial class ShellViewModel : ObservableRecipient
 {
-    private ICoreModuleService _coreModuleService;
-    private ILayerManager _layerManager;
+    private readonly ICoreModuleService _coreModuleService;
+    private readonly ILayerManager _layerManager;
+    private readonly IRenderModuleService _renderModuleService;
+    private readonly IEarthModuleService _earthModuleService;
+    private readonly ILayerModuleService _layerModuleService;
+
     [ObservableProperty]
     private bool isBackEnabled;
 
@@ -59,6 +65,12 @@ public partial class ShellViewModel : ObservableRecipient
         get;
     }
 
+    public ICommand MenuResetViewCommand
+    {
+        get;
+    }
+
+
     public INavigationService NavigationService
     {
         get;
@@ -90,17 +102,26 @@ public partial class ShellViewModel : ObservableRecipient
     public string LatitudeDisplay => $"{Math.Abs(Math.Min(90, Math.Max(-90, Latitude))):F4}° {(Latitude >= 0 ? "N" : "S")}";
 
 
-    public ShellViewModel(INavigationService navigationService, IEarthModuleService earthModuleService, ICoreModuleService coreModuleService, ILayerModuleService layerModuleService)
+    public ICommand SetProjectionCommand
+    {
+        get;
+    }
+
+    public ShellViewModel(INavigationService navigationService, IEarthModuleService earthModuleService, ICoreModuleService coreModuleService, ILayerModuleService layerModuleService, IRenderModuleService renderModuleService)
     {
         NavigationService = navigationService;
         NavigationService.Navigated += OnNavigated;
         _coreModuleService = coreModuleService;
+        _renderModuleService = renderModuleService;
+        _earthModuleService = earthModuleService;
+        _layerModuleService = layerModuleService;
 
         MenuFileExitCommand = new RelayCommand(OnMenuFileExit);
         MenuSettingsCommand = new RelayCommand(OnMenuSettings);
         MenuViewsMainCommand = new RelayCommand(OnMenuViewsMain);
         MenuFileOpenCommand = new RelayCommand(OnMenuFileOpen);
-
+        MenuResetViewCommand = new RelayCommand(OnMenuResetView);
+        SetProjectionCommand = new RelayCommand<string>(OnSetProjection);
         // 从LayerModuleService获取图层管理器
         _layerManager = layerModuleService.LayerManager;
 
@@ -227,6 +248,23 @@ public partial class ShellViewModel : ObservableRecipient
         {
             System.Diagnostics.Debug.WriteLine("Selected file: " + file.Path);
             await _coreModuleService.AddDataAsync(file.Path);
+        }
+    }
+
+    private void OnMenuResetView()
+    {
+        _renderModuleService?.ResetCamera();
+    }
+
+    private void OnSetProjection(string projectionType)
+    {
+        if (Enum.TryParse<ProjectionType>(projectionType, out var type))
+        {
+            if (type != _earthModuleService.Projection)
+            {
+                _earthModuleService.ChangeProjection(type);
+                _layerModuleService.LayerManager.UpdateAllLayers();
+            }
         }
     }
 }
