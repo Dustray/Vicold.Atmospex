@@ -67,6 +67,8 @@ public class ViewportInfo
     /// </summary>
     public float WorldMaxY => WorldViewport.Y + WorldViewport.Height;
 
+    public float ScrollScale { get; set; } = 1f;
+
     public ViewportInfo()
     {
         ScreenViewport = Rectangle.Empty;

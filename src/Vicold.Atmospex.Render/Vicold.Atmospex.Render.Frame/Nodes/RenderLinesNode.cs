@@ -27,6 +27,8 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
 
         public bool IsTileEnabled { get; set; } = true;
 
+        public bool IsLineRarefyEnabled { get; set; } = true;
+
         public RenderLinesNode(VectorLine[] lines, RenderLayerDescription renderLayer) : base(lines)
         {
             _lines = lines;
@@ -37,7 +39,7 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
         private void InitializeEverBatchLine()
         {
             // 创建EverBatchLine2
-            _everBatchLine = new EverBatchLine2(_renderLayer, IsTileEnabled)
+            _everBatchLine = new EverBatchLine2(_renderLayer, IsTileEnabled, IsLineRarefyEnabled)
             {
                 Lines = _lines,
                 UseBezierCurve = this.UseBezierCurve

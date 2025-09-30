@@ -128,6 +128,7 @@ public class RenderModuleService : IRenderModuleService
 
         Viewport.ScreenViewport = new((int)screenViewport.X, (int)screenViewport.Y, (int)screenViewport.Width, (int)screenViewport.Height);
         Viewport.WorldViewport = worldViewport;
+        Viewport.ScrollScale = _currentCamera.Position.Z;
     }
 
     /// <summary>
