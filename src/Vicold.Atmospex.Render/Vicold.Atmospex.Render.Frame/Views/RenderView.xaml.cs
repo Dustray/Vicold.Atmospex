@@ -98,6 +98,7 @@ namespace Vicold.Atmospex.Render.Frame.Views
             
 
             RenderModuleService.Current?.BindEntityManager(application.Scene?.Managers.EntityManager);
+            RenderModuleService.Current?.BindCurrentMouseInteractionService(interactionService);
             RenderModuleService.GetService<Vicold.Atmospex.Core.ICoreModuleService>()?.OnViewStart?.Invoke();
 
             interactionService.MouseMoveChangedEvent += (s, args) =>

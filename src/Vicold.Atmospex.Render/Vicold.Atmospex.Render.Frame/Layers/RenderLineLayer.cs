@@ -14,9 +14,11 @@ namespace Vicold.Atmospex.Render.Frame.Layers
     public class RenderLineLayer : LineLayer, IRenderLayer
     {
         private RenderType _renderType;
-        public RenderLineLayer(IVectorDataProvider provider, string id, RenderType renderType = RenderType.Contour) : base(provider, id)
+
+        public RenderLineLayer(IVectorDataProvider provider, string id, RenderType renderType = RenderType.Contour, bool cutLineToTile = true) : base(provider, id)
         {
             _renderType = renderType;
+            CutLineToTile = cutLineToTile;
             LayerDescription = new()
             {
                 RenderState = new RenderStateDescription()
@@ -35,6 +37,8 @@ namespace Vicold.Atmospex.Render.Frame.Layers
         }
 
         public RenderLayerDescription LayerDescription { get; private set; }
+
+        public bool CutLineToTile { get; }
 
         protected override ILayerNode? CreateLinesNode(string ID, IVectorDataProvider provider, IProjection prj)
         {
@@ -72,6 +76,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
         {
             if (_layerNode is IRenderNode node)
             {
+                node.IsTileEnabled = CutLineToTile;
                 node.Draw(entityManager, LayerDescription);
             }
         }

@@ -19,8 +19,13 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
             _renderLayer = renderLayer;
             _polygonEntity = null;
         }
-        public override void SetLevel(int zIndex) { ZIndex = zIndex; }
+        
         public int ZIndex { get; set; }
+        
+        public bool IsTileEnabled { get; set; } = true;
+        
+        public override void SetLevel(int zIndex) { ZIndex = zIndex; }
+
         public void Draw(EntityManager entityManager, RenderLayerDescription layerDescription)
         {
             if (_polygonEntity == null)

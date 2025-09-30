@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,6 +33,16 @@ public class LocalScaleEventArgs(float localScale, Vector3 position) : EventArgs
     } = position;
 }
 
+// 视口信息事件参数
+public class ViewportChangedEventArgs : EventArgs
+{
+    public ViewportChangedEventArgs(Camera camera)
+    {
+        Camera = camera;
+    }
+
+    public Camera Camera { get; }
+}
 
 public class MouseMoveEventArgs(Vector2 screenPosition, Vector2 worldPosition) : EventArgs
 {
@@ -65,12 +75,15 @@ public class MouseInteractionService : Service
 
     private Point _lastPosition;
 
-
-
     // 旋转
     private float _rotationX = 0;
     private float _rotationY = 0;
     private float _rotationZ = 0;
+
+    public Camera? BindingCamera
+    {
+        get; internal set;
+    }
 
     public MouseScrollMode ScrollMode
     {
@@ -108,6 +121,7 @@ public class MouseInteractionService : Service
     public event EventHandler CameraHeightChangedEvent;
     public event EventHandler<LocalScaleEventArgs> LocalScaleChangedEvent;
     public event EventHandler<MouseMoveEventArgs> MouseMoveChangedEvent;
+    public event EventHandler<ViewportChangedEventArgs> ViewportChangedEvent;
 
     public void SetPosition(Vector3? initPosition, Vector3? initRotation)
     {
@@ -149,7 +163,7 @@ public class MouseInteractionService : Service
     /// </summary>
     /// <param name="position"></param>
     /// <param name="step"></param>
-    public void ScrollVertical(Point position, Camera camera, int step)
+    public void ScrollVertical(Point position, int step)
     {
         if (step == 0) return;
 
@@ -164,7 +178,7 @@ public class MouseInteractionService : Service
         float scaleOffset = GetScaleOffset(_z, -step);
         CurrentStepValue += step;
         // 计算缩放前的世界坐标
-        var worldPositionOffset = Screen2World(position, camera);
+        var worldPositionOffset = Screen2World(position);
         var worldPosition = worldPositionOffset + new Vector2(_x, _y);
 
         // 计算缩放后的相机高度y
@@ -174,9 +188,9 @@ public class MouseInteractionService : Service
 
         #region 压缩前的代码
 
-        //var screen = camera.ScreenViewport;
-        //var scaleX = camera.Projection.Scale.X;
-        //var scaleY = camera.Projection.Scale.Y;
+        //var screen = BindingCamera.ScreenViewport;
+        //var scaleX = BindingCamera.Projection.Scale.X;
+        //var scaleY = BindingCamera.Projection.Scale.Y;
 
         //var width = preZoom / scaleX * 2; // 缩放前视野中世界宽度
         //var height = preZoom / scaleY * 2; // 缩放前视野中世界高度
@@ -211,7 +225,7 @@ public class MouseInteractionService : Service
     /// </summary>
     /// <param name="position"></param>
     /// <param name="step"></param>
-    public void ScrollScale(Point position, Camera camera, int step)
+    public void ScrollScale(Point position, int step)
     {
         if (step == 0) { return; }
         var vStep = step / 10f;
@@ -219,7 +233,7 @@ public class MouseInteractionService : Service
         LocalScale = (float)Math.Pow(1.1, _localStep);
 
         #region 调整 _x
-        var worldPositionOffset = Screen2World(position, camera);// 光标离摄像头的距离
+        var worldPositionOffset = Screen2World(position);// 光标离摄像头的距离
         var worldPosition = new Vector2(_x, _y) + worldPositionOffset; // 鼠标的世界坐标
         var onceScale = (float)Math.Pow(1.1, step);
         _x -= worldPosition.X - worldPosition.X * onceScale;
@@ -228,6 +242,7 @@ public class MouseInteractionService : Service
         #endregion
 
         LocalScaleChangedEvent?.Invoke(this, new(LocalScale, new(_x, _y, _z)));
+        // 更新视口
     }
 
     private float GetScaleOffset(float zoomScale, int zoomPlusminus)
@@ -235,21 +250,22 @@ public class MouseInteractionService : Service
         return zoomPlusminus * zoomScale / 15;
     }
 
-    public void DragMoving(Point position, Camera camera, bool isTouching)
+    public void DragMoving(Point position, bool isTouching)
     {
         if (!isTouching)
         {
             _lastPosition = position;
+            // 更新视口
             return;
         }
 
         if (position == _lastPosition) return;
 
         #region 压缩前代码
-        //var screen = camera.ScreenViewport;
+        //var screen = BindingCamera.ScreenViewport;
         //var offset = position - _lastPosition;
-        //var scaleX = camera.Projection.Scale.X;
-        //var scaleY = camera.Projection.Scale.Y;
+        //var scaleX = BindingCamera.Projection.Scale.X;
+        //var scaleY = BindingCamera.Projection.Scale.Y;
         //var width = _y / scaleX * 2;
         //var height = _y / scaleY * 2;
         //var x_off = offset.X * width / screen.Width;
@@ -259,10 +275,10 @@ public class MouseInteractionService : Service
         #endregion
 
         #region 压缩后代码
-        var screen = camera.ScreenViewport;
+        var screen = BindingCamera.ScreenViewport;
         var offset = position - _lastPosition;
-        var scaleX = camera.Projection.Scale.X;
-        var scaleY = camera.Projection.Scale.Y;
+        var scaleX = BindingCamera.Projection.Scale.X;
+        var scaleY = BindingCamera.Projection.Scale.Y;
         _x -= offset.X * (_z / scaleX * 2) / screen.Width;
         _y += offset.Y * (_z / scaleY * 2) / screen.Height;
         UpdatePosition(_x, _y);
@@ -278,7 +294,7 @@ public class MouseInteractionService : Service
     /// <param name="position">当前鼠标位置</param>
     /// <param name="isTouching">是否正在拖动</param>
     /// <param name="sensitivity">旋转灵敏度，默认0.5度/像素</param>
-    public void DragRotating(Point position, Camera camera, bool isTouching, float sensitivity = 0.001f)
+    public void DragRotating(Point position, bool isTouching, float sensitivity = 0.001f)
     {
         if (!isTouching)
         {
@@ -306,12 +322,16 @@ public class MouseInteractionService : Service
         _lastPosition = position;
     }
 
-    public Vector2 Screen2World(Point position, Camera camera)
+    public Vector2 Screen2World(Point position)
     {
+        if (BindingCamera == null)
+        {
+            return Vector2.Zero;
+        }
         #region 压缩前代码
-        //var screen = camera.ScreenViewport;
-        //var scaleX = camera.Projection.Scale.X;
-        //var scaleY = camera.Projection.Scale.Y;
+        //var screen = BindingCamera.ScreenViewport;
+        //var scaleX = BindingCamera.Projection.Scale.X;
+        //var scaleY = BindingCamera.Projection.Scale.Y;
         //var width = _y / scaleX * 2;
         //var height = _y / scaleY * 2;
 
@@ -324,9 +344,9 @@ public class MouseInteractionService : Service
         #endregion
 
         #region 压缩后代码
-        var screen = camera.ScreenViewport;
-        var scaleX = camera.Projection.Scale.X;
-        var scaleY = -camera.Projection.Scale.Y;
+        var screen = BindingCamera.ScreenViewport;
+        var scaleX = BindingCamera.Projection.Scale.X;
+        var scaleY = -BindingCamera.Projection.Scale.Y;
 
         var worldX = (_z / scaleX * 2) * (position.X - screen.Width / 2) / screen.Width;
         var worldY = (_z / scaleY * 2) * (position.Y - screen.Height / 2) / screen.Height;
@@ -335,11 +355,31 @@ public class MouseInteractionService : Service
         return new Vector2(worldX, worldY);
     }
 
-    internal void MouseMove(Point position, Camera camera)
+
+    public Vector2 WorldToScreen(Point world)
+    {
+        if (BindingCamera == null)
+        {
+            return Vector2.Zero;
+        }
+
+        var screen = BindingCamera.ScreenViewport;
+        var scaleX = BindingCamera.Projection.Scale.X;
+        var scaleY = -BindingCamera.Projection.Scale.Y;
+
+        float worldWidth = (BindingCamera.Position.Z / scaleX * 2);
+        float worldHeight = (BindingCamera.Position.Z / scaleY * 2);
+
+        float screenX = (world.X - BindingCamera.Position.X) / worldWidth * screen.Width + screen.Width / 2;
+        float screenY = (world.Y - BindingCamera.Position.Y) / worldHeight * screen.Height + screen.Height / 2;
+
+        return new Vector2(screenX, screenY);
+    }
+    internal void MouseMove(Point position)
     {
         if (MouseMoveChangedEvent is { })
         {
-            var worldOffset = Screen2World(position, camera);
+            var worldOffset = Screen2World(position);
             var worldPosition = new Vector2(_x, _y) + worldOffset;
             // 触发鼠标移动事件
             MouseMoveChangedEvent.Invoke(this, new(position.ToVector2(), worldPosition));
@@ -347,4 +387,28 @@ public class MouseInteractionService : Service
     }
 
     public Vector3 CameraPosition => new(_x, _y, _z);
+
+    /// <summary>
+    /// 更新视口信息
+    /// </summary>
+    /// <param name="BindingCamera">当前相机</param>
+    public void UpdateViewport()
+    {
+        if (BindingCamera == null)
+        {
+            return;
+        }
+
+        //var screen = BindingCamera.ScreenViewport;
+        //var scaleX = BindingCamera.Projection.Scale.X;
+        //var scaleY = -BindingCamera.Projection.Scale.Y;
+
+        //// 计算视口在世界坐标系中的边界
+        //float worldWidth = (_z / scaleX * 2);
+        //float worldHeight = (_z / scaleY * 2);
+
+
+        // 触发视口更新事件
+        ViewportChangedEvent?.Invoke(this, new ViewportChangedEventArgs(BindingCamera));
+    }
 }

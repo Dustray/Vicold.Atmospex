@@ -1,31 +1,29 @@
-using System;
-using System.Collections.Generic;
 using Evergine.Common.Graphics;
 using Evergine.Framework;
 using Evergine.Framework.Graphics;
-using Evergine.Framework.Managers;
 using Evergine.Framework.Services;
 using Evergine.Mathematics;
 using Vicold.Atmospex.Data.Vector;
+using Vicold.Atmospex.Render.Frame;
 
 namespace Vicold.Atmospex.Render.Components;
-public class EverBatchLine2 : Drawable3D
+public class EverBatchLine2(RenderLayerDescription layer, bool isTileEnabled) : Drawable3D
 {
     [BindService]
     private AssetsService assetsService = null;
 
     private GraphicsContext? graphicsContext;
     private LineBatch3D? lineBatch;
-    private readonly RenderLayerDescription? renderLayer;
+    private readonly RenderLayerDescription? renderLayer = layer;
+
+    private bool _isTileEnabled = isTileEnabled;
+
+    // 视口范围私有成员变量
+    private readonly ViewportInfo _viewport = RenderModuleService.Current?.Viewport ?? new ViewportInfo();
 
     public VectorLine[] Lines { get; set; } = [];
     public bool UseBezierCurve { get; set; } = false;
     public float LineThickness { get; set; } = 0.01f;
-
-    public EverBatchLine2(RenderLayerDescription layer)
-    {
-        renderLayer = layer;
-    }
 
     protected override bool OnAttached()
     {
@@ -59,6 +57,7 @@ public class EverBatchLine2 : Drawable3D
             lineBatch.IsEnabled = false;
         }
 
+
         base.OnDeactivated();
     }
 
@@ -66,6 +65,7 @@ public class EverBatchLine2 : Drawable3D
     {
         // Remove line batch from render when the component is detached
         Managers.RenderManager.RemoveRenderObject(lineBatch);
+        
         base.OnDetach();
     }
 
@@ -80,9 +80,12 @@ public class EverBatchLine2 : Drawable3D
             if (line.Data.Length < 2)
                 continue;
 
+            // 检查线条是否完全在视口范围之外
+            if (_isTileEnabled && IsLineOutOfViewport(line))
+                continue;
+
             // Line color
-            var c = new Vector4(line.LineColor.R, line.LineColor.G, line.LineColor.B, line.LineColor.A);
-            Color lineColor = Color.FromVector4(ref c);
+            Color lineColor = new(line.LineColor.R, line.LineColor.G, line.LineColor.B, line.LineColor.A);
             for (int i = 0; i < line.Data.Length - 1; i++)
             {
                 Vector2 startPoint = new(line.Data[i].X, line.Data[i].Y);
@@ -117,9 +120,43 @@ public class EverBatchLine2 : Drawable3D
             }
         }
     }
+    
+    /// <summary>
+    /// 判断线条是否完全在视口范围之外
+    /// </summary>
+    /// <param name="line">要判断的线条</param>
+    /// <returns>如果线条完全在视口外返回true，否则返回false</returns>
+    private bool IsLineOutOfViewport(VectorLine line)
+    {
+        // 如果线条没有设置边界值，则默认绘制
+        if (line.MinX == float.MaxValue || line.MaxX == float.MinValue ||
+            line.MinY == float.MaxValue || line.MaxY == float.MinValue)
+        {
+            return false;
+        }
+        
+        // 检查线条是否完全在视口左侧
+        if (line.MaxX < _viewport.WorldMinX)
+            return true;
+        
+        // 检查线条是否完全在视口右侧
+        if (line.MinX > _viewport.WorldMaxX)
+            return true;
+        
+        // 检查线条是否完全在视口上方
+        if (line.MaxY < _viewport.WorldMinY)
+            return true;
+        
+        // 检查线条是否完全在视口下方
+        if (line.MinY > _viewport.WorldMaxY)
+            return true;
+        
+        // 线条与视口有重叠，需要绘制
+        return false;
+    }
 
     public override void Draw(DrawContext drawContext)
-    {
+    {        
         drawContext.ForceBlitAlphaBlending = true;
         // Lines are already drawn in UpdateLines
         UpdateLines();

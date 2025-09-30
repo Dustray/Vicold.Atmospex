@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Evergine.Common.Input;
+using Evergine.Common.Input.Keyboard;
+using Evergine.Common.Input.Mouse;
+using Evergine.Components.Cameras;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Evergine.Common.Input.Mouse;
-using Evergine.Common.Input;
-using Evergine.Components.Cameras;
-using Evergine.Framework.Graphics;
-using Evergine.Framework;
 using Vicold.Atmospex.Render.Serviecs;
-using Evergine.Mathematics;
-using Evergine.Common.Input.Keyboard;
 
 namespace Vicold.Atmospex.Render.Components;
 internal class EverFreeCamera3D : FreeCamera3D
@@ -35,7 +36,10 @@ internal class EverFreeCamera3D : FreeCamera3D
         initialPosition = camera.Transform.Position;
         initialRotation = camera.Transform.Rotation;
         initialOrientation = camera.Transform.Orientation;
+        service.BindingCamera = camera;
         service.SetPosition(initialPosition, initialRotation);
+        service.UpdateViewport();
+
         if (service is { })
         {
             service.CameraPositionChanged = Service_SetCameraPosition;
@@ -80,6 +84,7 @@ internal class EverFreeCamera3D : FreeCamera3D
 
         camera.Transform.Orientation = initialOrientation;
         service.SetPosition(initialPosition, initialRotation);
+        service.UpdateViewport();
     }
 
     protected override void Update(TimeSpan time)
@@ -94,35 +99,40 @@ internal class EverFreeCamera3D : FreeCamera3D
                 //service.UpdatePosition(p.X, p.Y);
                 if (service.ScrollMode == MouseScrollMode.Move)
                 {
-                    service.ScrollVertical(mouseDispatcher.Position, camera, mouseDispatcher.ScrollDelta.Y);
+                    service.ScrollVertical(mouseDispatcher.Position, mouseDispatcher.ScrollDelta.Y);
+                    service.UpdateViewport();
                 }
                 else
                 {
-                    service.ScrollScale(mouseDispatcher.Position, camera, mouseDispatcher.ScrollDelta.Y);
+                    service.ScrollScale(mouseDispatcher.Position, mouseDispatcher.ScrollDelta.Y);
                 }
             }
 
             switch (mouseDispatcher?.ReadButtonState(MouseButtons.Left))
             {
                 case ButtonState.Pressing:
-                    service.DragMoving(mouseDispatcher.Position, camera, false);
+                    service.DragMoving(mouseDispatcher.Position, false);
                     break;
                 case ButtonState.Pressed:
-                    service.DragMoving(mouseDispatcher.Position, camera, true);
+                    service.DragMoving(mouseDispatcher.Position, true);
                     break;
+                case ButtonState.Releasing:
+                    service.UpdateViewport();
+                    break;
+
             }
 
             switch (mouseDispatcher?.ReadButtonState(MouseButtons.Right))
             {
                 case ButtonState.Pressing:
-                    service.DragRotating(mouseDispatcher.Position, camera, false);
+                    service.DragRotating(mouseDispatcher.Position, false);
                     break;
                 case ButtonState.Pressed:
-                    service.DragRotating(mouseDispatcher.Position, camera, true);
+                    service.DragRotating(mouseDispatcher.Position, true);
                     break;
             }
 
-            service.MouseMove(mouseDispatcher.Position, camera);
+            service.MouseMove(mouseDispatcher.Position);
         }
 
         var keyboardDispatcher = graphicsPresenter.FocusedDisplay?.KeyboardDispatcher;

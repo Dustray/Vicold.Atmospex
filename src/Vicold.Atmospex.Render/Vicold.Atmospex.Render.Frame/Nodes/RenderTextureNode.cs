@@ -35,6 +35,8 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
             get; set;
         }
 
+        public bool IsTileEnabled { get; set; } = true;
+
         public override void SetLevel(int zIndex)
         {
             // 设置纹理层级，如果需要

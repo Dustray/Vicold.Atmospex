@@ -135,9 +135,9 @@ public partial class App : Application
 
                 var worldLayerLine = new RenderLineLayer(mapHolder.WorldLineProvider, "rmias_world_line") { ZIndex = 7 };
                 //var worldLayerPolygon = new RenderLineLayer(mapHolder.WorldPolygonProvider, "rmias_world_polygon");
-                var chinaCoastalLayer = new RenderLineLayer(mapHolder.ChinaCoastalProvider, "rmias_china_line", Style.RenderType.Contour) { ZIndex = 9 };
+                //var chinaCoastalLayer = new RenderLineLayer(mapHolder.ChinaCoastalProvider, "rmias_china_line", Style.RenderType.Contour) { ZIndex = 9 };
                 var chinaProvinceLayer = new RenderLineLayer(mapHolder.ChinaProvinceProvider, "rmias_province_line", Style.RenderType.Contour) { ZIndex = 10 };
-                var geoGridLayer = new RenderLineLayer(mapHolder.GeoGridProvider, "rmias_geo_line") { ZIndex = 5 };
+                var geoGridLayer = new RenderLineLayer(mapHolder.GeoGridProvider, "rmias_geo_line", cutLineToTile: false) { ZIndex = 5 };
                 var geoFontLayer = new RenderFontLayer(mapHolder.GeoFontProvider, "rmias_geo_value") { ZIndex = 20 };
 
                 var manager = App.GetService<ILayerModuleService>().LayerManager;
@@ -185,18 +185,18 @@ public partial class App : Application
             var windowSettings = await Task.Run(async () =>
             {
                 var settingsService = App.GetService<ILocalSettingsService>();
-                
+
                 // 使用ConfigureAwait(false)避免捕获上下文
                 var windowLeft = await settingsService.ReadSettingAsync<double>("WindowLeft").ConfigureAwait(true);
                 var windowTop = await settingsService.ReadSettingAsync<double>("WindowTop").ConfigureAwait(true);
                 var windowWidth = await settingsService.ReadSettingAsync<double>("WindowWidth").ConfigureAwait(true);
                 var windowHeight = await settingsService.ReadSettingAsync<double>("WindowHeight").ConfigureAwait(true);
-                
+
                 return new { Left = windowLeft, Top = windowTop, Width = windowWidth, Height = windowHeight };
             });
-            
+
             // 检查是否有有效的窗口位置和大小数据
-            if (!double.IsNaN(windowSettings.Left) && !double.IsNaN(windowSettings.Top) && 
+            if (!double.IsNaN(windowSettings.Left) && !double.IsNaN(windowSettings.Top) &&
                 windowSettings.Width > 0 && windowSettings.Height > 0)
             {
                 // 确保窗口在屏幕内
@@ -206,15 +206,15 @@ public partial class App : Application
                     // 计算屏幕工作区域的右侧和底部坐标
                     double workAreaRight = displayArea.WorkArea.X + displayArea.WorkArea.Width;
                     double workAreaBottom = displayArea.WorkArea.Y + displayArea.WorkArea.Height;
-                    
+
                     // 确保窗口在屏幕内
                     double clampedLeft = Math.Max(displayArea.WorkArea.X, Math.Min(windowSettings.Left, workAreaRight - windowSettings.Width));
                     double clampedTop = Math.Max(displayArea.WorkArea.Y, Math.Min(windowSettings.Top, workAreaBottom - windowSettings.Height));
-                    
+
                     MainWindow.AppWindow.MoveAndResize(new Windows.Graphics.RectInt32(
-                        (int)windowSettings.Left, 
-                        (int)windowSettings.Top, 
-                        (int)windowSettings.Width, 
+                        (int)windowSettings.Left,
+                        (int)windowSettings.Top,
+                        (int)windowSettings.Width,
                         (int)windowSettings.Height));
                 }
             }
@@ -233,7 +233,7 @@ public partial class App : Application
             // 获取窗口位置和大小（在UI线程上）
             var rect = MainWindow.AppWindow.Position;
             var size = MainWindow.AppWindow.Size;
-            
+
             // 在后台线程保存设置，使用Fire and Forget模式
             // 这样窗口关闭过程不会被阻塞
             _ = Task.Run(async () =>
@@ -241,7 +241,7 @@ public partial class App : Application
                 try
                 {
                     var settingsService = App.GetService<ILocalSettingsService>();
-                    
+
                     // 使用ConfigureAwait(false)避免捕获上下文
                     await settingsService.SaveSettingAsync("WindowLeft", rect.X).ConfigureAwait(true);
                     await settingsService.SaveSettingAsync("WindowTop", rect.Y).ConfigureAwait(true);

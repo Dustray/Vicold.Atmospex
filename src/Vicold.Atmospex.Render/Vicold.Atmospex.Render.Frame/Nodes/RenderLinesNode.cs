@@ -15,15 +15,17 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
 {
     internal class RenderLinesNode : LinesNode, IRenderNode
     {
-        private EverBatchLine2 _everBatchLine;
-        private VectorLine[] _lines;
+        private EverBatchLine2? _everBatchLine;
+        private readonly VectorLine[] _lines;
         private RenderLayerDescription _renderLayer;
-        private Entity _batchLineEntity;
+        private Entity? _batchLineEntity;
 
         /// <summary>
         /// 控制是否使用贝塞尔曲线的开关，默认关闭
         /// </summary>
         public bool UseBezierCurve { get; set; } = false;
+
+        public bool IsTileEnabled { get; set; } = true;
 
         public RenderLinesNode(VectorLine[] lines, RenderLayerDescription renderLayer) : base(lines)
         {
@@ -35,7 +37,7 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
         private void InitializeEverBatchLine()
         {
             // 创建EverBatchLine2
-            _everBatchLine = new EverBatchLine2(_renderLayer)
+            _everBatchLine = new EverBatchLine2(_renderLayer, IsTileEnabled)
             {
                 Lines = _lines,
                 UseBezierCurve = this.UseBezierCurve
@@ -91,6 +93,7 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
         {
             if (_batchLineEntity == null)
             {
+
                 // 初始化EverBatchLine
                 InitializeEverBatchLine();
 

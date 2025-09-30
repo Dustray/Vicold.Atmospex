@@ -10,6 +10,8 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
 {
     internal interface IRenderNode
     {
+        public bool IsTileEnabled { get; set; }
+
         void Draw(EntityManager entityManager, RenderLayerDescription layerDescription);
     }
 }
