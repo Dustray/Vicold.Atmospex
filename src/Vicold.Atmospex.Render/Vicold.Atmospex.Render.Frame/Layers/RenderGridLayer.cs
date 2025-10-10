@@ -7,10 +7,12 @@ using Evergine.Framework.Managers;
 using Evergine.Framework.Services;
 using Evergine.Mathematics;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Vicold.Atmospex.Data;
 using Vicold.Atmospex.Data.Providers;
+using Vicold.Atmospex.Data.Vector;
 using Vicold.Atmospex.DataService.Provider;
 using Vicold.Atmospex.Earth.ImageMaker;
 using Vicold.Atmospex.Earth.Projection;
@@ -211,7 +213,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             if (vectorData is LineData lineData)
             {
                 var polygons = LineConverterTool.ToVectorLines(lineData, prj);
-                var polygonsNode = new RenderPolygonsNode(polygons, LayerDescription)
+                var polygonsNode = new RenderPolygonsNode([polygons], LayerDescription)
                 {
                     ID = ID
                 };
@@ -224,7 +226,27 @@ namespace Vicold.Atmospex.Render.Frame.Layers
         protected override ILayerNode? CreatePolygonsNode(string ID, LineData lineData, IProjection prj)
         {
             var polygons = LineConverterTool.ToVectorLines(lineData, prj);
-            var polygonsNode = new RenderPolygonsNode(polygons, LayerDescription)
+            var polygonsNode = new RenderPolygonsNode([polygons], LayerDescription)
+            {
+                ID = ID
+            };
+            return polygonsNode;
+        }
+
+        protected override ILayerNode? CreatePolygonsNode(string ID, List<LineData> orderedLineDataList, IProjection prj)
+        {
+            // 创建一个列表来存储所有VectorLine
+            var allPolygons = new List<VectorLine[]>();
+
+            // 遍历orderedLineDataList中的每个LineData
+            foreach (var lineData in orderedLineDataList)
+            {
+                // 将每个LineData转换为VectorLine数组并添加到allPolygons中
+                var polygons = LineConverterTool.ToVectorLines(lineData, prj);
+                allPolygons.Add(polygons);
+            }
+
+            var polygonsNode = new RenderPolygonsNode(allPolygons, LayerDescription)
             {
                 ID = ID
             };
@@ -263,7 +285,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
                 if (vectorData is LineData lineData)
                 {
                     var lines = LineConverterTool.ToVectorLines(lineData, prj);
-                    linesNode.ResetLines(lines);
+                    linesNode.ResetLines([lines]);
                 }
             }
         }
@@ -273,7 +295,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             if (texture is RenderLinesNode renderLinesNode)
             {
                 var lines = LineConverterTool.ToVectorLines(lineData, prj);
-                texture.ResetLines(lines);
+                texture.ResetLines([lines]);
             }
         }
 
@@ -301,7 +323,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
                 if (vectorData is LineData lineData)
                 {
                     var polygons = LineConverterTool.ToVectorLines(lineData, prj);
-                    polygonsNode.ResetLines(polygons);
+                    polygonsNode.ResetLines([polygons]);
                 }
             }
         }
@@ -311,7 +333,26 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             if (polygonsNode is RenderPolygonsNode renderPolygonsNode)
             {
                 var polygons = LineConverterTool.ToVectorLines(lineData, prj);
-                polygonsNode.ResetLines(polygons);
+                polygonsNode.ResetLines([polygons]);
+            }
+        }
+
+        protected override void ReCreatePolygonsNode(LinesNode polygonsNode, List<LineData> orderedLineDataList, IProjection prj)
+        {
+            if (polygonsNode is RenderPolygonsNode renderPolygonsNode)
+            {
+                // 创建一个列表来存储所有VectorLine
+                var allPolygons = new List<VectorLine[]>();
+
+                // 遍历orderedLineDataList中的每个LineData
+                foreach (var lineData in orderedLineDataList)
+                {
+                    // 将每个LineData转换为VectorLine数组并添加到allPolygons中
+                    var polygons = LineConverterTool.ToVectorLines(lineData, prj);
+                    allPolygons.Add(polygons);
+                }
+
+                polygonsNode.ResetLines(allPolygons);
             }
         }
 
@@ -334,5 +375,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
         public override void ScaleChange(float scale)
         {
         }
+
+
     }
 }

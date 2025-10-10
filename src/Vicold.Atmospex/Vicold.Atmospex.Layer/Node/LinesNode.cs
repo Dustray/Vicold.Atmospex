@@ -12,11 +12,11 @@ public abstract class LinesNode : ILayerNode
 {
     private float _scale = 1;
 
-    private readonly VectorLine[] _lines;
+    protected readonly List<VectorLine[]> LevelLines;
 
-    public LinesNode(VectorLine[] data)
+    public LinesNode(List<VectorLine[]> data)
     {
-        _lines = data;
+        LevelLines = data;
     }
 
     public string ID
@@ -38,5 +38,5 @@ public abstract class LinesNode : ILayerNode
 
     public abstract void Dispose();
 
-    public void ResetLines(VectorLine[] lines) => throw new NotImplementedException();
+    public void ResetLines(List<VectorLine[]> lines) => throw new NotImplementedException();
 }

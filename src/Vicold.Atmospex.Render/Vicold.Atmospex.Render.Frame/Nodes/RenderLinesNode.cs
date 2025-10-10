@@ -16,7 +16,6 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
     internal class RenderLinesNode : LinesNode, IRenderNode
     {
         private EverBatchLine2? _everBatchLine;
-        private readonly VectorLine[] _lines;
         private RenderLayerDescription _renderLayer;
         private Entity? _batchLineEntity;
 
@@ -29,9 +28,8 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
 
         public bool IsLineRarefyEnabled { get; set; } = true;
 
-        public RenderLinesNode(VectorLine[] lines, RenderLayerDescription renderLayer) : base(lines)
+        public RenderLinesNode(VectorLine[] lines, RenderLayerDescription renderLayer) : base([lines])
         {
-            _lines = lines;
             _renderLayer = renderLayer;
             _batchLineEntity = null;
         }
@@ -41,25 +39,25 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
             // 创建EverBatchLine2
             _everBatchLine = new EverBatchLine2(_renderLayer, IsTileEnabled, IsLineRarefyEnabled)
             {
-                Lines = _lines,
+                Lines = LevelLines[0],
                 UseBezierCurve = this.UseBezierCurve
             };
 
             // 计算线条厚度
-            float averageWidth = _lines.Average(l => l.Width);
+            float averageWidth = LevelLines.Average(l => l[0].Width);
             _everBatchLine.LineThickness = averageWidth > 0 ? averageWidth / 1000 : 0.01f;
         }
 
         //private void UpdateEverBatchLine()
         //{
-        //    if (_everBatchLine == null || _lines == null || _lines.Length == 0)
+        //    if (_everBatchLine == null || LevelLines == null || LevelLines.Length == 0)
         //        return;
 
-        //    _everBatchLine.Lines = _lines;
+        //    _everBatchLine.Lines = LevelLines;
         //    _everBatchLine.UseBezierCurve = this.UseBezierCurve;
 
         //    // 计算线条厚度
-        //    float averageWidth = _lines.Average(l => l.Width);
+        //    float averageWidth = LevelLines.Average(l => l.Width);
         //    _everBatchLine.LineThickness = averageWidth > 0 ? averageWidth / 1000 : 0.01f;
 
         //    // 更新线条

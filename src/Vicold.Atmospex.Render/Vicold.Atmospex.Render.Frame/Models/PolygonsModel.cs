@@ -8,6 +8,7 @@ using Evergine.Framework.Graphics.Effects;
 using Evergine.Framework.Graphics.Materials;
 using Evergine.Framework.Services;
 using Evergine.Mathematics;
+using Microsoft.UI.Xaml.Shapes;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -18,15 +19,15 @@ namespace Vicold.Atmospex.Render.Frame.Models
 {
     public class PolygonsModel
     {
-        private readonly VectorLine[] _polygons;
+        private readonly List<VectorLine[]> _levelPolygons;
         private readonly RenderLayerDescription _renderLayer;
         private readonly List<Entity> _modelEntities = [];
         private readonly GraphicsContext _graphicsContext;
         private readonly AssetsService _assetsService;
 
-        public PolygonsModel(VectorLine[] polygons, RenderLayerDescription renderLayer)
+        public PolygonsModel(List<VectorLine[]> polygons, RenderLayerDescription renderLayer)
         {
-            _polygons = polygons;
+            _levelPolygons = polygons;
             _renderLayer = renderLayer;
             _graphicsContext = Application.Current.Container.Resolve<GraphicsContext>();
             _assetsService = Application.Current.Container.Resolve<AssetsService>();
@@ -35,52 +36,71 @@ namespace Vicold.Atmospex.Render.Frame.Models
 
         private void InitializeModels()
         {
-            if (_graphicsContext == null || _polygons.Length == 0)
+            if (_graphicsContext == null || _levelPolygons.Count == 0)
                 return;
 
             var effect = _assetsService.Load<Effect>(EvergineContent.Effects.StandardEffect);
 
-            foreach (var polygon in _polygons)
+            for (var i = 0; i < _levelPolygons.Count; i++)
             {
-                if (polygon.Data.Length < 3)
-                    continue;
 
-                Mesh? mesh = CreatePolygonMesh(polygon);
-                if(mesh is null)
+                var polygons = _levelPolygons[i];
+                if (polygons.Length == 0) continue;
+
+                foreach (var polygon in polygons)
                 {
-                    continue;
+                    if (polygon.Data.Length < 3)
+                        continue;
+
+                    TessResult tessResult;
+                    // 1) 三角化（得到实际用于渲染的顶点集和索引）
+                    //if(i == _polygons.Length - 1)
+                    //{
+                    //最顶上
+                    tessResult = PolygonTessellatorAlgorithm.TessellateSimple(polygon.Data);
+                    //}
+                    //else
+                    //{
+                    //tessResult = PolygonTessellatorAlgorithm.TessellateSimple(polygon.Data, _polygons[i+1].Data);
+                    //}
+
+                    if (tessResult.IsUseless)
+                    {
+                        continue;
+                    }
+
+                    Mesh? mesh = CreatePolygonMesh(tessResult, new Color(polygon.FillColor.R, polygon.FillColor.G, polygon.FillColor.B, polygon.FillColor.A));
+                    if (mesh is null)
+                    {
+                        continue;
+                    }
+
+                    var material = new StandardMaterial(effect)
+                    {
+                        VertexColorEnabled = true,
+                        IBLEnabled = false,
+                        LightingEnabled = false,
+                        LayerDescription = _renderLayer,
+                        Alpha = polygon.FillColor.A / 255f
+                    };
+
+                    var model = new Model("PolygonModel", mesh);
+                    var meshEntity = model.InstantiateModelHierarchy("Polygon", _assetsService);
+                    meshEntity.AddComponent(new MaterialComponent() { Material = material.Material });
+                    meshEntity.IsEnabled = true;
+                    _modelEntities.Add(meshEntity);
                 }
-
-                var material = new StandardMaterial(effect)
-                {
-                    VertexColorEnabled = true,
-                    IBLEnabled = false,
-                    LightingEnabled = false,
-                    LayerDescription = _renderLayer,
-                    Alpha = polygon.FillColor.A / 255f
-                };
-
-                var model = new Model("PolygonModel", mesh);
-                var meshEntity = model.InstantiateModelHierarchy("Polygon", _assetsService);
-                meshEntity.AddComponent(new MaterialComponent() { Material = material.Material });
-                meshEntity.IsEnabled = true;
-                _modelEntities.Add(meshEntity);
             }
         }
 
-        private Mesh CreatePolygonMesh(VectorLine polygon)
+        private Mesh CreatePolygonMesh(TessResult tessResult, Color color)
         {
-            // 1) 三角化（得到实际用于渲染的顶点集和索引）
-            var tessResult = PolygonTessellatorAlgorithm.TessellateSimple(polygon.Data);
-            if (tessResult.Indices.Length == 0 || tessResult.Positions.Length == 0)
-                return null;
 
             // 如果顶点数超过 ushort.MaxValue，需要改用 32-bit 索引或拆分网格
             if (tessResult.Positions.Length > ushort.MaxValue)
                 throw new InvalidOperationException("Polygon too large for 16-bit indices; split or use 32-bit indices.");
 
             // 2) 构造 VertexPositionColor[]（注意这里使用 tessResult.Positions）
-            var color = new Color(polygon.FillColor.R, polygon.FillColor.G, polygon.FillColor.B, polygon.FillColor.A);
             var vertices = new VertexPositionColor[tessResult.Positions.Length];
             for (int i = 0; i < tessResult.Positions.Length; i++)
             {

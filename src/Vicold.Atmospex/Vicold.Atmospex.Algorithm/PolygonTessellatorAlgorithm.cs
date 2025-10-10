@@ -6,6 +6,8 @@ public class TessResult
 {
     public Vector3[] Positions = []; // 使用 System.Numerics.Vector3
     public ushort[] Indices = [];    // 如果顶点数会超过 65535，你需要改为 uint 并相应更改 index buffer
+    public bool IsEmpty => Positions.Length == 0 || Indices.Length == 0;
+    public bool IsUseless => IsEmpty || Positions.Length <= 2 || Indices.Length <= 6 || Indices.Length % 3 != 0;
 }
 
 public static class PolygonTessellatorAlgorithm

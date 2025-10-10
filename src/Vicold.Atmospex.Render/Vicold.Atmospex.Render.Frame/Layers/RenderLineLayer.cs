@@ -60,8 +60,9 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             {
                 if (vectorData is LineData polygonData)
                 {
+                    // TODO: 分 level
                     var lines = LineConverterTool.ToVectorLines(polygonData, prj);
-                    var linesNode = new RenderPolygonsNode(lines, LayerDescription)
+                    var linesNode = new RenderPolygonsNode([lines], LayerDescription)
                     {
                         ID = ID
                     };

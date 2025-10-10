@@ -8,17 +8,15 @@ using Vicold.Atmospex.Layer.Node;
 using Vicold.Atmospex.Render.Frame.Models;
 namespace Vicold.Atmospex.Render.Frame.Nodes
 {
-    internal class RenderPolygonsNode : LinesNode, IRenderNode
+    internal sealed class RenderPolygonsNode : LinesNode, IRenderNode
     {
-        private VectorLine[] _polygons;
         private readonly RenderLayerDescription _renderLayer;
         private Entity? _polygonEntity;
         private List<Entity> _childrenEntities = [];
 
-        private PolygonsModel? _polygonsModel;
-        public RenderPolygonsNode(VectorLine[] polygons, RenderLayerDescription renderLayer) : base(polygons)
+        private PolygonsModel? LevelLinesModel;
+        public RenderPolygonsNode(List<VectorLine[]> polygons, RenderLayerDescription renderLayer) : base(polygons)
         {
-            _polygons = polygons;
             _renderLayer = renderLayer;
             _polygonEntity = null;
         }
@@ -53,9 +51,9 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
                 // 添加到实体管理器
                 entityManager.Add(_polygonEntity);
                 // 创建PolygonsModel
-                _polygonsModel = new PolygonsModel(_polygons, _renderLayer);
+                LevelLinesModel = new PolygonsModel(LevelLines, _renderLayer);
                 // 获取模型实体并添加到空Entity中
-                var modelEntities = _polygonsModel.GetModelEntities();
+                var modelEntities = LevelLinesModel.GetModelEntities();
                 foreach (var entity in modelEntities)
                 {
                     _polygonEntity.AddChild(entity);
@@ -74,7 +72,7 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
                     c.Destroy();
                 }
                 _childrenEntities.Clear();
-                
+
                 entityManager.Detach(_polygonEntity);
                 _polygonEntity.Destroy();
                 _polygonEntity = null;
@@ -83,7 +81,7 @@ namespace Vicold.Atmospex.Render.Frame.Nodes
 
         public override void Dispose()
         {
-                        _childrenEntities.Clear();
+            _childrenEntities.Clear();
         }
     }
 }

@@ -16,7 +16,14 @@ namespace Vicold.Atmospex.Data
 
         public void Add(float[] data, float width, float value, Color color, PolygonType polygonType = PolygonType.Line)
         {
-            Add(data, width, value, color, Color.White, polygonType);
+            if (polygonType == PolygonType.Line)
+            {
+                Add(data, width, value, color, Color.White, polygonType);
+            }
+            else if (polygonType == PolygonType.Fill)
+            {
+                Add(data, width, value, Color.White, color, polygonType);
+            }
         }
 
         public void Add(float[] data, float width, float value, Color color, Color fillColor, PolygonType polygonType = PolygonType.Fill)
