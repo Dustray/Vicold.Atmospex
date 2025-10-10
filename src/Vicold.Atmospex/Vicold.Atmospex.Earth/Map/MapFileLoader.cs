@@ -43,14 +43,14 @@ internal class MapFileLoader
         }
 
         LoadAdrShapeLinePolygon(_worldContinentControl, _worldContinentData, 1, Color.FromArgb(140, 140, 140), Color.White);
-        ChinaCoastalLines = LoadAdrShape(_chinaCoastalControl, _chinaCoastalData, 1, Color.Black, Color.White);
+        ChinaCoastalLines = LoadAdrShape(_chinaCoastalControl, _chinaCoastalData, 1, Color.Black, Color.White, PolygonType.Line);
 
         if (!File.Exists(_chinaProvinceControl) || !File.Exists(_chinaProvinceData))
         {
             WriteControlAndDataShape(_chinaProvinceShape, _chinaProvinceControl, _chinaProvinceData);
         }
-        ChinaProvinceLines = LoadAdrShape(_chinaProvinceControl, _chinaProvinceData, 1, Color.FromArgb(40, 40, 40), Color.White);
 
+        ChinaProvinceLines = LoadAdrShape(_chinaProvinceControl, _chinaProvinceData, 1, Color.FromArgb(40, 40, 40), Color.White, PolygonType.Line);
     }
 
     private void WriteControlAndDataShape(string geojsonPath, string controlPath, string dataPath)
@@ -232,10 +232,18 @@ internal class MapFileLoader
                         dataArray[j] = (float)BitConverter.ToDouble(b, i);
                     }
 
-                    var dataArrayTiles = LineTileAlgorithm.CreateTileLines(dataArray);
-                    foreach (var line in dataArrayTiles)
+                    if (polygonType == PolygonType.Line)
                     {
-                        result.Add(dataArray, line, width, 0, color, fillColor, polygonType);
+
+                        var dataArrayTiles = LineTileAlgorithm.CreateTileLines(dataArray);
+                        foreach (var line in dataArrayTiles)
+                        {
+                            result.Add(dataArray, line, width, 0, color, fillColor, polygonType);
+                        }
+                    }
+                    else if (polygonType == PolygonType.Fill)
+                    {
+                        result.Add(dataArray, width, 0, color, fillColor, polygonType);
                     }
                 }
             }

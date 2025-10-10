@@ -25,8 +25,8 @@ namespace Vicold.Atmospex.Render.Frame.Layers
                 {
                     RasterizerState = new RasterizerStateDescription()
                     {
-                        CullMode = CullMode.Back,
-                        FillMode = FillMode.Wireframe,
+                        CullMode = renderType == RenderType.Contour ? CullMode.Back : CullMode.None,
+                        FillMode = renderType == RenderType.Contour ? FillMode.Wireframe : FillMode.Solid,
                     },
                     BlendState = BlendStates.Opaque,
                     DepthStencilState = DepthStencilStates.ReadWrite,

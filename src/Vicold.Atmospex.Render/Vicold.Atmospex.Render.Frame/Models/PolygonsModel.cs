@@ -8,9 +8,12 @@ using Evergine.Framework.Graphics.Effects;
 using Evergine.Framework.Graphics.Materials;
 using Evergine.Framework.Services;
 using Evergine.Mathematics;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Vicold.Atmospex.Algorithm;
 using Vicold.Atmospex.Data.Vector;
+using Vicold.Atmospex.Render.Frame.Tools;
 namespace Vicold.Atmospex.Render.Frame.Models
 {
     public class PolygonsModel
@@ -18,8 +21,9 @@ namespace Vicold.Atmospex.Render.Frame.Models
         private readonly VectorLine[] _polygons;
         private readonly RenderLayerDescription _renderLayer;
         private readonly List<Entity> _modelEntities = [];
-        private GraphicsContext _graphicsContext;
-        private AssetsService _assetsService;
+        private readonly GraphicsContext _graphicsContext;
+        private readonly AssetsService _assetsService;
+
         public PolygonsModel(VectorLine[] polygons, RenderLayerDescription renderLayer)
         {
             _polygons = polygons;
@@ -28,26 +32,34 @@ namespace Vicold.Atmospex.Render.Frame.Models
             _assetsService = Application.Current.Container.Resolve<AssetsService>();
             InitializeModels();
         }
+
         private void InitializeModels()
         {
-            if (_graphicsContext == null || _polygons.Length == 0) return;
-            // 创建material            
+            if (_graphicsContext == null || _polygons.Length == 0)
+                return;
+
             var effect = _assetsService.Load<Effect>(EvergineContent.Effects.StandardEffect);
+
             foreach (var polygon in _polygons)
             {
-                if (polygon.Data.Length < 3) continue;
-                // 需要至少3个点来形成多边形       
-                // 创建多边形网格 
-                Mesh mesh = CreatePolygonMesh(polygon); var material = new StandardMaterial(effect)
+                if (polygon.Data.Length < 3)
+                    continue;
+
+                Mesh? mesh = CreatePolygonMesh(polygon);
+                if(mesh is null)
+                {
+                    continue;
+                }
+
+                var material = new StandardMaterial(effect)
                 {
                     VertexColorEnabled = true,
                     IBLEnabled = false,
                     LightingEnabled = false,
                     LayerDescription = _renderLayer,
-                    Alpha = polygon.FillColor.A / 255f,
-                    // 确保Alpha值正确设置        
+                    Alpha = polygon.FillColor.A / 255f
                 };
-                // 通过Model关联Mesh和MeshRenderer   
+
                 var model = new Model("PolygonModel", mesh);
                 var meshEntity = model.InstantiateModelHierarchy("Polygon", _assetsService);
                 meshEntity.AddComponent(new MaterialComponent() { Material = material.Material });
@@ -55,61 +67,67 @@ namespace Vicold.Atmospex.Render.Frame.Models
                 _modelEntities.Add(meshEntity);
             }
         }
+
         private Mesh CreatePolygonMesh(VectorLine polygon)
         {
-            // 创建顶点和索引数据
-            int vertexCount = polygon.Data.Length; int indexCount = (vertexCount - 2) * 3;
-            // 多边形中的三角形数量    
-            // 创建顶点缓冲区
-            var vertexBufferDescription = new BufferDescription((uint)(vertexCount * (uint)Unsafe.SizeOf<VertexPositionColor>()), BufferFlags.VertexBuffer | BufferFlags.ShaderResource, ResourceUsage.Default);
-            var vertices = new VertexPositionColor[vertexCount];
-            // 填充顶点数据
+            // 1) 三角化（得到实际用于渲染的顶点集和索引）
+            var tessResult = PolygonTessellatorAlgorithm.TessellateSimple(polygon.Data);
+            if (tessResult.Indices.Length == 0 || tessResult.Positions.Length == 0)
+                return null;
+
+            // 如果顶点数超过 ushort.MaxValue，需要改用 32-bit 索引或拆分网格
+            if (tessResult.Positions.Length > ushort.MaxValue)
+                throw new InvalidOperationException("Polygon too large for 16-bit indices; split or use 32-bit indices.");
+
+            // 2) 构造 VertexPositionColor[]（注意这里使用 tessResult.Positions）
             var color = new Color(polygon.FillColor.R, polygon.FillColor.G, polygon.FillColor.B, polygon.FillColor.A);
-            for (int i = 0; i < vertexCount; i++)
+            var vertices = new VertexPositionColor[tessResult.Positions.Length];
+            for (int i = 0; i < tessResult.Positions.Length; i++)
             {
-                vertices[i].Position = new Vector3(polygon.Data[i].X, polygon.Data[i].Y, 0);
+                vertices[i].Position = tessResult.Positions[i].ToEver();
                 vertices[i].Color = color;
             }
-            // 创建索引缓冲区
-            var indexBufferDescription = new BufferDescription((uint)(indexCount * sizeof(ushort)), BufferFlags.IndexBuffer, ResourceUsage.Default);
-            var indices = new ushort[indexCount];            // 使用扇形技术创建三角形索引
-            for (int i = 0; i < vertexCount - 2; i++)
-            {
-                indices[i * 3] = 0;
-                // 中心点
-                indices[i * 3 + 1] = (ushort)(i + 1); indices[i * 3 + 2] = (ushort)(i + 2);
-            }
-            // 创建缓冲区
-            var vBuffer = _graphicsContext.Factory.CreateBuffer(vertices, ref vertexBufferDescription);
-            var iBuffer = _graphicsContext.Factory.CreateBuffer(indices, ref indexBufferDescription);
+
+            // 3) indices 已经是 ushort[]
+            var indices = tessResult.Indices;
+
+            // 4) 创建缓冲区描述并上传（保持你原来的 BufferDescription 逻辑）
+            var vertexBufferDesc = new BufferDescription(
+                (uint)(vertices.Length * Unsafe.SizeOf<VertexPositionColor>()),
+                BufferFlags.VertexBuffer | BufferFlags.ShaderResource,
+                ResourceUsage.Default);
+
+            var indexBufferDesc = new BufferDescription(
+                (uint)(indices.Length * sizeof(ushort)),
+                BufferFlags.IndexBuffer,
+                ResourceUsage.Default);
+
+            var vBuffer = _graphicsContext.Factory.CreateBuffer(vertices, ref vertexBufferDesc);
+            var iBuffer = _graphicsContext.Factory.CreateBuffer(indices, ref indexBufferDesc);
+
             var vertexBuffer = new VertexBuffer(vBuffer, VertexPositionColor.VertexFormat);
             var indexBuffer = new IndexBuffer(iBuffer);
-            // 创建网格
-            return new Mesh([vertexBuffer], indexBuffer, PrimitiveTopology.TriangleList)
+
+            return new Mesh(new[] { vertexBuffer }, indexBuffer, PrimitiveTopology.TriangleList)
             {
-                BoundingBox = ComputeBoundingBox(polygon.Data),
+                BoundingBox = ComputeBoundingBox(tessResult.Positions),
                 AllowBatching = true
             };
         }
 
-        private BoundingBox ComputeBoundingBox(System.Numerics.Vector2[] points)
+        private BoundingBox ComputeBoundingBox(System.Numerics.Vector3[] points)
         {
             if (points == null || points.Length == 0) return new BoundingBox();
-            Vector3 min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
-            Vector3 max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
-            foreach (var point in points)
+            Vector3 min = new(float.MaxValue);
+            Vector3 max = new(float.MinValue);
+            foreach (var p in points)
             {
-                Vector3 p = new Vector3(point.X, point.Y, 0);
-                min = Vector3.Min(min, p);
-                max = Vector3.Max(max, p);
+                min = Vector3.Min(min, p.ToEver());
+                max = Vector3.Max(max, p.ToEver());
             }
             return new BoundingBox(min, max);
         }
 
-        // 获取模型实体的方法
-        public List<Entity> GetModelEntities()
-        {
-            return _modelEntities;
-        }
+        public List<Entity> GetModelEntities() => _modelEntities;
     }
 }

@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="LibTessDotNet" Version="1.1.15" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Vicold.Atmospex.CoreService\Vicold.Atmospex.CoreService.csproj" />
   </ItemGroup>
 
