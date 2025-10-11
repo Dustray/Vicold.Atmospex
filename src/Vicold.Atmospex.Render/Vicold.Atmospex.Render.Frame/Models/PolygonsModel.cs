@@ -46,6 +46,12 @@ namespace Vicold.Atmospex.Render.Frame.Models
                 var polygons = _levelPolygons[i];
                 if (polygons.Length == 0) continue;
 
+                var holes = new List<System.Numerics.Vector2[]>();
+                foreach (var pp in _levelPolygons[i + 1])
+                {
+                    holes.Add(pp.Data);
+                }
+
                 foreach (var polygon in polygons)
                 {
                     if (polygon == null || polygon.Data.Length < 3)
@@ -62,11 +68,6 @@ namespace Vicold.Atmospex.Render.Frame.Models
                     }
                     else
                     {
-                        var holes = new List<System.Numerics.Vector2[]>();
-                        foreach (var pp in _levelPolygons[i + 1])
-                        {
-                            holes.Add(pp.Data);
-                        }
                         tessResult = PolygonTessellatorAlgorithm.TessellateSimple(polygon.Data, holes);
                     }
 
