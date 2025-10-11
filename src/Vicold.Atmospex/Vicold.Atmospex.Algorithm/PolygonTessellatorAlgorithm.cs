@@ -79,8 +79,18 @@ public static class PolygonTessellatorAlgorithm
         {
             foreach (var hole in holes)
             {
-                if (hole is { Length: >= 3 })
-                    tess.AddContour(ToContour(hole));
+                if (hole == null || hole.Length < 3)
+                    continue;
+
+                // 取洞的一个代表点（第一个顶点）
+                var testPoint = hole[0];
+                if (!GraphAlgorithm.IsPointInPolygon(testPoint, outer))
+                {
+                    // 不在外圈内，跳过这个洞
+                    continue;
+                }
+
+                tess.AddContour(ToContour(hole));
             }
         }
 

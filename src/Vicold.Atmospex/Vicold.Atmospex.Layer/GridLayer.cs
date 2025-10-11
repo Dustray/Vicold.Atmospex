@@ -104,19 +104,75 @@ public abstract class GridLayer : Layer
             }
 
             provider.LoadData();
+            provider.RollLongitude(0);
             var d = provider.GetData();
             Contour[]? contour = null;
             d.ScopeLock((it) =>
-            {
-                var op = new ContourOptions()
                 {
-                    Longitude = (float)provider.StartLongitude,
-                    Latitude = (float)provider.StartLatitude,
-                    LonInterval = (float)provider.LonInterval,
-                    LatInterval = (float)provider.LatInterval,
-                };
-                contour = ContourCreator.Excute(it, 0, 0, d.Width, d.Height, d.Width, anas, op);
-            });
+                    if (isCountour)
+                    {
+                        var op = new ContourOptions()
+                        {
+                            Longitude = (float)provider.StartLongitude,
+                            Latitude = (float)provider.StartLatitude,
+                            LonInterval = (float)provider.LonInterval,
+                            LatInterval = (float)provider.LatInterval,
+                        };
+                        contour = ContourCreator.Excute(it, 0, 0, d.Width, d.Height, d.Width, anas, op);
+                    }
+                    else
+                    {
+                        // 创建一个更大的数据数组，在原始数据外围添加一圈float.MinValue
+                        int originalWidth = d.Width;
+                        int originalHeight = d.Height;
+                        int newWidth = originalWidth + 2; // 左右各加一列
+                        int newHeight = originalHeight + 2; // 上下各加一行
+
+                        // 创建扩展后的数据数组
+                        float[] extendedData = new float[newWidth * newHeight];
+
+                        // 使用不安全代码访问nint地址中的数据
+                        unsafe
+                        {
+                            float* dataPtr = (float*)it;
+
+                            // 初始化外围边界为float.MinValue并复制内部数据
+                            for (int y = 0; y < newHeight; y++)
+                            {
+                                for (int x = 0; x < newWidth; x++)
+                                {
+                                    // 边界位置
+                                    if (x == 0 || x == newWidth - 1 || y == 0 || y == newHeight - 1)
+                                    {
+                                        extendedData[y * newWidth + x] = float.MinValue;
+                                    }
+                                    else
+                                    {
+                                        // 从nint地址中读取原始数据到内部区域
+                                        extendedData[y * newWidth + x] = *(dataPtr + (y - 1) * originalWidth + (x - 1));
+                                    }
+                                }
+                            }
+                        }
+
+                        // 调整地理参数，考虑扩展的边界
+                        float extendedStartLon = (float)(provider.StartLongitude - provider.LonInterval);
+                        float extendedStartLat = (float)(provider.StartLatitude - provider.LatInterval);
+
+                        var op = new ContourOptions()
+                        {
+                            Longitude = extendedStartLon,
+                            Latitude = extendedStartLat,
+                            LonInterval = (float)provider.LonInterval,
+                            LatInterval = (float)provider.LatInterval,
+                            ComputeDevice = ComputeDevice.D3
+                        };
+
+                        // 使用扩展后的数据和调整后的参数计算等值线
+                        contour = ContourCreator.Excute(extendedData, 0, 0, newWidth, newHeight, newWidth, anas, op);
+                    }
+
+                });
 
             if (provider.SmoothType != -1)
             {
@@ -171,14 +227,14 @@ public abstract class GridLayer : Layer
                     {
                         var width = lineContour.Value % 10 == 0 ? 2 : 1;
                         var listLine = Algorithm.GeographyAlgorithm.CrossLonBorderSplitLine(lineContour.LinePoints, 180);
-                        
+
                         // 根据lineContour.Value获取或创建对应的LineData
                         if (!polygonLevelData.TryGetValue(lineContour.Value, out var value))
                         {
                             value = new LineData();
                             polygonLevelData[lineContour.Value] = value;
                         }
-                        
+
                         foreach (var line2 in listLine)
                         {
                             var c = Style.Palette.Select(lineContour.Value);
@@ -186,18 +242,34 @@ public abstract class GridLayer : Layer
                         }
                     }
                 }
-                
+
                 // 根据anas值的顺序将polygonLevelData字典转换为List<LineData>
                 var orderedLineDataList = new List<LineData>();
                 foreach (var value in anas)
                 {
-                    if (polygonLevelData.TryGetValue(value,out var p))
+                    if (polygonLevelData.TryGetValue(value, out var p))
                     {
+                        //// 在同一个值下，将多个线段连接成一个polygon
+                        //var linkedId = new HashSet<int>();
+                        //var nowLineData = new LineData();
+                        //for (var i = 0; i < nowLineData.Count; i++)
+                        //{
+                        //    if (linkedId.Contains(i)) continue;
+                        //    var line = p[i];
+                        //    if (line.Data.Length < 4 || (line.Data[0] == line.Data[line.Data.Length - 2] && line.Data[1] == line.Data[line.Data.Length - 1]))
+                        //    {
+                        //        // 不符合条件跳过(不构成polygon或线已闭合）
+                        //        linkedId.Add(i);
+                        //        continue;
+                        //    }
+
+                        //    //查找p中首或尾相同的线条然后连接起来形成polygon后填充到LineData中
+
+                        //}
+
                         orderedLineDataList.Add(p);
                     }
                 }
-
-                
 
                 if (_layerNode == null)
                 {

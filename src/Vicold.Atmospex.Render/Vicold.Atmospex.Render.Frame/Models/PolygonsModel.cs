@@ -43,26 +43,32 @@ namespace Vicold.Atmospex.Render.Frame.Models
 
             for (var i = 0; i < _levelPolygons.Count; i++)
             {
-
                 var polygons = _levelPolygons[i];
                 if (polygons.Length == 0) continue;
 
                 foreach (var polygon in polygons)
                 {
-                    if (polygon.Data.Length < 3)
+                    if (polygon == null || polygon.Data.Length < 3)
+                    {
                         continue;
+                    }
 
                     TessResult tessResult;
                     // 1) 三角化（得到实际用于渲染的顶点集和索引）
-                    //if(i == _polygons.Length - 1)
-                    //{
-                    //最顶上
-                    tessResult = PolygonTessellatorAlgorithm.TessellateSimple(polygon.Data);
-                    //}
-                    //else
-                    //{
-                    //tessResult = PolygonTessellatorAlgorithm.TessellateSimple(polygon.Data, _polygons[i+1].Data);
-                    //}
+                    if (i == _levelPolygons.Count - 1)
+                    {
+                        //最顶上
+                        tessResult = PolygonTessellatorAlgorithm.TessellateSimple(polygon.Data);
+                    }
+                    else
+                    {
+                        var holes = new List<System.Numerics.Vector2[]>();
+                        foreach (var pp in _levelPolygons[i + 1])
+                        {
+                            holes.Add(pp.Data);
+                        }
+                        tessResult = PolygonTessellatorAlgorithm.TessellateSimple(polygon.Data, holes);
+                    }
 
                     if (tessResult.IsUseless)
                     {

@@ -40,7 +40,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
                 {
                     RasterizerState = new RasterizerStateDescription()
                     {
-                        CullMode = CullMode.Back,
+                        CullMode = CullMode.None,
                         FillMode = FillMode.Solid,
                     },
                     BlendState = BlendStates.Opaque,
@@ -52,6 +52,20 @@ namespace Vicold.Atmospex.Render.Frame.Layers
         }
 
         public RenderLayerDescription LayerDescription { get; private set; }
+
+        private void UpdateLayerState(bool isContour)
+        {
+            LayerDescription.RenderState = new RenderStateDescription()
+            {
+                RasterizerState = new RasterizerStateDescription()
+                {
+                    CullMode = isContour ? CullMode.Back : CullMode.None,
+                    FillMode = isContour ? FillMode.Wireframe : FillMode.Solid,
+                },
+                BlendState = BlendStates.Opaque,
+                DepthStencilState = DepthStencilStates.ReadWrite,
+            };
+        }
 
         // 创建纹理图像
         private Texture? RenderImage(GridDataProvider provider, GridData data, IProjection prj, ImageBound bound, IPalette palette)
@@ -187,6 +201,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             if (vectorData is LineData lineData)
             {
                 var lines = LineConverterTool.ToVectorLines(lineData, prj);
+                UpdateLayerState(true);
                 var linesNode = new RenderLinesNode(lines, LayerDescription)
                 {
                     ID = ID
@@ -200,6 +215,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
         protected override ILayerNode? CreateLinesNode(string ID, LineData lineData, IProjection prj)
         {
             var lines = LineConverterTool.ToVectorLines(lineData, prj);
+            UpdateLayerState(true);
             var linesNode = new RenderLinesNode(lines, LayerDescription)
             {
                 ID = ID
@@ -213,6 +229,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
             if (vectorData is LineData lineData)
             {
                 var polygons = LineConverterTool.ToVectorLines(lineData, prj);
+                UpdateLayerState(false);
                 var polygonsNode = new RenderPolygonsNode([polygons], LayerDescription)
                 {
                     ID = ID
@@ -226,6 +243,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
         protected override ILayerNode? CreatePolygonsNode(string ID, LineData lineData, IProjection prj)
         {
             var polygons = LineConverterTool.ToVectorLines(lineData, prj);
+            UpdateLayerState(false);
             var polygonsNode = new RenderPolygonsNode([polygons], LayerDescription)
             {
                 ID = ID
@@ -246,6 +264,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
                 allPolygons.Add(polygons);
             }
 
+            UpdateLayerState(false);
             var polygonsNode = new RenderPolygonsNode(allPolygons, LayerDescription)
             {
                 ID = ID
