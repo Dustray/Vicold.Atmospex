@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RMIAS.VISION.Model
+namespace Vicold.Atmospex.Godot.Model
 {
     public struct Vector4
     {

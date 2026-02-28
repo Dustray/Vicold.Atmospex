@@ -1,37 +1,47 @@
-[gd_scene load_steps=7 format=3 uid="uid://vlwk7isxsaal"]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource type="Script" uid="uid://bp43uksnk0d88" path="res://Script/Root.cs" id="1"]
-[ext_resource type="PackedScene" path="res://Scene/ToolBarGUI.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://Scene/StateBarGUI.tscn" id="3"]
-[ext_resource type="Script" uid="uid://bv33p8onhn34f" path="res://Script/ExampleNode2D.cs" id="4"]
-[ext_resource type="PackedScene" path="res://Scene/RightBarGUI.tscn" id="6"]
-[ext_resource type="PackedScene" path="res://Scene/MapBox.tscn" id="7"]
+[ext_resource path="res://Script/Root.cs" type="Script" id=1]
+[ext_resource path="res://Scene/ToolBarGUI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scene/StateBarGUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Script/ExampleNode2D.cs" type="Script" id=4]
+[ext_resource path="res://Scene/RightBarGUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scene/MapBox.tscn" type="PackedScene" id=7]
 
 [node name="Root" type="Node2D"]
-script = ExtResource("1")
+script = ExtResource( 1 )
 
 [node name="ExampleNode2D" type="Node2D" parent="."]
-script = ExtResource("4")
+script = ExtResource( 4 )
 
-[node name="Map" parent="." instance=ExtResource("7")]
+[node name="Map" parent="." instance=ExtResource( 7 )]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="RightFragment" parent="CanvasLayer" instance=ExtResource("6")]
-anchors_preset = 11
+[node name="RightFragment" parent="CanvasLayer" instance=ExtResource( 6 )]
+offset_bottom = -30.0
 
-[node name="MarginContainer" parent="CanvasLayer" instance=ExtResource("2")]
-anchors_preset = 10
+[node name="MarginContainer" parent="CanvasLayer" instance=ExtResource( 2 )]
 
-[node name="StateFragment" parent="CanvasLayer" instance=ExtResource("3")]
-anchors_preset = 12
+[node name="StateFragment" parent="CanvasLayer" instance=ExtResource( 3 )]
 anchor_top = 1.0
-margin_top = -30.0
+offset_top = -30.0
 
 [node name="OpenFileDialog" type="FileDialog" parent="CanvasLayer"]
+offset_left = 296.112
+offset_top = 210.596
+offset_right = 1047.11
+offset_bottom = 666.596
+custom_minimum_size = Vector2( 350, 122.5 )
+window_title = "打开文件"
 mode = 1
 access = 2
-filters = PackedStringArray("*.nc; NetCDF")
+filters = PackedStringArray( "*.nc; NetCDF" )
+current_dir = "/Example/RMIAS/src/VICOLD.RMIAS.VISION"
+current_path = "/Example/RMIAS/src/VICOLD.RMIAS.VISION/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="draw" from="ExampleNode2D" to="ExampleNode2D" method="_on_ExampleNode2D_draw"]
 [connection signal="files_selected" from="CanvasLayer/OpenFileDialog" to="." method="_on_OpenFileDialog_files_selected"]
+[connection signal="popup_hide" from="CanvasLayer/OpenFileDialog" to="." method="_on_OpenFileDialog_popup_hide"]
