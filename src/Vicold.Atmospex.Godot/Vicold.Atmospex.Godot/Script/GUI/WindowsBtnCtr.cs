@@ -25,4 +25,15 @@ public partial class WindowsBtnCtr : Control
         // 暂时注释掉，需要根据Atmospex的服务架构进行调整
         // GetTree().Quit();
     }
+
+    private void _on_FullScreenBtn_toggled(bool pressed)
+    {
+        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
+        // OS.WindowFullscreen = pressed;
+    }
+
+    private void _on_ExpandRightBtn_toggled(bool pressed)
+    {
+        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
+    }
 }

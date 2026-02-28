@@ -15,4 +15,14 @@ public partial class QuickButtonBar : Control
         // var interaction = RenderModuleService.GetService<IInteractionService>();
         // interaction.Order.Execute(buttonId, null);
     }
+
+    private void _on_OpenFileBtn_button_down()
+    {
+        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
+    }
+
+    private void _on_RefreshBtn_button_down()
+    {
+        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
+    }
 }
