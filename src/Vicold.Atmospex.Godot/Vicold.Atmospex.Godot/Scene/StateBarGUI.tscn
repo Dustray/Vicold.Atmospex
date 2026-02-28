@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Script/GUI/StateBarCtr.cs" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.109804, 0.141176, 0.188235, 1 )
+shadow_color = Color( 0.278431, 0.282353, 0.294118, 0.6 )
+shadow_size = 4
+
+[node name="StateBarRoot" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 570.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BgPanel" type="Panel" parent="."]
+margin_right = 1024.0
+margin_bottom = 30.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="MarginCtr" type="MarginContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 30.0
+custom_constants/margin_right = 8
+custom_constants/margin_left = 8
+
+[node name="StateFrame" type="HBoxContainer" parent="MarginCtr"]
+margin_left = 8.0
+margin_right = 1016.0
+margin_bottom = 30.0
+
+[node name="LeftCtr" type="HBoxContainer" parent="MarginCtr/StateFrame"]
+margin_right = 940.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+
+[node name="PositionLabel" type="Label" parent="MarginCtr/StateFrame/LeftCtr"]
+margin_top = 8.0
+margin_right = 60.0
+margin_bottom = 22.0
+text = "Position: "
+
+[node name="PositionValue" type="Label" parent="MarginCtr/StateFrame/LeftCtr"]
+margin_left = 64.0
+margin_top = 8.0
+margin_right = 159.0
+margin_bottom = 22.0
+text = "12.2°N 78.5°W"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightCtr" type="HBoxContainer" parent="MarginCtr/StateFrame"]
+margin_left = 944.0
+margin_right = 1008.0
+margin_bottom = 30.0
+alignment = 2
+
+[node name="FPSLabel" type="Label" parent="MarginCtr/StateFrame/RightCtr"]
+margin_top = 8.0
+margin_right = 30.0
+margin_bottom = 22.0
+rect_pivot_offset = Vector2( -659.141, -287.881 )
+text = "FPS: "
+
+[node name="FPSValue" type="Label" parent="MarginCtr/StateFrame/RightCtr"]
+margin_left = 34.0
+margin_top = 8.0
+margin_right = 64.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 30, 0 )
+rect_pivot_offset = Vector2( -659.141, -287.881 )
+text = "0"

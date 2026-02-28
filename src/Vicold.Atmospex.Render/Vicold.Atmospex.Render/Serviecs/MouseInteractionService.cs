@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Evergine.Framework.Graphics;
 using Evergine.Framework.Services;
 using Evergine.Mathematics;
+using Vicold.Atmospex.Earth.Events;
+using Vicold.Atmospex.Render.Helpers;
 
 namespace Vicold.Atmospex.Render.Serviecs;
 
@@ -42,18 +44,6 @@ public class ViewportChangedEventArgs : EventArgs
     }
 
     public Camera Camera { get; }
-}
-
-public class MouseMoveEventArgs(Vector2 screenPosition, Vector2 worldPosition) : EventArgs
-{
-    public Vector2 ScreenPosition
-    {
-        get; set;
-    } = screenPosition;
-    public Vector2 WorldPosition
-    {
-        get; set;
-    } = worldPosition;
 }
 
 public enum MouseScrollMode
@@ -422,7 +412,7 @@ public class MouseInteractionService : Service
             var worldOffset = Screen2World(position);
             var worldPosition = new Vector2(_x, _y) + worldOffset;
             // 触发鼠标移动事件
-            MouseMoveChangedEvent.Invoke(this, new(position.ToVector2(), worldPosition));
+            MouseMoveChangedEvent.Invoke(this, new(position.ToVector2().ToCSharp(), worldPosition.ToCSharp()));
         }
     }
 

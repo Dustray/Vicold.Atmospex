@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11217.181 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.Shell", "Vicold.Atmospex\Vicold.Atmospex.Shell\Vicold.Atmospex.Shell.csproj", "{7F0C8178-5911-4050-50FC-F67E6BD052A2}"
 EndProject
@@ -32,6 +32,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.Core", "Vicold.Atmospex\Vicold.Atmospex.Core\Vicold.Atmospex.Core.csproj", "{9C119819-7645-4EE2-8206-78345A3F22A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.CoreService", "Vicold.Atmospex\Vicold.Atmospex.CoreService\Vicold.Atmospex.CoreService.csproj", "{9399B457-2D88-4577-91A9-6BCD35EF4719}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Evergine", "Evergine", "{B78B80C6-879E-41EF-92B4-B6278144ADFA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Godot", "Godot", "{8CD7FDE7-F94F-41F4-9FF8-5DE16027DF64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.Godot", "Vicold.Atmospex.Godot\Vicold.Atmospex.Godot\Vicold.Atmospex.Godot.csproj", "{FE52C31E-8A2F-CF76-A682-9A44FEBED7EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vicold.Atmospex.Godot.Frame", "Vicold.Atmospex.Godot\Vicold.Atmospex.Godot.Frame\Vicold.Atmospex.Godot.Frame.csproj", "{2B2331F0-29B3-D0EF-FA74-58FE835C9F0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,9 +109,23 @@ Global
 		{9399B457-2D88-4577-91A9-6BCD35EF4719}.Debug|x64.Build.0 = Debug|Any CPU
 		{9399B457-2D88-4577-91A9-6BCD35EF4719}.Release|x64.ActiveCfg = Release|Any CPU
 		{9399B457-2D88-4577-91A9-6BCD35EF4719}.Release|x64.Build.0 = Release|Any CPU
+		{FE52C31E-8A2F-CF76-A682-9A44FEBED7EF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FE52C31E-8A2F-CF76-A682-9A44FEBED7EF}.Debug|x64.Build.0 = Debug|Any CPU
+		{FE52C31E-8A2F-CF76-A682-9A44FEBED7EF}.Release|x64.ActiveCfg = ExportDebug|Any CPU
+		{FE52C31E-8A2F-CF76-A682-9A44FEBED7EF}.Release|x64.Build.0 = ExportDebug|Any CPU
+		{2B2331F0-29B3-D0EF-FA74-58FE835C9F0F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2B2331F0-29B3-D0EF-FA74-58FE835C9F0F}.Debug|x64.Build.0 = Debug|Any CPU
+		{2B2331F0-29B3-D0EF-FA74-58FE835C9F0F}.Release|x64.ActiveCfg = ExportDebug|Any CPU
+		{2B2331F0-29B3-D0EF-FA74-58FE835C9F0F}.Release|x64.Build.0 = ExportDebug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F1BE61B0-045B-7D1E-57C7-EA489017FFE1} = {B78B80C6-879E-41EF-92B4-B6278144ADFA}
+		{8E13BC7A-E117-A53B-BE91-92A909013524} = {B78B80C6-879E-41EF-92B4-B6278144ADFA}
+		{FE52C31E-8A2F-CF76-A682-9A44FEBED7EF} = {8CD7FDE7-F94F-41F4-9FF8-5DE16027DF64}
+		{2B2331F0-29B3-D0EF-FA74-58FE835C9F0F} = {8CD7FDE7-F94F-41F4-9FF8-5DE16027DF64}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5B6BD3C6-9F84-44A5-86A0-1E643B24CF51}

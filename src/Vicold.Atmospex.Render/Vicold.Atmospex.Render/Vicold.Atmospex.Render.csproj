@@ -16,4 +16,7 @@
 		<PackageReference Include="Evergine.Targets" Version="2025.3.18.1522" />
 		<PackageReference Include="Evergine.CodeScenes" Version="2025.3.18.1522" />
 	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Earth\Vicold.Atmospex.Earth.csproj" />
+	</ItemGroup>
 </Project>

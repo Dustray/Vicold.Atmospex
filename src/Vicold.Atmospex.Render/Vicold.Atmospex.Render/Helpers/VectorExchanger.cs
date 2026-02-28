@@ -4,6 +4,17 @@ using Evergine.Mathematics;
 namespace Vicold.Atmospex.Render.Helpers;
 public static class VectorExchanger
 {
+
+    public static System.Numerics.Vector3 ToCSharp(this Vector3 v)
+    {
+        return new System.Numerics.Vector3(v.X, v.Y, v.Z);
+    }
+
+    public static System.Numerics.Vector2 ToCSharp(this Vector2 v)
+    {
+        return new System.Numerics.Vector2(v.X, v.Y);
+    }
+    
     public static Vector3 ToChangeOverlook(this Vector3 v)
     {
         //return v.ToReverseY().ToChangeYZ();
