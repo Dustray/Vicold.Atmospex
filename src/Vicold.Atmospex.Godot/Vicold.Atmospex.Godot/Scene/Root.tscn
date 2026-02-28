@@ -44,4 +44,3 @@ __meta__ = {
 
 [connection signal="draw" from="ExampleNode2D" to="ExampleNode2D" method="_on_ExampleNode2D_draw"]
 [connection signal="files_selected" from="CanvasLayer/OpenFileDialog" to="." method="_on_OpenFileDialog_files_selected"]
-[connection signal="popup_hide" from="CanvasLayer/OpenFileDialog" to="." method="_on_OpenFileDialog_popup_hide"]
