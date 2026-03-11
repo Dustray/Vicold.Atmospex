@@ -107,7 +107,7 @@ namespace Vicold.Atmospex.Godot.Frame.Services
         }
     }
 
-    internal class InteractionService: IInteractionService
+    public class InteractionService: IInteractionService
     {
         public InteractionService()
         {

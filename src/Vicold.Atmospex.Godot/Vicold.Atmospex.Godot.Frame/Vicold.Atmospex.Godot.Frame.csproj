@@ -12,8 +12,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.CoreService\Vicold.Atmospex.CoreService.csproj" />
-    <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Layer\Vicold.Atmospex.Layer.csproj" />
+    <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Configration\Vicold.Atmospex.Configration.csproj" />
+    <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Data\Vicold.Atmospex.Data.csproj" />
     <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Earth\Vicold.Atmospex.Earth.csproj" />
+    <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Layer\Vicold.Atmospex.Layer.csproj" />
+    <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Core\Vicold.Atmospex.Core.csproj" />
+    <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.FileSystem\Vicold.Atmospex.FileSystem.csproj" />
+    <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Style\Vicold.Atmospex.Style.csproj" />
+    <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Algorithm\Vicold.Atmospex.Algorithm.csproj" />
+    <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Shell.Core\Vicold.Atmospex.Shell.Core.csproj" />
   </ItemGroup>
 
 </Project>

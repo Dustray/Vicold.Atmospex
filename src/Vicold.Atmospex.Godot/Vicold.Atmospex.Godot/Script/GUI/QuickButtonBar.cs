@@ -18,8 +18,6 @@ public partial class QuickButtonBar : HBoxContainer
 
 	private void _on_OpenFileBtn_button_down()
 	{
-		GD.Print("ssssssssssaaas");
-
 	   _interactionService.Order.Execute("OpenFileDialog", null);
 	}
 

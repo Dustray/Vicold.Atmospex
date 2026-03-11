@@ -8,12 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="Godot.NET.Sdk" Version="4.6.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.7" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Vicold.Atmospex.Godot.Frame\Vicold.Atmospex.Godot.Frame.csproj" />
-    <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.CoreService\Vicold.Atmospex.CoreService.csproj" />
-    <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Configration\Vicold.Atmospex.Configration.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,18 +1,23 @@
 using Godot;
 using System;
 
+namespace Vicold.Atmospex.Godot;
+
 public partial class Root : Node
 {
 	private Action _openFiledAction;
 
 	public override void _EnterTree()
 	{
+		// Initialize the application
+		App.Initialize();
 		base._EnterTree();
 		DisplayServer.WindowSetMode(DisplayServer.WindowMode.Maximized);
 	}
 
 	public override void _Ready()
 	{
+
 		GetTree().Connect("files_dropped", new Callable(this, "_OnFileDropped"));
 		var top = GetNode<Control>("CanvasLayer/MarginContainer");
 		var right = GetNode<Control>("CanvasLayer/RightFragment");
@@ -53,10 +58,10 @@ public partial class Root : Node
 		_openFiledAction = null;
 	}
 
-	//	private void OpenFileDialog(OrderInfo info)
-	//	{
-	//		var fileDialog = GetNode<FileDialog>("CanvasLayer/OpenFileDialog");
-	//		fileDialog.Popup();
-	//		_openFiledAction = info.BlockCompeletedAction;
-	//	}
+		//private void OpenFileDialog(OrderInfo info)
+		//{
+		//	var fileDialog = GetNode<FileDialog>("CanvasLayer/OpenFileDialog");
+		//	fileDialog.Popup();
+		//	_openFiledAction = info.BlockCompeletedAction;
+		//}
 }
