@@ -1,28 +1,30 @@
 using Godot;
 using System;
+using Vicold.Atmospex.Godot.Frame;
+using Vicold.Atmospex.Godot.Frame.Services;
 
-public partial class QuickButtonBar : Control
+public partial class QuickButtonBar : HBoxContainer
 {
-    public override void _Ready()
-    {
-        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
-        // var interaction = RenderModuleService.GetService<IInteractionService>();
-    }
+  private  IInteractionService _interactionService;
+	public override void _Ready()
+	{
+		_interactionService = RenderModuleService.GetService<IInteractionService>();
+	}
 
-    private void OnQuickButtonPressed(string buttonId)
-    {
-        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
-        // var interaction = RenderModuleService.GetService<IInteractionService>();
-        // interaction.Order.Execute(buttonId, null);
-    }
+	private void OnQuickButtonPressed(string buttonId)
+	{
+		_interactionService.Order.Execute(buttonId, null);
+	}
 
-    private void _on_OpenFileBtn_button_down()
-    {
-        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
-    }
+	private void _on_OpenFileBtn_button_down()
+	{
+		GD.Print("ssssssssssaaas");
 
-    private void _on_RefreshBtn_button_down()
-    {
-        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
-    }
+	   _interactionService.Order.Execute("OpenFileDialog", null);
+	}
+
+	private void _on_RefreshBtn_button_down()
+	{
+		_interactionService.Order.Execute("ResetCamera", null);
+	}
 }

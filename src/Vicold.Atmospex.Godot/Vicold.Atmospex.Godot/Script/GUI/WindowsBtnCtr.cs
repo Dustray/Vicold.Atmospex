@@ -1,7 +1,7 @@
-﻿﻿using Godot;
+﻿﻿﻿﻿﻿using Godot;
 using System;
 
-public partial class WindowsBtnCtr : Control
+public partial class WindowsBtnCtr : HBoxContainer
 {
     public override void _Ready()
     {
@@ -28,12 +28,17 @@ public partial class WindowsBtnCtr : Control
 
     private void _on_FullScreenBtn_toggled(bool pressed)
     {
-        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
-        // OS.WindowFullscreen = pressed;
+        // 实现全屏切换功能
+        DisplayServer.WindowSetMode(pressed ? DisplayServer.WindowMode.Fullscreen : DisplayServer.WindowMode.Windowed);
     }
 
-    private void _on_ExpandRightBtn_toggled(bool pressed)
+    private void _on_ExpandRightBtn_toggled(bool isExpand)
     {
-        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
+        // 实现右侧面板展开/收起功能
+        var right = GetTree().Root.GetNode<Control>("Root/CanvasLayer/RightFragment");
+        if (right != null)
+        {
+            right.Visible = isExpand;
+        }
     }
 }

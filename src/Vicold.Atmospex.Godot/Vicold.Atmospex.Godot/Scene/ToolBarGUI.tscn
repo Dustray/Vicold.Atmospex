@@ -1,222 +1,167 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene format=3 uid="uid://bhetj2b4mro36"]
 
-[ext_resource path="res://Tres/font_cn.tres" type="FontFile" id=1]
-[ext_resource path="res://Tres/light_controls.tres" type="Theme" id=2]
-[ext_resource path="res://Assert/Icon/full-screen.svg" type="Texture2D" id=3]
-[ext_resource path="res://Assert/Icon/off-screen.svg" type="Texture2D" id=4]
-[ext_resource path="res://Script/GUI/WindowsBtnCtr.cs" type="Script" id=5]
-[ext_resource path="res://Script/GUI/MenuBtnCtr.cs" type="Script" id=6]
-[ext_resource path="res://Assert/Icon/help.svg" type="Texture2D" id=7]
-[ext_resource path="res://Assert/Icon/folder.png" type="Texture2D" id=8]
-[ext_resource path="res://Assert/Icon/refresh.png" type="Texture2D" id=9]
-[ext_resource path="res://Assert/Icon/right-expand.svg" type="Texture2D" id=10]
-[ext_resource path="res://Assert/Icon/left-expand.svg" type="Texture2D" id=11]
-[ext_resource path="res://Assert/Icon/server.png" type="Texture2D" id=12]
-[ext_resource path="res://Script/GUI/QuickButtonBar.cs" type="Script" id=13]
+[ext_resource type="FontFile" uid="uid://8g4ioevw3r6y" path="res://Tres/font_cn.tres" id="1"]
+[ext_resource type="Theme" uid="uid://b73gwh2g6rilr" path="res://Tres/light_controls.tres" id="2"]
+[ext_resource type="Texture2D" uid="uid://5nxgbbvejhkg" path="res://Assert/Icon/full-screen.svg" id="3"]
+[ext_resource type="Texture2D" uid="uid://dotr0tekwgvqx" path="res://Assert/Icon/off-screen.svg" id="4"]
+[ext_resource type="Script" uid="uid://cjw1dkq1m3x3d" path="res://Script/GUI/WindowsBtnCtr.cs" id="5"]
+[ext_resource type="Script" uid="uid://6qop78xo13ys" path="res://Script/GUI/MenuBtnCtr.cs" id="6"]
+[ext_resource type="Texture2D" uid="uid://cb3ejgae6xqqy" path="res://Assert/Icon/help.svg" id="7"]
+[ext_resource type="Texture2D" uid="uid://cymify751si24" path="res://Assert/Icon/folder.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://bk34dk5poady2" path="res://Assert/Icon/refresh.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://bxycyrbpy5rli" path="res://Assert/Icon/right-expand.svg" id="10"]
+[ext_resource type="Texture2D" uid="uid://c57qynnjh543g" path="res://Assert/Icon/left-expand.svg" id="11"]
+[ext_resource type="Texture2D" uid="uid://cdn3fgippwlwe" path="res://Assert/Icon/server.png" id="12"]
+[ext_resource type="Script" uid="uid://hwcu5ynvmfj7" path="res://Script/GUI/QuickButtonBar.cs" id="13"]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.109804, 0.141176, 0.188235, 1 )
-shadow_color = Color( 0.278431, 0.282353, 0.294118, 0.6 )
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.109804, 0.141176, 0.188235, 1)
+shadow_color = Color(0.278431, 0.282353, 0.294118, 0.6)
 shadow_size = 4
 
-[sub_resource type="StyleBoxLine" id=2]
-color = Color( 0.168627, 0.227451, 0.384314, 1 )
+[sub_resource type="StyleBoxLine" id="2"]
+color = Color(0.168627, 0.227451, 0.384314, 1)
 
-[node name="MarginContainer" type="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" unique_id=1227251092]
+anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 70.0
 theme_override_constants/margin_right = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="BgPanel" type="Panel" parent="."]
-offset_right = 1024.0
-offset_bottom = 80.0
-theme_override_styles/panel = SubResource( 1 )
+[node name="BgPanel" type="Panel" parent="." unique_id=405960798]
+layout_mode = 2
+theme_override_styles/panel = SubResource("1")
 
-[node name="ElementCtr" type="MarginContainer" parent="."]
-offset_right = 1024.0
-offset_bottom = 80.0
-theme_override_constants/margin_right = 8
+[node name="ElementCtr" type="MarginContainer" parent="." unique_id=2082473637]
+layout_mode = 2
 theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
 
-[node name="TopContainer" type="VBoxContainer" parent="ElementCtr"]
-offset_left = 8.0
-offset_right = 1016.0
-offset_bottom = 80.0
+[node name="TopContainer" type="VBoxContainer" parent="ElementCtr" unique_id=1464108039]
+layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="MenuContainer" type="HBoxContainer" parent="ElementCtr/TopContainer"]
-offset_right = 1008.0
-offset_bottom = 35.0
-custom_minimum_size = Vector2( 0, 35 )
-theme = ExtResource( 2 )
+[node name="MenuContainer" type="HBoxContainer" parent="ElementCtr/TopContainer" unique_id=1700657271]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme = ExtResource("2")
 
-[node name="MenuBtnCtr" type="HBoxContainer" parent="ElementCtr/TopContainer/MenuContainer"]
-offset_right = 930.0
-offset_bottom = 35.0
+[node name="MenuBtnCtr" type="HBoxContainer" parent="ElementCtr/TopContainer/MenuContainer" unique_id=2070568611]
+layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource( 6 )
+script = ExtResource("6")
 
-[node name="MBFile" type="MenuButton" parent="ElementCtr/TopContainer/MenuContainer/MenuBtnCtr"]
-offset_right = 50.0
-offset_bottom = 35.0
-custom_minimum_size = Vector2( 50, 0 )
-mouse_default_cursor_shape = 2
+[node name="MBFile" type="MenuButton" parent="ElementCtr/TopContainer/MenuContainer/MenuBtnCtr" unique_id=636429778]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 size_flags_vertical = 3
-theme = ExtResource( 2 )
-theme_override_fonts/font = ExtResource( 1 )
-action_mode = 1
 focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+theme_override_fonts/font = ExtResource("1")
+action_mode = 1
 text = "文件"
-items = [ "打开", null, 0, false, false, 0, 0, null, "", false ]
 
-[node name="MBMap" type="MenuButton" parent="ElementCtr/TopContainer/MenuContainer/MenuBtnCtr"]
-offset_left = 54.0
-offset_right = 104.0
-offset_bottom = 35.0
-custom_minimum_size = Vector2( 50, 0 )
-mouse_default_cursor_shape = 2
+[node name="MBMap" type="MenuButton" parent="ElementCtr/TopContainer/MenuContainer/MenuBtnCtr" unique_id=1153514842]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 size_flags_vertical = 3
-theme = ExtResource( 2 )
-theme_override_fonts/font = ExtResource( 1 )
-action_mode = 1
 focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2")
+theme_override_fonts/font = ExtResource("1")
+action_mode = 1
 text = "地图"
-items = [ "重置地图视角", null, 0, false, false, 0, 0, null, "", false ]
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="WindowsBtnCtr" type="HBoxContainer" parent="ElementCtr/TopContainer/MenuContainer"]
-offset_left = 934.0
-offset_right = 1008.0
-offset_bottom = 35.0
+[node name="WindowsBtnCtr" type="HBoxContainer" parent="ElementCtr/TopContainer/MenuContainer" unique_id=573310852]
+layout_mode = 2
 alignment = 2
-script = ExtResource( 5 )
+script = ExtResource("5")
 
-[node name="HelpBtn" type="TextureButton" parent="ElementCtr/TopContainer/MenuContainer/WindowsBtnCtr"]
-offset_right = 35.0
-offset_bottom = 35.0
-custom_minimum_size = Vector2( 35, 35 )
+[node name="HelpBtn" type="TextureButton" parent="ElementCtr/TopContainer/MenuContainer/WindowsBtnCtr" unique_id=944221539]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
 tooltip_text = "帮助"
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme = ExtResource( 2 )
+theme = ExtResource("2")
 toggle_mode = true
-focus_mode = 0
-texture_normal = ExtResource( 7 )
-expand = true
+texture_normal = ExtResource("7")
 stretch_mode = 3
 
-[node name="FullScreenBtn2" type="TextureButton" parent="ElementCtr/TopContainer/MenuContainer/WindowsBtnCtr"]
-offset_left = 39.0
-offset_right = 74.0
-offset_bottom = 35.0
-custom_minimum_size = Vector2( 35, 35 )
+[node name="FullScreenBtn2" type="TextureButton" parent="ElementCtr/TopContainer/MenuContainer/WindowsBtnCtr" unique_id=374478921]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
 tooltip_text = "全屏模式"
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme = ExtResource( 2 )
+theme = ExtResource("2")
 toggle_mode = true
-focus_mode = 0
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 4 )
-expand = true
+texture_normal = ExtResource("3")
+texture_pressed = ExtResource("4")
 stretch_mode = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="HSeparator" type="HSeparator" parent="ElementCtr/TopContainer"]
-offset_top = 35.0
-offset_right = 1008.0
-offset_bottom = 35.0
+[node name="HSeparator" type="HSeparator" parent="ElementCtr/TopContainer" unique_id=1967503395]
+layout_mode = 2
 theme_override_constants/separation = 0
-theme_override_styles/separator = SubResource( 2 )
+theme_override_styles/separator = SubResource("2")
 
-[node name="ToolContainer" type="HBoxContainer" parent="ElementCtr/TopContainer"]
-offset_top = 35.0
-offset_right = 1008.0
-offset_bottom = 80.0
-custom_minimum_size = Vector2( 0, 45 )
+[node name="ToolContainer" type="HBoxContainer" parent="ElementCtr/TopContainer" unique_id=220767134]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
 
-[node name="ToolBtnCtrLeft" type="HBoxContainer" parent="ElementCtr/TopContainer/ToolContainer"]
-offset_right = 969.0
-offset_bottom = 45.0
+[node name="ToolBtnCtrLeft" type="HBoxContainer" parent="ElementCtr/TopContainer/ToolContainer" unique_id=1488969166]
+layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource( 13 )
+script = ExtResource("13")
 
-[node name="OpenFileBtn" type="TextureButton" parent="ElementCtr/TopContainer/ToolContainer/ToolBtnCtrLeft"]
-offset_right = 40.0
-offset_bottom = 45.0
-custom_minimum_size = Vector2( 40, 45 )
+[node name="OpenFileBtn" type="TextureButton" parent="ElementCtr/TopContainer/ToolContainer/ToolBtnCtrLeft" unique_id=2068830015]
+custom_minimum_size = Vector2(40, 45)
+layout_mode = 2
 tooltip_text = "打开文件"
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme = ExtResource( 2 )
-focus_mode = 0
-texture_normal = ExtResource( 8 )
-expand = true
+theme = ExtResource("2")
+texture_normal = ExtResource("8")
 stretch_mode = 3
 
-[node name="RefreshBtn" type="TextureButton" parent="ElementCtr/TopContainer/ToolContainer/ToolBtnCtrLeft"]
-offset_left = 44.0
-offset_right = 84.0
-offset_bottom = 45.0
-custom_minimum_size = Vector2( 40, 45 )
+[node name="RefreshBtn" type="TextureButton" parent="ElementCtr/TopContainer/ToolContainer/ToolBtnCtrLeft" unique_id=1484490776]
+custom_minimum_size = Vector2(40, 45)
+layout_mode = 2
 tooltip_text = "重置地图视角"
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme = ExtResource( 2 )
-focus_mode = 0
-texture_normal = ExtResource( 9 )
-expand = true
+theme = ExtResource("2")
+texture_normal = ExtResource("9")
 stretch_mode = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="ServerBtn" type="TextureButton" parent="ElementCtr/TopContainer/ToolContainer/ToolBtnCtrLeft"]
-offset_left = 88.0
-offset_right = 128.0
-offset_bottom = 45.0
-custom_minimum_size = Vector2( 40, 45 )
+[node name="ServerBtn" type="TextureButton" parent="ElementCtr/TopContainer/ToolContainer/ToolBtnCtrLeft" unique_id=1326338400]
+custom_minimum_size = Vector2(40, 45)
+layout_mode = 2
 tooltip_text = "数据中心"
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme = ExtResource( 2 )
-focus_mode = 0
-texture_normal = ExtResource( 12 )
-expand = true
+theme = ExtResource("2")
+texture_normal = ExtResource("12")
 stretch_mode = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="ToolBtnCtrRight" type="HBoxContainer" parent="ElementCtr/TopContainer/ToolContainer"]
-offset_left = 973.0
-offset_right = 1008.0
-offset_bottom = 45.0
+[node name="ToolBtnCtrRight" type="HBoxContainer" parent="ElementCtr/TopContainer/ToolContainer" unique_id=1913655913]
+layout_mode = 2
 
-[node name="ExpandRightBtn" type="TextureButton" parent="ElementCtr/TopContainer/ToolContainer/ToolBtnCtrRight"]
-offset_right = 35.0
-offset_bottom = 45.0
-custom_minimum_size = Vector2( 35, 35 )
+[node name="ExpandRightBtn" type="TextureButton" parent="ElementCtr/TopContainer/ToolContainer/ToolBtnCtrRight" unique_id=1128843119]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
 tooltip_text = "帮助"
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme = ExtResource( 2 )
+theme = ExtResource("2")
 toggle_mode = true
-pressed = true
-focus_mode = 0
-texture_normal = ExtResource( 10 )
-texture_pressed = ExtResource( 11 )
-expand = true
+texture_normal = ExtResource("10")
+texture_pressed = ExtResource("11")
 stretch_mode = 3
 
 [connection signal="toggled" from="ElementCtr/TopContainer/MenuContainer/WindowsBtnCtr/FullScreenBtn2" to="ElementCtr/TopContainer/MenuContainer/WindowsBtnCtr" method="_on_FullScreenBtn_toggled"]
 [connection signal="button_down" from="ElementCtr/TopContainer/ToolContainer/ToolBtnCtrLeft/OpenFileBtn" to="ElementCtr/TopContainer/ToolContainer/ToolBtnCtrLeft" method="_on_OpenFileBtn_button_down"]
+[connection signal="button_up" from="ElementCtr/TopContainer/ToolContainer/ToolBtnCtrLeft/OpenFileBtn" to="ElementCtr/TopContainer/ToolContainer/ToolBtnCtrLeft" method="_on_open_file_btn_button_up"]
 [connection signal="button_down" from="ElementCtr/TopContainer/ToolContainer/ToolBtnCtrLeft/RefreshBtn" to="ElementCtr/TopContainer/ToolContainer/ToolBtnCtrLeft" method="_on_RefreshBtn_button_down"]
 [connection signal="toggled" from="ElementCtr/TopContainer/ToolContainer/ToolBtnCtrRight/ExpandRightBtn" to="ElementCtr/TopContainer/MenuContainer/WindowsBtnCtr" method="_on_ExpandRightBtn_toggled"]
