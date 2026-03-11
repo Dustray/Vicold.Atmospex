@@ -41,6 +41,7 @@ public static class App
 
 			// Module Services
 			services.AddSingleton<IDataModuleService, DataModuleService>();
+			services.AddSingleton<IDataHubService, DataHubService>();
 			services.AddSingleton<IEarthModuleService, EarthModuleService>();
 			services.AddSingleton<ILayerModuleService, LayerModuleService>();
 			services.AddSingleton<Vicold.Atmospex.Algorithm.IAlgorithmModuleService, Vicold.Atmospex.Algorithm.AlgorithmModuleService>();

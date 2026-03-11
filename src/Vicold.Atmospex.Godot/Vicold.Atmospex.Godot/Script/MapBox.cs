@@ -8,7 +8,7 @@ public partial class MapBox : Node2D
 
 	public override void _Ready()
 	{
-		_camera = GetNode<Camera2D>("MainCamera2D");
+		// _camera = GetNode<Camera2D>("MainCamera2D");
 	}
 
 	public void AddLayerNode(ILayerNode layerNode)
@@ -31,11 +31,11 @@ public partial class MapBox : Node2D
 		// }
 	}
 
-	public void SetCameraValidPadding(float top, float bottom, float left, float right)
-	{
-		if (_camera is MainCamera2D mainCamera)
-		{
-			mainCamera.SetValidPadding(top, bottom, left, right);
-		}
-	}
+	// public void SetCameraValidPadding(float top, float bottom, float left, float right)
+	// {
+	// 	if (_camera is MainCamera2D mainCamera)
+	// 	{
+	// 		mainCamera.SetValidPadding(top, bottom, left, right);
+	// 	}
+	// }
 }

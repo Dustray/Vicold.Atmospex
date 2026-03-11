@@ -1,5 +1,8 @@
-﻿using Godot;
+using Godot;
 using System;
+using Vicold.Atmospex.Earth;
+using Vicold.Atmospex.Godot.Frame;
+using Vicold.Atmospex.Godot.Frame.Services;
 
 public partial class MainCamera2D : Camera2D
 {
@@ -10,10 +13,11 @@ public partial class MainCamera2D : Camera2D
 	private Vector2 startCamPos = Vector2.Zero;
 	private Vector2 nextPos;
 	private float scale = _defaultScale;
+	private IEarthModuleService _map;
 	private Vector4 _validPadding = new Vector4();
 	private bool _isBlockMouse = false;
 	// 暂时注释掉，需要根据Atmospex的服务架构进行调整
-	// private IInteractionService _interaction;
+	 private IInteractionService _interaction;
 
 	public override void _Ready()
 	{
@@ -21,12 +25,14 @@ public partial class MainCamera2D : Camera2D
 		Position = nextPos;
 		Zoom = new Vector2(scale, scale);
 		// 暂时注释掉服务获取，需要根据Atmospex的服务架构进行调整
-		// _interaction = RenderModuleService.GetService<IInteractionService>();
-		// _interaction.Order.Register("OnMapBlock", (isBlockMouse) => {
-		// 	//GD.Print(isBlockMouse.UserData);
-		// 	_isBlockMouse = (bool)(isBlockMouse.UserData); 
-		// });
-		// _interaction.Order.Register("ResetCamera", ResetCamera);
+		_map = RenderModuleService.GetService<IEarthModuleService>();
+		_interaction = RenderModuleService.GetService<IInteractionService>();
+		_interaction.Order.Register("OnMapBlock", (isBlockMouse) => {
+			//GD.Print(isBlockMouse.UserData);
+			_isBlockMouse = (bool)(isBlockMouse.UserData); 
+		});
+		_interaction.Order.Register("ResetCamera", ResetCamera);
+		_map.ChangeScale(scale);
 	}
 
 	public override void _Input(InputEvent @event)

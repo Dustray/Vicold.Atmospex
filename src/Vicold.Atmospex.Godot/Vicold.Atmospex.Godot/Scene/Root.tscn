@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" path="res://Scene/StateBarGUI.tscn" id="3"]
 [ext_resource type="Script" uid="uid://bv33p8onhn34f" path="res://Script/ExampleNode2D.cs" id="4"]
 [ext_resource type="PackedScene" path="res://Scene/RightBarGUI.tscn" id="6"]
-[ext_resource type="PackedScene" path="res://Scene/MapBox.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://cilwncvby5a32" path="res://Scene/MapBox.tscn" id="7"]
 
 [node name="Root" type="Node2D" unique_id=667405572]
 script = ExtResource("1")
