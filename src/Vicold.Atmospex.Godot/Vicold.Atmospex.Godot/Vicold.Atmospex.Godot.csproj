@@ -1,9 +1,12 @@
-<Project Sdk="Godot.NET.Sdk/4.6.1">
+﻿<Project Sdk="Godot.NET.Sdk/4.6.1">
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>Vicold.Atmospex.Godot</RootNamespace>
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Program Files Portable\Godot\Godot_v4.6.1-stable_mono_win64.exe</StartProgram>
+    <StartArguments> --path . --verbose</StartArguments>
   </PropertyGroup>
 
   <ItemGroup>

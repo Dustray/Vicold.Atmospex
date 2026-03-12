@@ -57,11 +57,11 @@ public partial class Root : Node2D
 		_openFiledAction = null;
 	}
 
-	private void OpenFileDialog(object info)
+	private void OpenFileDialog(OrderInfo info)
 	{
 		var fileDialog = GetNode<FileDialog>("CanvasLayer/OpenFileDialog");
 		fileDialog.FileMode = FileDialog.FileModeEnum.OpenFile;
 		fileDialog.Popup();
-		//_openFiledAction = info.BlockCompeletedAction;
+		_openFiledAction = info.BlockCompeletedAction;
 	}
 }
