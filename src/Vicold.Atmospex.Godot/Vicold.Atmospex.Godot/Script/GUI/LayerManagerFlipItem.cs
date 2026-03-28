@@ -1,56 +1,57 @@
 using Godot;
 using System;
+using Vicold.Atmospex.Godot.Model;
 
-public partial class LayerManagerFlipItem : MarginContainer
+internal partial class LayerManagerFlipItem : MarginContainer, ILayerManagerItem
 {
     private LayerManagerItem _layerItem;
+
+    public LayerManagerFlipItem()
+    {
+    }
 
     public override void _Ready()
     {
         _layerItem = GetNode<LayerManagerItem>("FrameContainer/LayerItem");
     }
 
-    // 暂时注释掉，需要根据Atmospex的服务架构进行调整
-    // public bool IsSystemLayer
-    // {
-    //     get
-    //     {
-    //         return _layerItem.IsSystemLayer;
-    //     }
-    //     set
-    //     {
-    //         _layerItem.IsSystemLayer = value;
-    //     }
-    // }
+    public bool IsSystemLayer
+    {
+        get
+        {
+            return _layerItem.IsSystemLayer;
+        }
+        set
+        {
+            _layerItem.IsSystemLayer = value;
+        }
+    }
 
-    // public string ID => _layerItem.ID;
+    public string ID => _layerItem.ID;
 
-    // public void SetItemVisible(bool isShow)
-    // {
-    //     _layerItem.SetItemVisible(isShow);
-    // }
+    public void SetItemVisible(bool isShow)
+    {
+        _layerItem.SetItemVisible(isShow);
+    }
 
-    // public void SetMessage(string id, string name)
-    // {
-    //     _layerItem.SetMessage(id, name);
-    // }
+    public void SetMessage(string id, string name)
+    {
+        _layerItem.SetMessage(id, name);
+    }
 
     public void _on_FlipLeftBtn_button_down()
     {
-        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
-        //_dataHub.LayerFlipAsync(ID, false);
+        // 暂时留空，根据需要实现
     }
 
     public void _on_FlipRightBtn_button_down()
     {
-        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
-        //_dataHub.LayerFlipAsync(ID, true);
+        // 暂时留空，根据需要实现
     }
 
     public void _on_Merge_button_down()
     {
-        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
-        //_dataHub.OrderExcuteAsync(ID, "smooth");
+        // 暂时留空，根据需要实现
     }
 
     internal void setElementMessage(string elemName, string elemValue)

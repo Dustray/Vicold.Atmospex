@@ -1,44 +1,42 @@
-﻿﻿﻿﻿﻿using Godot;
+﻿﻿using Godot;
 using System;
 
 public partial class WindowsBtnCtr : HBoxContainer
 {
+    // Declare member variables here. Examples:
+    // private int a = 2;
+    // private string b = "text";
+
+    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
+
     }
 
-    private void OnMinimizeButtonPressed()
+    /// <summary>
+    /// 是否全屏
+    /// </summary>
+    /// <param name="isFullscreen"></param>
+    public void _on_FullScreenBtn_toggled(bool isFullscreen)
     {
-        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
-        // OS.WindowMinimize();
+        DisplayServer.WindowSetMode(isFullscreen ? DisplayServer.WindowMode.Fullscreen : DisplayServer.WindowMode.Windowed);
     }
 
-    private void OnMaximizeButtonPressed()
+    /// <summary>
+    /// 是否收起右边栏
+    /// </summary>
+    /// <param name="isFullscreen"></param>
+    public void _on_ExpandRightBtn_toggled(bool isExpand)
     {
-        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
-        // OS.WindowFullscreen = !OS.WindowFullscreen;
-    }
+        var right = GetTree().Root.GetNode<MarginContainer>("Root/CanvasLayer/RightFragment");
+        right.Visible = isExpand;
 
-    private void OnCloseButtonPressed()
-    {
-        // 暂时注释掉，需要根据Atmospex的服务架构进行调整
-        // GetTree().Quit();
+        var camera = GetTree().Root.GetNode<MainCamera2D>("Root/Map/Camera2D");
+        camera.SetValidPadding(right: isExpand ? (float)right.Size.X : 0);
     }
-
-    private void _on_FullScreenBtn_toggled(bool pressed)
-    {
-        // 实现全屏切换功能
-        DisplayServer.WindowSetMode(pressed ? DisplayServer.WindowMode.Fullscreen : DisplayServer.WindowMode.Windowed);
-    }
-
-    private void _on_ExpandRightBtn_toggled(bool isExpand)
-    {
-        // 实现右侧面板展开/收起功能
-        var right = GetTree().Root.GetNode<Control>("Root/CanvasLayer/RightFragment");
-        if (right != null)
-        {
-            right.Visible = isExpand;
-        }
-    }
+    //  // Called every frame. 'delta' is the elapsed time since the previous frame.
+    //  public override void _Process(float delta)
+    //  {
+    //      
+    //  }
 }

@@ -1,7 +1,7 @@
 
 using Godot;
 
-namespace RMIAS.VISION.Model
+namespace Vicold.Atmospex.Godot.Model
 {
 	internal interface ILayerManagerItem
 	{
