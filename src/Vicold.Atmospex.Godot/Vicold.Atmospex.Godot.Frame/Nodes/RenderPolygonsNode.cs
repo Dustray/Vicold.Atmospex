@@ -11,14 +11,20 @@ using Vicold.Atmospex.Godot.Frame.Layers;
 
 namespace Vicold.Atmospex.Godot.Frame.Nodes;
 
-public partial class RenderPolygonsNode : Node2D, IRenderNode
+public partial class RenderPolygonsNode : Node2D, ILayerNode, IRenderNode
 {
     private float _scale = 1;
     private VectorLine[] _polygons;
     private bool _disposed;
 
     public string ID { get; set; }
+    public bool Visible
+    {
+        get => IsVisible;
+        set => IsVisible = value;
+    }
     public bool IsTileEnabled { get; set; }
+    private bool IsVisible { get; set; } = true;
 
     public void SetPolygons(VectorLine[] data, float scale)
     {

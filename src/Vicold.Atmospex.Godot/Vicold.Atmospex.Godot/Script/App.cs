@@ -76,8 +76,7 @@ public static class App
 
 	private static void AfterInit()
 	{
-		App.GetService<Vicold.Atmospex.Core.ICoreModuleService>().OnViewStart = () =>
-		{
+		
 			System.Threading.Tasks.Task.Run(() =>
 			{
 				App.GetService<Vicold.Atmospex.Godot.Frame.IRenderModuleService>().SetLaunchGeoPosition(105f, 35f, 3f);
@@ -98,6 +97,5 @@ public static class App
 				manager.AddLayer(chinaCoastalLayer);
 				manager.AddLayer(chinaProvinceLayer);
 			});
-		};
 	}
 }

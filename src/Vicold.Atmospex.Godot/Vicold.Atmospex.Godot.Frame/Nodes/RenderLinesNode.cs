@@ -11,14 +11,20 @@ using Vicold.Atmospex.Godot.Frame.Layers;
 
 namespace Vicold.Atmospex.Godot.Frame.Nodes;
 
-public partial class RenderLinesNode : Node2D, IRenderNode
+public partial class RenderLinesNode : Node2D, ILayerNode, IRenderNode
 {
     private float _scale = 1;
     private VectorLine[] _lines;
     private bool _disposed;
 
     public string ID { get; set; }
+    public bool Visible
+    {
+        get => IsVisible;
+        set => IsVisible = value;
+    }
     public bool IsTileEnabled { get; set; }
+    private bool IsVisible { get; set; } = true;
 
     public void SetLines(VectorLine[] data, float scale)
     {

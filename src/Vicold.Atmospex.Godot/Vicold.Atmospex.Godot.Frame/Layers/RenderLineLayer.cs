@@ -1,5 +1,7 @@
 using Godot;
+using Vicold.Atmospex.Data;
 using Vicold.Atmospex.Data.Providers;
+using Vicold.Atmospex.Data.Vector;
 using Vicold.Atmospex.Earth.Projection;
 using Vicold.Atmospex.Layer;
 using Vicold.Atmospex.Godot.Frame.Nodes;
@@ -24,7 +26,16 @@ public class RenderLineLayer : LineLayer, IRenderLayer
 
     protected override ILayerNode? CreateLinesNode(string ID, IVectorDataProvider provider, IProjection prj)
     {
-        // 空实现，待后续填充
+        var vectorData = provider.GetData();
+        if (vectorData is LineData lineData)
+        {
+            var lines = Vicold.Atmospex.Earth.Tool.LineConverterTool.ToVectorLines(lineData, prj);
+            var linesNode = new RenderLinesNode();
+            linesNode.ID = ID;
+            linesNode.SetLines(lines, 1f);
+            return linesNode;
+        }
+
         return null;
     }
 
@@ -46,6 +57,10 @@ public class RenderLineLayer : LineLayer, IRenderLayer
 
     public override void ScaleChange(float scale)
     {
-        // 空实现，待后续填充
+        var node = _layerNode as Vicold.Atmospex.Godot.Frame.Nodes.RenderLinesNode;
+        if (node != null)
+        {
+            node.ResetScale(scale);
+        }
     }
 }

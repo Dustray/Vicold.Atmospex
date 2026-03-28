@@ -11,13 +11,19 @@ using Vicold.Atmospex.Style;
 
 namespace Vicold.Atmospex.Godot.Frame.Nodes;
 
-public partial class RenderTextureNode : Node2D, IRenderNode
+public partial class RenderTextureNode : Node2D, ILayerNode, IRenderNode
 {
     private ImageTexture _texture;
     private Image _image;
 
     public string ID { get; set; }
+    public bool Visible
+    {
+        get => IsVisible;
+        set => IsVisible = value;
+    }
     public bool IsTileEnabled { get; set; }
+    private bool IsVisible { get; set; } = true;
 
     public float StartX { get; set; }
     public float StartY { get; set; }

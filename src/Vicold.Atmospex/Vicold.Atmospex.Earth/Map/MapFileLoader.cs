@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Vicold.Atmospex.Algorithm;
@@ -15,8 +16,42 @@ namespace Vicold.Atmospex.Earth.Map;
 
 internal class MapFileLoader
 {
-    private static readonly string _mapFolder = Path.GetFullPath(@"data\map");
-    private static readonly string _folder = Path.GetFullPath(@"data\map\super_low_density");
+    private static readonly string _mapFolderKey = @"data\map";
+    private static readonly string _folderKey = @"data\map\super_low_density";
+    private static   string _mapFolder = GetFullPathWithFallback(_mapFolderKey);
+    private static   string _folder = GetFullPathWithFallback(_folderKey);
+    
+    private static string GetFullPathWithFallback(string relativePath)
+    {
+        // 首先尝试当前目录
+        string fullPath = Path.GetFullPath(relativePath);
+        if (Directory.Exists(fullPath))
+        {
+            return fullPath;
+        }
+        
+        // 尝试编译目录（godot模式）
+        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        string fallbackPath = Path.Combine(baseDirectory, relativePath);
+        if (Directory.Exists(fallbackPath))
+        {
+            return fallbackPath;
+        }
+        
+        // 尝试向上查找两级目录（适应不同的目录结构）
+        string parentParentDir = Path.GetDirectoryName(Path.GetDirectoryName(baseDirectory));
+        if (parentParentDir != null)
+        {
+            string parentParentPath = Path.Combine(parentParentDir, relativePath);
+            if (Directory.Exists(parentParentPath))
+            {
+                return parentParentPath;
+            }
+        }
+        
+        // 如果都找不到，返回原始路径
+        return fullPath;
+    }
     //private const string _folder = @"D:\Project\Vicold.Atmospex\dist\data\map\super_low_density";
     private readonly string _worldContinentControl = $@"{_folder}\WorldContinentBorder.ctl";
     private readonly string _worldContinentData = $@"{_folder}\WorldContinentBorder.adr";
