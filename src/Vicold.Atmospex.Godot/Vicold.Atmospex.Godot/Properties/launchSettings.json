@@ -2,7 +2,7 @@
   "profiles": {
     "Vicold.Atmospex.Godot": {
       "commandName": "Executable",
-      "executablePath": "C:\\Program Files Portable\\Godot\\Godot_v4.6.1-stable_mono_win64.exe",
+      "executablePath": "D:\\Program Files Portable\\Godot\\Godot_v4.6.1-stable_mono_win64.exe",
       "commandLineArgs": "--path . --verbose",
       "workingDirectory": ".",
       "nativeDebugging": true

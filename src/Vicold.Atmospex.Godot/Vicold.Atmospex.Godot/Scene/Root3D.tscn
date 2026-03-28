@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bpevnojmmiqur"]
+
+[ext_resource type="Script" uid="uid://c8xid6dmu328w" path="res://Script/Root3D.cs" id="1_gtqt4"]
+[ext_resource type="Script" uid="uid://bxhyagy6n07lt" path="res://Script/MapBox3D.cs" id="2_gtqt4"]
+[ext_resource type="PackedScene" uid="uid://3omfj85s6ff2" path="res://Scene/UI.tscn" id="2_nvm0j"]
+[ext_resource type="Script" uid="uid://cyn86voxipsp1" path="res://Script/MainCamera3D.cs" id="3_03mwf"]
+
+[sub_resource type="Environment" id="Environment_gtqt4"]
+ambient_light_color = Color(0.27333975, 0.4902895, 1, 1)
+
+[node name="Root3d" type="Node3D" unique_id=911018151]
+script = ExtResource("1_gtqt4")
+
+[node name="Map" type="Node3D" parent="." unique_id=966196022]
+script = ExtResource("2_gtqt4")
+
+[node name="Camera3D" type="Camera3D" parent="Map" unique_id=467411871]
+environment = SubResource("Environment_gtqt4")
+script = ExtResource("3_03mwf")
+
+[node name="Ui" parent="." unique_id=913998135 instance=ExtResource("2_nvm0j")]
+rotation = 0.0005280136

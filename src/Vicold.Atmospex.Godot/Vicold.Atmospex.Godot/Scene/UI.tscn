@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://3omfj85s6ff2"]
+
+[ext_resource type="PackedScene" path="res://Scene/RightBarGUI.tscn" id="1_7nlkl"]
+[ext_resource type="PackedScene" uid="uid://bhetj2b4mro36" path="res://Scene/ToolBarGUI.tscn" id="2_i3p7b"]
+[ext_resource type="PackedScene" uid="uid://b4ycp47lgqm2b" path="res://Scene/StateBarGUI.tscn" id="3_fau5c"]
+
+[node name="Ui" type="Control" unique_id=913998135]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=551122571]
+
+[node name="RightFragment" parent="CanvasLayer" unique_id=454762022 instance=ExtResource("1_7nlkl")]
+anchors_preset = 11
+offset_bottom = -30.0
+
+[node name="MarginContainer" parent="CanvasLayer" unique_id=1227251092 instance=ExtResource("2_i3p7b")]
+
+[node name="StateFragment" parent="CanvasLayer" unique_id=1088214456 instance=ExtResource("3_fau5c")]
+anchors_preset = 12
+anchor_top = 1.0
+offset_top = -30.0
+
+[node name="OpenFileDialog" type="FileDialog" parent="CanvasLayer" unique_id=1615838808]
+mode = 1
+access = 2
+filters = PackedStringArray("*.nc; NetCDF")

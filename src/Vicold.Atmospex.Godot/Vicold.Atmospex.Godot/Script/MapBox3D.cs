@@ -8,12 +8,12 @@ using Vicold.Atmospex.Layer;
 using Vicold.Atmospex.Layer.Tool;
 using Windows.System;
 
-public partial class MapBox : Node2D
+public partial class MapBox3D : Node3D
 {
-	private Camera2D _camera;
+	private Camera3D _camera;
 	private ILayerManager _layerManager;
 
-	public MapBox()
+	public MapBox3D()
 	{
 		App.Vision.OnNodeLoad = OnNodeLoad;
 		App.Vision.OnNodeRemove = OnNodeRemove;
@@ -27,28 +27,28 @@ public partial class MapBox : Node2D
 
 	public void OnNodeLoad(ILayerNode node)
 	{
-		if (node is Node2D node2d)
+		if (node is Node3D node3d)
 		{
-			CallDeferred("add_child", node2d);
-			//AddChild(node2d);
-		}
-	}
+			CallDeferred("add_child", node3d);
+            //AddChild(node3d);
+        }
+    }
 
 	public void OnNodeRemove(ILayerNode node)
 	{
-		if (node is Node2D node2d)
+		if (node is Node3D node3d)
 		{
-			CallDeferred("remove_child", node2d);
-			//RemoveChild(node2d);
-			node2d.QueueFree();
+			CallDeferred("remove_child", node3d);
+            //RemoveChild(node3d);
+            node3d.QueueFree();
 		}
 	}
 
 	public void OnNodeVisibleChanged(ILayerNode node, bool isVisible)
 	{
-		if (node is Node2D node2d)
+		if (node is Node3D node3d)
 		{
-			node2d.Visible = isVisible;
+            node3d.Visible = isVisible;
 		}
 	}
 }
