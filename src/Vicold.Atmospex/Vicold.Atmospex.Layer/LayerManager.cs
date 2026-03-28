@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Vicold.Atmospex.Configration;
 using Vicold.Atmospex.Earth;
 using Vicold.Atmospex.Earth.Projection;
@@ -18,13 +19,24 @@ namespace Vicold.Atmospex.Layer
         //private IBus _globalBus;
         private readonly LayerKeeper _layerKeeper;
 
-        //private VisionGate _vision => Launcher.Current.VisionBinding;
 
         public LayerManager()
         {
             _layerKeeper = new LayerKeeper();
         }
 
+        public Action<ILayerNode>? OnNodeLoad
+        {
+            get; set;
+        }
+        public Action<ILayerNode>? OnNodeRemove
+        {
+            get; set;
+        }
+        public Action<ILayerNode, bool>? OnNodeVisibleChanged
+        {
+            get; set;
+        }
         public event LayerChangedEventHandler OnLayerAdded;
 
         public event LayerChangedEventHandler OnLayerRemoved;
@@ -34,10 +46,6 @@ namespace Vicold.Atmospex.Layer
         public event LayerChangedEventHandler OnLayerUpdated;
 
         public event LayerChangedEventHandler OnLayerVisibleChanged;
-
-        //public void LoadBus(IBus globalBus) => _globalBus = globalBus;
-
-
 
         public bool TryGetLayer(string id, out ILayer layer)
         {
@@ -67,13 +75,13 @@ namespace Vicold.Atmospex.Layer
             var node = LayerExtractor.ExtractLayerNode(layer);
             if (node != null)
             {
-                //if (_layerKeeper.TryGet(layer.ID, out var oldLayer))
-                //{
-                //    var oldNode = LayerExtractor.ExtractLayerNode(layer);
-                //    //_vision.OnNodeRemove.Invoke(oldNode);
-                //}
+                if (_layerKeeper.TryGet(layer.ID, out var oldLayer))
+                {
+                    var oldNode = LayerExtractor.ExtractLayerNode(oldLayer);
+                    OnNodeRemove?.Invoke(oldNode);
+                }
 
-                //_vision.OnNodeLoad.Invoke(node);
+                OnNodeLoad?.Invoke(node);
                 OnLayerAdded?.Invoke(this, CreateArgs(layer));
                 _layerKeeper.Add(layer);
             }
@@ -84,14 +92,14 @@ namespace Vicold.Atmospex.Layer
             var node = LayerExtractor.ExtractLayerNode(layer);
             if (node != null)
             {
-                //_vision.OnNodeRemove.Invoke(node);
+                OnNodeRemove?.Invoke(node);
             }
 
             _layerKeeper.Remove(layer);
             OnLayerRemoved?.Invoke(this, CreateArgs(layer));
             layer.Dispose();
-            //layer = null;
-            //GC.Collect(); // 主动GC
+            layer = null;
+            GC.Collect(); // 主动GC
         }
 
         public void UpdateLayer(ILayer layer)
@@ -121,7 +129,7 @@ namespace Vicold.Atmospex.Layer
             var node = LayerExtractor.ExtractLayerNode(layer);
             if (node != null)
             {
-                //_vision.OnNodeLoad.Invoke(node);
+                OnNodeLoad?.Invoke(node);
                 OnLayerUpdated?.Invoke(this, CreateArgs(layer));
             }
         }
@@ -136,7 +144,7 @@ namespace Vicold.Atmospex.Layer
             var node = LayerExtractor.ExtractLayerNode(layer);
             if (node != null)
             {
-                //_vision.OnNodeVisibleChanged.Invoke(node, isVisible);
+                OnNodeVisibleChanged?.Invoke(node, isVisible);
             }
 
             OnLayerVisibleChanged?.Invoke(this, CreateArgs(layer));

@@ -25,6 +25,19 @@ namespace Vicold.Atmospex.Layer
         void ChangeScale(float localScale);
         void UpdateAllLayers();
 
+        Action<ILayerNode>? OnNodeLoad
+        {
+            get;set;
+        }
+        Action<ILayerNode>? OnNodeRemove
+        {
+            get; set;
+        }
+        Action<ILayerNode, bool>? OnNodeVisibleChanged
+        {
+            get; set;
+        }
+
         event LayerChangedEventHandler OnLayerAdded;
 
         event LayerChangedEventHandler OnLayerRemoved;

@@ -11,6 +11,8 @@ public interface IRenderModuleService : IModuleService
     /// </summary>
     ViewportInfo Viewport { get; }
 
+    VisionGate Vision { get; }
+
     /// <summary>
     /// 屏幕坐标转换为世界坐标
     /// </summary>

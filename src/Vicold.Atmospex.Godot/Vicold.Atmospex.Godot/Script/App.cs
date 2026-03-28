@@ -8,6 +8,7 @@ using Vicold.Atmospex.Earth;
 using Vicold.Atmospex.Layer;
 using Vicold.Atmospex.Shell.Core.Contracts.Services;
 using Vicold.Atmospex.Shell.Core.Services;
+using Vicold.Atmospex.Godot.Frame;
 
 namespace Vicold.Atmospex.Godot;
 
@@ -15,8 +16,9 @@ public static class App
 {
 	// The .NET Generic Host provides dependency injection, configuration, logging, and other services.
 	public static IHost? Host { get; private set; }
+	internal static VisionGate Vision { get; } = new ();
 
-	public static T GetService<T>()
+    public static T GetService<T>()
 		where T : class
 	{
 		if (Host?.Services?.GetService(typeof(T)) is not T service)
@@ -69,14 +71,22 @@ public static class App
 		App.GetService<Vicold.Atmospex.Core.ICoreModuleService>().Initialize();
 		App.GetService<Vicold.Atmospex.FileSystem.IFileSystemModuleService>().Initialize();
 		App.GetService<Vicold.Atmospex.Style.IStyleModuleService>().Initialize();
-		App.GetService<Vicold.Atmospex.Godot.Frame.IRenderModuleService>().Initialize();
+		var renderService = App.GetService<Vicold.Atmospex.Godot.Frame.IRenderModuleService>();
+        renderService.Initialize();
 
-		AfterInit();
+
+        //renderService.Vision.OnNodeLoad = OnNodeLoad;
+        //renderService.Vision.OnNodeRemove = OnNodeRemove;
+        //renderService.Vision.OnNodeVisibleChanged = OnNodeVisibleChanged;
+
+        AfterInit();
 	}
 
 	private static void AfterInit()
 	{
-		
+
+		App.GetService<Vicold.Atmospex.Core.ICoreModuleService>().OnViewStart = () =>
+		{
 			System.Threading.Tasks.Task.Run(() =>
 			{
 				App.GetService<Vicold.Atmospex.Godot.Frame.IRenderModuleService>().SetLaunchGeoPosition(105f, 35f, 3f);
@@ -91,11 +101,17 @@ public static class App
 				var chinaProvinceLayer = new Vicold.Atmospex.Godot.Frame.Layers.RenderLineLayer(mapHolder.ChinaProvinceProvider, "rmias_province_line") { ZIndex = 8 };
 
 				var manager = App.GetService<ILayerModuleService>().LayerManager;
-				manager.AddLayer(geoGridLayer);
+
+				manager.OnNodeLoad = Vision.OnNodeLoad;
+				manager.OnNodeRemove = Vision.OnNodeRemove;
+				manager.OnNodeVisibleChanged = Vision.OnNodeVisibleChanged;
+
+                manager.AddLayer(geoGridLayer);
 				manager.AddLayer(geoFontLayer);
 				manager.AddLayer(worldLayerLine);
 				manager.AddLayer(chinaCoastalLayer);
 				manager.AddLayer(chinaProvinceLayer);
 			});
+		};
 	}
 }

@@ -26,40 +26,42 @@ public class RenderModuleService : IRenderModuleService
         _layerModuleService = layerModuleService;
 
         // 监听图层事件
-        layerModuleService.LayerManager.OnLayerAdded += (s, e) =>
-        {
-            if (e.Layer is IRenderLayer el)
-            {
-                el.Draw();
-            }
-        };
+        //layerModuleService.LayerManager.OnLayerAdded += (s, e) =>
+        //{
+        //    if (e.Layer is IRenderLayer el)
+        //    {
+        //        el.Draw();
+        //    }
+        //};
 
-        layerModuleService.LayerManager.OnLayerUpdating += (s, e) =>
-        {
-            if (e.Layer is IRenderLayer el)
-            {
-                el.Erase();
-            }
-        };
+        //layerModuleService.LayerManager.OnLayerUpdating += (s, e) =>
+        //{
+        //    if (e.Layer is IRenderLayer el)
+        //    {
+        //        el.Erase();
+        //    }
+        //};
 
-        layerModuleService.LayerManager.OnLayerUpdated += (s, e) =>
-        {
-            if (e.Layer is IRenderLayer el)
-            {
-                el.Draw();
-            }
-        };
+        //layerModuleService.LayerManager.OnLayerUpdated += (s, e) =>
+        //{
+        //    if (e.Layer is IRenderLayer el)
+        //    {
+        //        el.Draw();
+        //    }
+        //};
 
-        layerModuleService.LayerManager.OnLayerRemoved += (s, e) =>
-        {
-            if (e.Layer is IRenderLayer el)
-            {
-                el.Erase();
-            }
-        };
+        //layerModuleService.LayerManager.OnLayerRemoved += (s, e) =>
+        //{
+        //    if (e.Layer is IRenderLayer el)
+        //    {
+        //        el.Erase();
+        //    }
+        //};
     }
 
     public ViewportInfo Viewport { get; } = new();
+
+    public VisionGate Vision { get; }
 
     // 设置当前相机
     public void SetCurrentCamera(Camera2D camera)
