@@ -13,8 +13,6 @@ public partial class MapBox : Node2D
 	private Camera2D _camera;
     private ILayerManager _layerManager;
 
-
-
     public MapBox()
     {
         App.Vision.OnNodeLoad = OnNodeLoad;
@@ -31,7 +29,8 @@ public partial class MapBox : Node2D
     {
         if (node is Node2D node2d)
         {
-            AddChild(node2d);
+            CallDeferred("add_child", node2d);
+            //AddChild(node2d);
         }
     }
 
@@ -39,7 +38,8 @@ public partial class MapBox : Node2D
     {
         if (node is Node2D node2d)
         {
-            RemoveChild(node2d);
+            CallDeferred("remove_child", node2d);
+            //RemoveChild(node2d);
             node2d.QueueFree();
         }
     }
