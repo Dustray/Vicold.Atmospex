@@ -5,17 +5,33 @@
 [ext_resource type="PackedScene" uid="uid://3omfj85s6ff2" path="res://Scene/UI.tscn" id="2_nvm0j"]
 [ext_resource type="Script" uid="uid://cyn86voxipsp1" path="res://Script/MainCamera3D.cs" id="3_03mwf"]
 
-[sub_resource type="Environment" id="Environment_gtqt4"]
-ambient_light_color = Color(0.27333975, 0.4902895, 1, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gtqt4"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_03mwf"]
+sky_material = SubResource("ProceduralSkyMaterial_gtqt4")
+
+[sub_resource type="Environment" id="Environment_ix5ai"]
+background_mode = 2
+sky = SubResource("Sky_03mwf")
+tonemap_mode = 2
+glow_enabled = true
 
 [node name="Root3d" type="Node3D" unique_id=911018151]
 script = ExtResource("1_gtqt4")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=982514330]
+environment = SubResource("Environment_ix5ai")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=909456792]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
 
 [node name="Map" type="Node3D" parent="." unique_id=966196022]
 script = ExtResource("2_gtqt4")
 
 [node name="Camera3D" type="Camera3D" parent="Map" unique_id=467411871]
-environment = SubResource("Environment_gtqt4")
 current = true
 script = ExtResource("3_03mwf")
 
