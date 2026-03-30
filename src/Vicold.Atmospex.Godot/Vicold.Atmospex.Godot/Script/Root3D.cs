@@ -22,7 +22,7 @@ public partial class Root3D : Node3D
 	{
 		var top = GetNode<Control>("Ui/CanvasLayer/MarginContainer");
 		var right = GetNode<Control>("Ui/CanvasLayer/RightFragment");
-		var camera = GetNode<MainCamera2D>("Map/Camera3D");
+		var camera = GetNode<MainCamera3D>("Map/Camera3D");
 		camera.SetValidPadding(top: (float)top.Size.Y, right: right.Visible ? (float)right.Size.X : 0);
 
 

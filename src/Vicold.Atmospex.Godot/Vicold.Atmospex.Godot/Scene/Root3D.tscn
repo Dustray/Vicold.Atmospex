@@ -16,6 +16,7 @@ script = ExtResource("2_gtqt4")
 
 [node name="Camera3D" type="Camera3D" parent="Map" unique_id=467411871]
 environment = SubResource("Environment_gtqt4")
+current = true
 script = ExtResource("3_03mwf")
 
 [node name="Ui" parent="." unique_id=913998135 instance=ExtResource("2_nvm0j")]
