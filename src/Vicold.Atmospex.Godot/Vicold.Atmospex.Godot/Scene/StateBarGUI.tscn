@@ -1,76 +1,52 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene format=3 uid="uid://b4ycp47lgqm2b"]
 
-[ext_resource path="res://Script/GUI/StateBarCtr.cs" type="Script" id=3]
+[ext_resource type="Script" uid="uid://qyqwu1yys45d" path="res://Script/GUI/StateBarCtr.cs" id="3"]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.109804, 0.141176, 0.188235, 1 )
-shadow_color = Color( 0.278431, 0.282353, 0.294118, 0.6 )
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.109804, 0.141176, 0.188235, 1)
+shadow_color = Color(0.278431, 0.282353, 0.294118, 0.6)
 shadow_size = 4
 
-[node name="StateBarRoot" type="MarginContainer"]
+[node name="StateBarRoot" type="MarginContainer" unique_id=974616501]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 570.0
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("3")
 
-[node name="BgPanel" type="Panel" parent="."]
-offset_right = 1024.0
-offset_bottom = 30.0
-theme_override_styles/panel = SubResource( 1 )
+[node name="BgPanel" type="Panel" parent="." unique_id=658769309]
+layout_mode = 2
+theme_override_styles/panel = SubResource("1")
 
-[node name="MarginCtr" type="MarginContainer" parent="."]
-offset_right = 1024.0
-offset_bottom = 30.0
-theme_override_constants/margin_right = 8
+[node name="MarginCtr" type="MarginContainer" parent="." unique_id=424112260]
+layout_mode = 2
 theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
 
-[node name="StateFrame" type="HBoxContainer" parent="MarginCtr"]
-offset_left = 8.0
-offset_right = 1016.0
-offset_bottom = 30.0
+[node name="StateFrame" type="HBoxContainer" parent="MarginCtr" unique_id=1633306976]
+layout_mode = 2
 
-[node name="LeftCtr" type="HBoxContainer" parent="MarginCtr/StateFrame"]
-offset_right = 940.0
-offset_bottom = 30.0
+[node name="LeftCtr" type="HBoxContainer" parent="MarginCtr/StateFrame" unique_id=174442314]
+layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PositionLabel" type="Label" parent="MarginCtr/StateFrame/LeftCtr"]
-offset_top = 8.0
-offset_right = 60.0
-offset_bottom = 22.0
+[node name="PositionLabel" type="Label" parent="MarginCtr/StateFrame/LeftCtr" unique_id=920603616]
+layout_mode = 2
 text = "Position: "
 
-[node name="PositionValue" type="Label" parent="MarginCtr/StateFrame/LeftCtr"]
-offset_left = 64.0
-offset_top = 8.0
-offset_right = 159.0
-offset_bottom = 22.0
+[node name="PositionValue" type="Label" parent="MarginCtr/StateFrame/LeftCtr" unique_id=902941102]
+layout_mode = 2
 text = "12.2°N 78.5°W"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="RightCtr" type="HBoxContainer" parent="MarginCtr/StateFrame"]
-offset_left = 944.0
-offset_right = 1008.0
-offset_bottom = 30.0
+[node name="RightCtr" type="HBoxContainer" parent="MarginCtr/StateFrame" unique_id=1724189290]
+layout_mode = 2
 alignment = 2
 
-[node name="FPSLabel" type="Label" parent="MarginCtr/StateFrame/RightCtr"]
-offset_top = 8.0
-offset_right = 30.0
-offset_bottom = 22.0
-pivot_offset = Vector2( -659.141, -287.881 )
+[node name="FPSLabel" type="Label" parent="MarginCtr/StateFrame/RightCtr" unique_id=1304517149]
+layout_mode = 2
 text = "FPS: "
 
-[node name="FPSValue" type="Label" parent="MarginCtr/StateFrame/RightCtr"]
-offset_left = 34.0
-offset_top = 8.0
-offset_right = 64.0
-offset_bottom = 22.0
-custom_minimum_size = Vector2( 30, 0 )
-pivot_offset = Vector2( -659.141, -287.881 )
+[node name="FPSValue" type="Label" parent="MarginCtr/StateFrame/RightCtr" unique_id=1780421452]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
 text = "0"

@@ -1,10 +1,8 @@
 [gd_scene format=3 uid="uid://chdn8ouu5abie"]
 
 [ext_resource type="Script" uid="uid://bp43uksnk0d88" path="res://Script/Root.cs" id="1"]
-[ext_resource type="PackedScene" uid="uid://bhetj2b4mro36" path="res://Scene/ToolBarGUI.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://Scene/StateBarGUI.tscn" id="3"]
 [ext_resource type="Script" uid="uid://bv33p8onhn34f" path="res://Script/ExampleNode2D.cs" id="4"]
-[ext_resource type="PackedScene" path="res://Scene/RightBarGUI.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://3omfj85s6ff2" path="res://Scene/UI.tscn" id="4_ga33x"]
 [ext_resource type="PackedScene" uid="uid://cilwncvby5a32" path="res://Scene/MapBox.tscn" id="7"]
 
 [node name="Root" type="Node2D" unique_id=667405572]
@@ -15,23 +13,10 @@ script = ExtResource("4")
 
 [node name="Map" parent="." unique_id=1459480777 instance=ExtResource("7")]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=454258626]
-
-[node name="RightFragment" parent="CanvasLayer" unique_id=1238433462 instance=ExtResource("6")]
-anchors_preset = 11
-offset_bottom = -30.0
-
-[node name="MarginContainer" parent="CanvasLayer" unique_id=553901851 instance=ExtResource("2")]
-
-[node name="StateFragment" parent="CanvasLayer" unique_id=162499571 instance=ExtResource("3")]
-anchors_preset = 12
-anchor_top = 1.0
-offset_top = -30.0
-
-[node name="OpenFileDialog" type="FileDialog" parent="CanvasLayer" unique_id=546433120]
-mode = 1
-access = 2
-filters = PackedStringArray("*.nc; NetCDF")
+[node name="Ui" parent="." unique_id=913998135 instance=ExtResource("4_ga33x")]
+offset_left = 361.0
+offset_top = 4.0
+offset_right = 361.0
+offset_bottom = 4.0
 
 [connection signal="draw" from="ExampleNode2D" to="ExampleNode2D" method="_on_ExampleNode2D_draw"]
-[connection signal="files_selected" from="CanvasLayer/OpenFileDialog" to="." method="_on_OpenFileDialog_files_selected"]
