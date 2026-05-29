@@ -91,7 +91,7 @@ namespace Vicold.Atmospex.Render.Frame.Layers
                 Height = (uint)bmp_height,
                 Depth = 1,
                 ArraySize = 1,
-                Faces = 1,
+                //Faces = 1,
                 Usage = ResourceUsage.Default,
                 CpuAccess = ResourceCpuAccess.None,
                 Flags = TextureFlags.ShaderResource,

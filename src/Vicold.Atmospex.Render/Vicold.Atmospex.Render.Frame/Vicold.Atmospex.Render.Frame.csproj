@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>Vicold.Atmospex.Render.Frame</RootNamespace>
     <Platforms>x86;x64;arm64</Platforms>
@@ -15,16 +15,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Evergine.WinUI" Version="2025.3.18.1522" />
-    <PackageReference Include="Evergine.HLSLEverywhere" Version="2025.3.18.1522" />
-    <PackageReference Include="Evergine.XAudio2" Version="2025.3.18.1522" />
-    <PackageReference Include="Evergine.DirectX11" Version="2025.3.18.1522" />
-    <PackageReference Include="Evergine.Targets" Version="2025.3.18.1522" />
-    <PackageReference Include="Evergine.Targets.Windows" Version="2025.3.18.1522" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4188" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250513003" />
+    <PackageReference Include="Evergine.WinUI" Version="2026.5.26.8" />
+    <PackageReference Include="Evergine.HLSLEverywhere" Version="2026.5.26.8" />
+    <PackageReference Include="Evergine.XAudio2" Version="2026.5.26.8" />
+    <PackageReference Include="Evergine.DirectX11" Version="2026.5.26.8" />
+    <PackageReference Include="Evergine.Targets" Version="2026.5.26.8" />
+    <PackageReference Include="Evergine.Targets.Windows" Version="2026.5.26.8" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4654" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.1.3" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.CoreService\Vicold.Atmospex.CoreService.csproj" />
     <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Core\Vicold.Atmospex.Core.csproj" />
@@ -34,5 +33,4 @@
     <ProjectReference Include="..\..\Vicold.Atmospex\Vicold.Atmospex.Shell.Core\Vicold.Atmospex.Shell.Core.csproj" />
     <ProjectReference Include="..\Vicold.Atmospex.Render\Vicold.Atmospex.Render.csproj" />
   </ItemGroup>
-
 </Project>
